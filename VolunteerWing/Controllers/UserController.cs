@@ -62,5 +62,12 @@ namespace VolunteerWing.Controllers
             var updateUser = _repository.UpdateUser(userToUpdate);
             return Ok(updateUser);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            _repository.DeleteUser(id);
+            return Ok("isActive status is changed. User got deleted");
+        }
     }
 }

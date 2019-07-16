@@ -95,5 +95,22 @@ namespace VolunteerWing.Data
                 throw new Exception("Could not update user");
             }
         }
+        public void DeleteUser(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery =
+                    @"Update users
+                      Set isActive = 0
+                      Where Id = @id";
+                var parameter = new { Id = id };
+                var rowsAffected = db.Execute(sqlQuery, parameter);
+
+                if (rowsAffected != 1)
+                {
+                    throw new Exception("Didn't do right");
+                }
+            }
+        }
     }
 }
