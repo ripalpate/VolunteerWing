@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace VolunteerWing.Models
 {
-    public class User
+    public class CreateUserRequest
     {
-        public int Id { get; set; }
         public string Email { get; set; }
         public string FirebaseId { get; set; }
         public string Name { get; set; }
@@ -18,6 +17,5 @@ namespace VolunteerWing.Models
         public string PhoneNumber { get; set; }
         public int Age { get; set; }
         public bool IsAdmin { get; set; }
-        public bool IsActive { get; set; }
     }
 }
