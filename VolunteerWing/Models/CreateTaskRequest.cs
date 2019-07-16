@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace VolunteerWing.Models
 {
-    public class Task
+    public class CreateTaskRequest
     {
-        public int Id { get; set; }
         public string TaskName { get; set; }
         public string Comment { get; set; }
         public int NumberOfPeopleNeed { get; set; }
