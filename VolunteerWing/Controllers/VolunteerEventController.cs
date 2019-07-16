@@ -56,5 +56,12 @@ namespace VolunteerWing.Controllers
             var updateEvent = _repository.UpdateVolunteerEvent(volunteerEventToUpdate);
             return Ok(updateEvent);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult deleteVolunteerEvent(int id)
+        {
+            _repository.DeleteVolunteerEvent(id);
+            return Ok("isDeleted status changed to 1.");
+        }
     }
 }

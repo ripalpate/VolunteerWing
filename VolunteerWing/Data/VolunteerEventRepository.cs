@@ -73,7 +73,7 @@ namespace VolunteerWing.Data
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sql =
+                var sqlQuery =
                     @"update volunteerEvents 
                       set eventName = @eventName,
                           startDate = @startDate,
@@ -83,13 +83,31 @@ namespace VolunteerWing.Data
                           isDeleted = 0
                      Where Id = @id";
 
-                var rowsAffected = db.Execute(sql, volunteerEventToUpdate);
+                var rowsAffected = db.Execute(sqlQuery, volunteerEventToUpdate);
 
                 if (rowsAffected == 1)
                 {
                     return volunteerEventToUpdate;
                 }
                 throw new Exception("Could not update volunteerEvent");
+            }
+        }
+
+        public void DeleteVolunteerEvent(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery =
+                    @"Update volunteerEvents 
+                      Set isDeleted = 1
+                      Where Id = @id";
+                var parameter = new { Id = id };
+                var rowsAffected = db.Execute(sqlQuery, parameter);
+
+                if (rowsAffected != 1)
+                {
+                    throw new Exception("Didn't do right");
+                }
             }
         }
     }
