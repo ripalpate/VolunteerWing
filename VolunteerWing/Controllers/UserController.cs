@@ -37,5 +37,18 @@ namespace VolunteerWing.Controllers
 
             return Created($"api/users/{newUser.Id}", newUser);
         }
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            var getAllUsers = _repository.GetAllUsers();
+            return Ok(getAllUsers);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetSingleUser(int id)
+        {
+            var getSingleUser = _repository.GetSingleUser(id);
+            return Ok(getSingleUser);
+        }
     }
 }

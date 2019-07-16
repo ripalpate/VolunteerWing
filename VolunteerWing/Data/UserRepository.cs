@@ -36,5 +36,37 @@ namespace VolunteerWing.Data
             }
             throw new Exception("No user created");
         }
+        public User GetSingleUser(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @"select *
+                                from users
+                                where id = @id";
+                var parameter = new { id };
+                var singleUser = db.QueryFirstOrDefault<User>(sqlQuery, parameter);
+                if (singleUser != null)
+                {
+                    return singleUser;
+                }
+            }
+            throw new Exception("single user is not found");
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @" select * 
+                    from users
+                    where isActive = 1";
+                var allUsers = db.Query<User>(sqlQuery).ToList();
+                if (allUsers != null)
+                {
+                    return allUsers;
+                }
+                throw new Exception("Something went wrong. Could not get all users.");
+            }
+        }
+
     }
 }
