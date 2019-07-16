@@ -45,7 +45,10 @@ namespace VolunteerWing.Data
                                 where id = @id";
                 var parameter = new { id };
                 var singleVolunteerEvent = db.QueryFirstOrDefault<VolunteerEvent>(sqlQuery, parameter);
-                return singleVolunteerEvent;
+                if (singleVolunteerEvent != null)
+                {
+                    return singleVolunteerEvent;
+                }
             }
             throw new Exception("Single volunteer event is not found");
         }
@@ -58,7 +61,35 @@ namespace VolunteerWing.Data
                     from volunteerEvents
                     where isDeleted = 0";
                 var allVolunteerEvents = db.Query<VolunteerEvent>(sqlQuery).ToList();
-                return allVolunteerEvents;
+                if (allVolunteerEvents != null)
+                {
+                    return allVolunteerEvents;
+                }
+                throw new Exception("Something went wrong. Could not get all volunteerEvents");
+            }
+        }
+
+        public VolunteerEvent UpdateVolunteerEvent(VolunteerEvent volunteerEventToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sql =
+                    @"update volunteerEvents 
+                      set eventName = @eventName,
+                          startDate = @startDate,
+	                      startTime= @startTime,
+	                      endTime= @endTime, 
+	                      adminId= @adminId, 
+                          isDeleted = 0
+                     Where Id = @id";
+
+                var rowsAffected = db.Execute(sql, volunteerEventToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return volunteerEventToUpdate;
+                }
+                throw new Exception("Could not update volunteerEvent");
             }
         }
     }

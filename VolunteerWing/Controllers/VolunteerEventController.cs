@@ -44,5 +44,17 @@ namespace VolunteerWing.Controllers
             var getSingleVolunteerEvent = _repository.GetSingleVolunteerEvent(id);
             return Ok(getSingleVolunteerEvent);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateVolunteerEvent(int id, VolunteerEvent volunteerEventToUpdate)
+        {
+            if (id != volunteerEventToUpdate.Id)
+            {
+                return BadRequest();
+            }
+
+            var updateEvent = _repository.UpdateVolunteerEvent(volunteerEventToUpdate);
+            return Ok(updateEvent);
+        }
     }
 }
