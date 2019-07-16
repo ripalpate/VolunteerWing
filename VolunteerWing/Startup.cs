@@ -25,6 +25,7 @@ namespace VolunteerWing
 
             services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<UserRepository>();
+            services.AddTransient<VolunteerEventRepository>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
