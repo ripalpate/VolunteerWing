@@ -23,7 +23,7 @@ namespace VolunteerWing.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var newVolunteerEvent = db.QueryFirstOrDefault<VolunteerEvent>(@"
-                    insert into volunteerEvent (eventName, startDate, startTime, endTime, adminId)
+                    insert into volunteerEvents (eventName, startDate, startTime, endTime, adminId)
                     output inserted.*
                     values (@eventName, @startDate, @startTime, @endTime, @adminId)",
                     new { eventName, startDate, startTime, endTime, adminId });
