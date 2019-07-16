@@ -26,7 +26,7 @@ namespace VolunteerWing.Controllers
                 return BadRequest(new { error = "please enter all fields" });
             }
 
-            var newVolunteerEvent = _repository.AddVolunteerEvent(createRequest.EventName, createRequest.StartDate, createRequest.StartTime, createRequest.EndTime, createRequest.AdminId);
+            var newVolunteerEvent = _repository.AddVolunteerEvent(createRequest.EventName, createRequest.Description, createRequest.StartDate, createRequest.StartTime, createRequest.EndTime, createRequest.AdminId);
 
             return Created($"api/users/{newVolunteerEvent.Id}", newVolunteerEvent);
         }

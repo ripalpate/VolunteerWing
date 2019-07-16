@@ -8,6 +8,7 @@ namespace VolunteerWing.Models
     public class CreateVolunteerEventRequest
     {
         public string EventName { get; set; }
+        public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }

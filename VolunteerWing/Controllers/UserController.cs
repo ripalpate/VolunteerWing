@@ -37,5 +37,37 @@ namespace VolunteerWing.Controllers
 
             return Created($"api/users/{newUser.Id}", newUser);
         }
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            var getAllUsers = _repository.GetAllUsers();
+            return Ok(getAllUsers);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetSingleUser(int id)
+        {
+            var getSingleUser = _repository.GetSingleUser(id);
+            return Ok(getSingleUser);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateUser(int id, User userToUpdate)
+        {
+            if (id != userToUpdate.Id)
+            {
+                return BadRequest();
+            }
+
+            var updateUser = _repository.UpdateUser(userToUpdate);
+            return Ok(updateUser);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            _repository.DeleteUser(id);
+            return Ok("isActive status is changed. User got deleted");
+        }
     }
 }
