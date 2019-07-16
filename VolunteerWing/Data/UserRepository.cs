@@ -67,6 +67,33 @@ namespace VolunteerWing.Data
                 throw new Exception("Something went wrong. Could not get all users.");
             }
         }
+        public User UpdateUser(User userToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery =
+                    @"update users 
+                      set email = @email,
+                          firebaseId = @firebaseId,
+                          name = @name,
+                          street = @street,
+                          city = @city,
+                          state = @state,
+                          zipcode = @zipcode,
+                          phoneNumber = @phoneNumber,
+                          age = @age,
+                          isAdmin = @isAdmin,
+                          isActive = 1
+                          Where id = @id";
 
+                var rowsAffected = db.Execute(sqlQuery, userToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return userToUpdate;
+                }
+                throw new Exception("Could not update user");
+            }
+        }
     }
 }

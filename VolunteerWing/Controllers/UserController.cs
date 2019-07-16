@@ -50,5 +50,17 @@ namespace VolunteerWing.Controllers
             var getSingleUser = _repository.GetSingleUser(id);
             return Ok(getSingleUser);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateUser(int id, User userToUpdate)
+        {
+            if (id != userToUpdate.Id)
+            {
+                return BadRequest();
+            }
+
+            var updateUser = _repository.UpdateUser(userToUpdate);
+            return Ok(updateUser);
+        }
     }
 }
