@@ -30,5 +30,19 @@ namespace VolunteerWing.Controllers
 
             return Created($"api/users/{newVolunteerEvent.Id}", newVolunteerEvent);
         }
+
+        [HttpGet]
+        public ActionResult GetAllVolunteerEvents()
+        {
+            var getAllVolunteerEvents = _repository.GetAllVolunteeerEvent();
+            return Ok(getAllVolunteerEvents);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetSingleVolunteerEvent(int id)
+        {
+            var getSingleVolunteerEvent = _repository.GetSingleVolunteerEvent(id);
+            return Ok(getSingleVolunteerEvent);
+        }
     }
 }
