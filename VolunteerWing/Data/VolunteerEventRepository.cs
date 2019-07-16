@@ -18,14 +18,14 @@ namespace VolunteerWing.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public VolunteerEvent AddVolunteerEvent(string eventName, DateTime startDate, TimeSpan startTime, TimeSpan endTime, int adminId)
+        public VolunteerEvent AddVolunteerEvent(string eventName, string description, DateTime startDate, TimeSpan startTime, TimeSpan endTime, int adminId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @"insert into volunteerEvents (eventName, startDate, startTime, endTime, adminId)
+                var sqlQuery = @"insert into volunteerEvents (eventName, description, startDate, startTime, endTime, adminId)
                                 output inserted.*
-                                values (@eventName, @startDate, @startTime, @endTime, @adminId)";
-                var parameter = new { eventName, startDate, startTime, endTime, adminId };
+                                values (@eventName, @description, @startDate, @startTime, @endTime, @adminId)";
+                var parameter = new { eventName, description, startDate, startTime, endTime, adminId };
                 var newVolunteerEvent = db.QueryFirstOrDefault<VolunteerEvent>(sqlQuery, parameter);
 
                 if (newVolunteerEvent != null)
@@ -76,6 +76,7 @@ namespace VolunteerWing.Data
                 var sqlQuery =
                     @"update volunteerEvents 
                       set eventName = @eventName,
+                          description = @description,
                           startDate = @startDate,
 	                      startTime= @startTime,
 	                      endTime= @endTime, 
