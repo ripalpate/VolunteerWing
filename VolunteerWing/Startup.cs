@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VolunteerWing.Data;
 
 namespace VolunteerWing
 {
@@ -22,6 +23,8 @@ namespace VolunteerWing
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.Configure<DbConfiguration>(Configuration);
+            services.AddTransient<UserRepository>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -63,5 +66,9 @@ namespace VolunteerWing
                 }
             });
         }
+    }
+    public class DbConfiguration
+    {
+        public string ConnectionString { get; set; }
     }
 }
