@@ -26,7 +26,7 @@ namespace VolunteerWing.Data
                 var newUser = db.QueryFirstOrDefault<User>(@"
                     insert into users (email, firebaseId, name, street, city, state, zipcode, phoneNumber, age, isAdmin)
                     output inserted.*
-                    values (@email, @firebaseId, @name, @street, @city, @state, @zipcode, @phoneNumber, age, @isAdmin)",
+                    values (@email, @firebaseId, @name, @street, @city, @state, @zipcode, @phoneNumber, @age, @isAdmin)",
                     new { email, firebaseId, name, street, city, state, zipcode, phoneNumber, age, isAdmin });
 
                 if (newUser != null)
