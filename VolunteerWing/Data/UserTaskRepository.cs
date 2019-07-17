@@ -86,5 +86,20 @@ namespace VolunteerWing.Data
                 throw new Exception("Could not update userTask");
             }
         }
+
+        public void DeleteUserTask(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var parameter = new { id };
+                var deleteQuery = "Delete From UserTasks Where Id = @id";
+                var rowsAffected = db.Execute(deleteQuery, parameter);
+                if (rowsAffected != 1)
+                {
+                    throw new Exception("Didn't do right");
+                }
+
+            }
+        }
     }
 }

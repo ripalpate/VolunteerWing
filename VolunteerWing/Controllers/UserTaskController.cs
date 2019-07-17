@@ -53,5 +53,12 @@ namespace VolunteerWing.Controllers
             var updateUserTask = _repository.UpdateUserTask(userTaskToUpdate);
             return Ok(updateUserTask);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeleteUserTask(int id)
+        {
+            _repository.DeleteUserTask(id);
+            return Ok("UserTask is deleted");
+        }
     }
 }
