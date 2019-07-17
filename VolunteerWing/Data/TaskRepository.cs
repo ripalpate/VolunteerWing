@@ -66,6 +66,28 @@ namespace VolunteerWing.Data
                 throw new Exception("Something went wrong. Could not get all tasks");
             }
         }
+        public Task UpdateTask(Task taskToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery =
+                    @"update tasks 
+                      set taskName = @TaskName,
+                          comment = @comment,
+                          numberOfPeopleNeed = @numberOfPeopleNeed,
+	                      numberOfPeopleSignUp= @numberOfPeopleSignUp,
+                          eventId = @eventId,
+                          isDeleted = 0
+                     Where Id = @id";
 
+                var rowsAffected = db.Execute(sqlQuery, taskToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return taskToUpdate;
+                }
+                throw new Exception("Could not update task");
+            }
+        }
     }
 }
