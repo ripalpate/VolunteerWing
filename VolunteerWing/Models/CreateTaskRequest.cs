@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace VolunteerWing.Models
+﻿namespace VolunteerWing.Models
 {
-    public class Task
+    public class CreateTaskRequest
     {
-        public int Id { get; set; }
         public string TaskName { get; set; }
         public string Comment { get; set; }
         public int NumberOfPeopleNeed { get; set; }

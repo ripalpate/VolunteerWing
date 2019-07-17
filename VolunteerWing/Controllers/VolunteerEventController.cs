@@ -28,7 +28,7 @@ namespace VolunteerWing.Controllers
 
             var newVolunteerEvent = _repository.AddVolunteerEvent(createRequest.EventName, createRequest.Description, createRequest.StartDate, createRequest.StartTime, createRequest.EndTime, createRequest.AdminId);
 
-            return Created($"api/users/{newVolunteerEvent.Id}", newVolunteerEvent);
+            return Created($"api/volunteerEvent/{newVolunteerEvent.Id}", newVolunteerEvent);
         }
 
         [HttpGet]
