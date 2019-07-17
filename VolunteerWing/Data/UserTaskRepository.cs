@@ -64,8 +64,27 @@ namespace VolunteerWing.Data
                     return singleUserTask;
                 }
             }
-            throw new Exception("Single user task is not found");
+            throw new Exception("Single userTask is not found");
         }
 
+        public UserTask UpdateUserTask(UserTask userTaskToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery =
+                    @"update userTasks 
+                      set userId = @userId,
+                          taskId = @taskId
+                     Where Id = @id";
+
+                var rowsAffected = db.Execute(sqlQuery, userTaskToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return userTaskToUpdate;
+                }
+                throw new Exception("Could not update userTask");
+            }
+        }
     }
 }

@@ -42,5 +42,16 @@ namespace VolunteerWing.Controllers
             return Ok(getSingleUserTask);
         }
 
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateUserTask(int id, UserTask userTaskToUpdate)
+        {
+            if (id != userTaskToUpdate.Id)
+            {
+                return BadRequest();
+            }
+            var updateUserTask = _repository.UpdateUserTask(userTaskToUpdate);
+            return Ok(updateUserTask);
+        }
     }
 }
