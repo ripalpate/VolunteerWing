@@ -89,5 +89,22 @@ namespace VolunteerWing.Data
                 throw new Exception("Could not update task");
             }
         }
+        public void DeleteTask(int id)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery =
+                    @"Update tasks 
+                      Set isDeleted = 1
+                      Where Id = @id";
+                var parameter = new { Id = id };
+                var rowsAffected = db.Execute(sqlQuery, parameter);
+
+                if (rowsAffected != 1)
+                {
+                    throw new Exception("Didn't do right");
+                }
+            }
+        }
     }
 }

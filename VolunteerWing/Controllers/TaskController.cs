@@ -52,10 +52,15 @@ namespace VolunteerWing.Controllers
             {
                 return BadRequest();
             }
-
             var updateTask = _repository.UpdateTask(taskToUpdate);
             return Ok(updateTask);
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult deleteTask(int id)
+        {
+            _repository.DeleteTask(id);
+            return Ok("isDeleted status changed to 1.");
+        }
     }
 }
