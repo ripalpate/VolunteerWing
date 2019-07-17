@@ -18,14 +18,14 @@ namespace VolunteerWing.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public VolunteerEvent AddVolunteerEvent(string eventName, string description, DateTime startDate, TimeSpan startTime, TimeSpan endTime, int adminId)
+        public VolunteerEvent AddVolunteerEvent(string eventName, string description, string location, DateTime startDate, TimeSpan startTime, TimeSpan endTime, int adminId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @"insert into volunteerEvents (eventName, description, startDate, startTime, endTime, adminId)
+                var sqlQuery = @"insert into volunteerEvents (eventName, description, location, startDate, startTime, endTime, adminId)
                                 output inserted.*
-                                values (@eventName, @description, @startDate, @startTime, @endTime, @adminId)";
-                var parameter = new { eventName, description, startDate, startTime, endTime, adminId };
+                                values (@eventName, @description, @location, @startDate, @startTime, @endTime, @adminId)";
+                var parameter = new { eventName, description, location, startDate, startTime, endTime, adminId };
                 var newVolunteerEvent = db.QueryFirstOrDefault<VolunteerEvent>(sqlQuery, parameter);
 
                 if (newVolunteerEvent != null)
@@ -58,8 +58,7 @@ namespace VolunteerWing.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = @" select * 
-                    from volunteerEvents
-                    where isDeleted = 0";
+                    from volunteerEvents";
                 var allVolunteerEvents = db.Query<VolunteerEvent>(sqlQuery).ToList();
                 if (allVolunteerEvents != null)
                 {
@@ -77,11 +76,11 @@ namespace VolunteerWing.Data
                     @"update volunteerEvents 
                       set eventName = @eventName,
                           description = @description,
+                          location = @location,
                           startDate = @startDate,
 	                      startTime= @startTime,
 	                      endTime= @endTime, 
-	                      adminId= @adminId, 
-                          isDeleted = 0
+	                      adminId= @adminId
                      Where Id = @id";
 
                 var rowsAffected = db.Execute(sqlQuery, volunteerEventToUpdate);
@@ -99,8 +98,8 @@ namespace VolunteerWing.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery =
-                    @"Update volunteerEvents 
-                      Set isDeleted = 1
+                    @"Delete 
+                      From volunteerEvents
                       Where Id = @id";
                 var parameter = new { Id = id };
                 var rowsAffected = db.Execute(sqlQuery, parameter);
@@ -111,5 +110,6 @@ namespace VolunteerWing.Data
                 }
             }
         }
+
     }
 }

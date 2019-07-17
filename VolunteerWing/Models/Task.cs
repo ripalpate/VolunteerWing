@@ -12,6 +12,5 @@ namespace VolunteerWing.Models
         public int NumberOfPeopleNeed { get; set; }
         public int NumberOfPeopleSignUp { get; set; }
         public int EventId { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

@@ -56,8 +56,7 @@ namespace VolunteerWing.Data
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = @" select * 
-                    from tasks
-                    where isDeleted = 0";
+                                  from tasks";
                 var allTasks = db.Query<Task>(sqlQuery).ToList();
                 if (allTasks != null)
                 {
@@ -76,8 +75,7 @@ namespace VolunteerWing.Data
                           comment = @comment,
                           numberOfPeopleNeed = @numberOfPeopleNeed,
 	                      numberOfPeopleSignUp= @numberOfPeopleSignUp,
-                          eventId = @eventId,
-                          isDeleted = 0
+                          eventId = @eventId
                      Where Id = @id";
 
                 var rowsAffected = db.Execute(sqlQuery, taskToUpdate);
@@ -93,10 +91,8 @@ namespace VolunteerWing.Data
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery =
-                    @"Update tasks 
-                      Set isDeleted = 1
-                      Where Id = @id";
+                var sqlQuery = @"Delete From tasks
+                                 Where Id = @id";
                 var parameter = new { Id = id };
                 var rowsAffected = db.Execute(sqlQuery, parameter);
 

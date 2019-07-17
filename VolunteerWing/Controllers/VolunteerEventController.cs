@@ -26,7 +26,7 @@ namespace VolunteerWing.Controllers
                 return BadRequest(new { error = "please enter all fields" });
             }
 
-            var newVolunteerEvent = _repository.AddVolunteerEvent(createRequest.EventName, createRequest.Description, createRequest.StartDate, createRequest.StartTime, createRequest.EndTime, createRequest.AdminId);
+            var newVolunteerEvent = _repository.AddVolunteerEvent(createRequest.EventName, createRequest.Description, createRequest.Location, createRequest.StartDate, createRequest.StartTime, createRequest.EndTime, createRequest.AdminId);
 
             return Created($"api/volunteerEvent/{newVolunteerEvent.Id}", newVolunteerEvent);
         }
@@ -61,7 +61,7 @@ namespace VolunteerWing.Controllers
         public ActionResult deleteVolunteerEvent(int id)
         {
             _repository.DeleteVolunteerEvent(id);
-            return Ok("isDeleted status changed to 1.");
+            return Ok("Event is deleted.");
         }
     }
 }

@@ -60,7 +60,7 @@ namespace VolunteerWing.Controllers
         public ActionResult deleteTask(int id)
         {
             _repository.DeleteTask(id);
-            return Ok("isDeleted status changed to 1.");
+            return Ok("Task is deleted");
         }
     }
 }
