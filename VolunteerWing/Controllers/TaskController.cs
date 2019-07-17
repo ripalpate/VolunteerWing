@@ -30,5 +30,20 @@ namespace VolunteerWing.Controllers
 
             return Created($"api/task/{newTask.Id}", newTask);
         }
+
+        [HttpGet]
+        public ActionResult GetAllTasks()
+        {
+            var getAllTasks = _repository.GetAllTasks();
+            return Ok(getAllTasks);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult GetSingleTask(int id)
+        {
+            var getSingleTask = _repository.GetSingleTask(id);
+            return Ok(getSingleTask);
+        }
+
     }
 }
