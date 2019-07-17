@@ -1,8 +1,7 @@
 ﻿namespace VolunteerWing.Models
 {
-    public class UserTask
+    public class CreateUserTaskRequest
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int TaskId { get; set; }
     }
