@@ -28,13 +28,13 @@ namespace VolunteerWing
                 .AddJwtBearer(options =>
                 {
                     options.IncludeErrorDetails = true;
-                    options.Authority = "https://securetoken.google.com/parting-pets";
+                    options.Authority = "https://securetoken.google.com/volunteerwing";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = "https://securetoken.google.com/parting-pets",
+                        ValidIssuer = "https://securetoken.google.com/volunteerwing",
                         ValidateAudience = true,
-                        ValidAudience = "parting-pets",
+                        ValidAudience = "volunteerwing",
                         ValidateLifetime = true
                     };
                 });

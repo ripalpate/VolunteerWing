@@ -35,13 +35,13 @@ namespace VolunteerWing.Data
             }
             throw new Exception("No user created");
         }
-        public User GetSingleUser(int id)
+        public User GetSingleUser(string id)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery = @"select *
                                 from users
-                                where id = @id";
+                                where firebaseId = @id";
                 var parameter = new { id };
                 var singleUser = db.QueryFirstOrDefault<User>(sqlQuery, parameter);
                 if (singleUser != null)

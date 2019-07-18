@@ -32,7 +32,7 @@ class MyNavbar extends React.Component {
     const isUser = Object.keys(currentUser).length === 0 && currentUser.constructor === Object;
     
     const buildNavbar = () => {
-      if (isAuthed && !isUser) {
+      if (isAuthed) {
         return (
         <Nav className="ml-auto" navbar>
           <NavItem className="nav-item">
@@ -65,7 +65,7 @@ class MyNavbar extends React.Component {
 
     return (
       <div className="my-navbar mb-5">
-       <Navbar color="dark" dark expand="md" className="fixed-top">
+       <Navbar color="dark" expand="md" className="fixed-top">
           <NavbarBrand href="/">Volunteer Wing</NavbarBrand>
           <NavbarToggler onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
