@@ -81,10 +81,10 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-          <MyNavbar authed={ authed } currentUser={currentUser} logoutClickEvent={logoutClickEvent}/>
+          <MyNavbar isAuthed={ authed } currentUser={currentUser} logoutClickEvent={logoutClickEvent}/>
           <Switch>
             <PublicRoute path='/auth' component={Auth} authed={ authed }/>
-            {/* <PrivateRoute exact path='/' component={Home} authed={authed} /> */}
+            <PrivateRoute exact path='/' component={Home} authed={authed} />
             <PrivateRoute path='/home' exact component={Home} authed={authed} />
           </Switch>
           </React.Fragment>

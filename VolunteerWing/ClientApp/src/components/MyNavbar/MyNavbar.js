@@ -10,6 +10,8 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import './MyNavbar.scss';
+
 class MyNavbar extends React.Component {
   static propTypes = {
     isAuthed: PropTypes.bool,
@@ -32,7 +34,7 @@ class MyNavbar extends React.Component {
     const isUser = Object.keys(currentUser).length === 0 && currentUser.constructor === Object;
     
     const buildNavbar = () => {
-      if (isAuthed) {
+      if (isAuthed && !isUser) {
         return (
         <Nav className="ml-auto" navbar>
           <NavItem className="nav-item">
@@ -70,6 +72,17 @@ class MyNavbar extends React.Component {
           <NavbarToggler onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
            {buildNavbar()}
+           {/* <Nav className="ml-auto" navbar>
+          <NavItem className="nav-item">
+            <NavLink tag={RRNavLink} to="/home">Home</NavLink>
+          </NavItem>
+          <NavItem className="nav-item">
+            <NavLink tag={RRNavLink} to="/volunteerEvent">Create Volunteer Event</NavLink>
+          </NavItem>
+          <NavItem className="nav-item">
+            <NavLink onClick={logoutClickEvent}>Logout</NavLink>
+          </NavItem>
+        </Nav> */}
           </Collapse>
         </Navbar>
       </div>
