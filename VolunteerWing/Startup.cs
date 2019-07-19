@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using VolunteerWing.Data;
 
 namespace VolunteerWing
@@ -22,7 +24,20 @@ namespace VolunteerWing
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.IncludeErrorDetails = true;
+                    options.Authority = "https://securetoken.google.com/volunteerwing";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/volunteerwing",
+                        ValidateAudience = true,
+                        ValidAudience = "volunteerwing",
+                        ValidateLifetime = true
+                    };
+                });
             services.Configure<DbConfiguration>(Configuration);
             services.AddTransient<UserRepository>();
             services.AddTransient<VolunteerEventRepository>();
@@ -49,6 +64,11 @@ namespace VolunteerWing
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
+            });
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 

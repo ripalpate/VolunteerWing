@@ -12,7 +12,7 @@ namespace VolunteerWing.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : SecureControllerBase
     {
         readonly UserRepository _repository;
         readonly CreateUserRequestValidator _validator;
@@ -45,7 +45,7 @@ namespace VolunteerWing.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetSingleUser(int id)
+        public ActionResult GetSingleUser(string id)
         {
             var getSingleUser = _repository.GetSingleUser(id);
             return Ok(getSingleUser);
