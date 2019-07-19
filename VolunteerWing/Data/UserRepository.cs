@@ -44,12 +44,8 @@ namespace VolunteerWing.Data
                                 where firebaseId = @id";
                 var parameter = new { id };
                 var singleUser = db.QueryFirstOrDefault<User>(sqlQuery, parameter);
-                if (singleUser != null)
-                {
-                    return singleUser;
-                }
+                return singleUser;
             }
-            throw new Exception("single user is not found");
         }
         public IEnumerable<User> GetAllUsers()
         {

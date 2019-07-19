@@ -20,8 +20,7 @@ class Auth extends React.Component {
         <h3>Welcome To Volunteer Wing</h3>
         <div className="btn-container">
             <Button color="info" className="bttn-pill bttn-lg bttn-danger" onClick={this.googleAuthenticateUser}>
-            {/* <i className="fab fa-google"></i> Sign In w/Google */}
-            Sign In
+            <i className="fab fa-google"></i> Sign In w/Google
             </Button>
         </div>
       </div>
