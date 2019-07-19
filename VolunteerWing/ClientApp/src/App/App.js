@@ -10,11 +10,12 @@ import authRequests from '../helpers/data/authRequest';
 import userRequests from '../helpers/data/userRequests';
 import Auth from '../components/pages/Auth/Auth';
 import Home from '../components/pages/Home/Home';
+import Register from '../components/pages/Register/Register';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = props => (authed === false
     ? (<Component { ...props } {...rest} />)
-    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }}/>));
+    : (<Redirect to={{ pathname: '/register', state: { from: props.location } }}/>));
   return <Route {...rest} render={props => routeChecker(props)} />;
 };
 
@@ -31,13 +32,14 @@ class App extends React.Component {
     authed: false,
     pendingUser: true,
     currentUser: {},
+    isRegistered: false,
   }
 
   getUser = () => {
     const uid = authRequests.getCurrentUid();
     userRequests.getSingleUser(uid)
       .then((currentUser) => {
-        if (currentUser.data.isActive === true) { this.setState({ currentUser: currentUser.data }); }
+        if (currentUser.data.isActive === true) { this.setState({ currentUser: currentUser.data, isRegistered: true }); }
       });
   };
 
@@ -48,14 +50,14 @@ class App extends React.Component {
         this.setState({
           authed: true,
           pendingUser: false,
-        });
+        }, this.getUser());
         authRequests.getCurrentUserJwt();
-        this.getUser();
       } else {
         this.setState({
           authed: false,
           pendingUser: false,
           currentUser: {},
+          isRegistered: false,
         });
       }
     });
@@ -66,11 +68,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { authed, pendingUser } = this.state;
+    const { authed, pendingUser, isRegistered } = this.state;
     const currentUser = { ...this.state.currentUser };
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false, currentUser: {} });
+      this.setState({ authed: false, currentUser: {}, isRegistered: false });
     };
 
     if (pendingUser) {
@@ -85,6 +87,7 @@ class App extends React.Component {
           <Switch>
             <PublicRoute path='/auth' component={Auth} authed={ authed }/>
             <PrivateRoute exact path='/' component={Home} authed={authed} />
+            <PrivateRoute path='/register' exact component={props => <Register getUser={this.getUser} isRegistered={isRegistered} {...props} currentUser={currentUser}/>} authed={authed}/>
             <PrivateRoute path='/home' exact component={Home} authed={authed} />
           </Switch>
           </React.Fragment>
