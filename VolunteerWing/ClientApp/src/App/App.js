@@ -88,7 +88,7 @@ class App extends React.Component {
             <PublicRoute path='/auth' component={Auth} authed={ authed }/>
             <PrivateRoute exact path='/' component={Home} authed={authed} />
             <PrivateRoute path='/register' exact component={props => <Register getUser={this.getUser} isRegistered={isRegistered} {...props} currentUser={currentUser}/>} authed={authed}/>
-            <PrivateRoute path='/home' exact component={Home} authed={authed} />
+            <PrivateRoute path='/home' exact component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
           </Switch>
           </React.Fragment>
         </BrowserRouter>
