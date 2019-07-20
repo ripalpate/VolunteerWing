@@ -18,7 +18,8 @@ class AddEditEvent extends React.Component {
   state = {
     newEvent: defaultEvent,
     startDate: new Date(),
-  
+    startTime: new Date(),
+    endTime: new Date(),
   }
 
   static propTypes = {
@@ -32,28 +33,28 @@ class AddEditEvent extends React.Component {
     this.setState({ newEvent: tempEvent });
   }
 
-  handleStartDateChange = (date) => {
-    const newDate = new Date(date);
-    this.setState({ startDate: newDate });
-  }
-
-  // handleStartTimeChange(time) {
-  //   this.setState({ startTime: time });
-  // }
-
-  // handleEndTimeChange(time) {
-  //   this.setState({ endTime: time });
-  // }
-
   eventNameChange = e => this.formFieldStringState('eventName', e);
 
   locationChange = e => this.formFieldStringState('location', e);
 
   descriptionChange = e => this.formFieldStringState('desription', e);
 
-  render() {
-    const { newEvent } = this.state;
-    return (
+  handleStartDateChange = (date) => {
+    const newDate = new Date(date);
+    this.setState({ startDate: newDate });
+  }
+
+ handleStartTimeChange = (time) => {
+   this.setState({ startTime: time });
+ }
+
+ handleEndTimeChange = (time) => {
+   this.setState({ endTime: time });
+ }
+
+ render() {
+   const { newEvent } = this.state;
+   return (
       <form>
       <div className="form-group row">
         <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
@@ -108,7 +109,7 @@ class AddEditEvent extends React.Component {
         <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Start Time</label>
         <div className="col-sm-10">
           <DatePicker
-            selected={this.state.startDate}
+            selected={this.state.startTime}
             onChange={this.handleStartTimeChange}
             showTimeSelect
             showTimeSelectOnly
@@ -122,7 +123,7 @@ class AddEditEvent extends React.Component {
         <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">End Time</label>
         <div className="col-sm-10">
           <DatePicker
-            selected={this.state.startDate}
+            selected={this.state.endTime}
             onChange={this.handleEndTimeChange}
             showTimeSelect
             showTimeSelectOnly
@@ -138,8 +139,8 @@ class AddEditEvent extends React.Component {
         </div>
       </div>
     </form>
-    );
-  }
+   );
+ }
 }
 
 export default AddEditEvent;
