@@ -41,7 +41,7 @@ class AddEditEvent extends React.Component {
 
   handleStartDateChange = (date) => {
     const newDate = new Date(date);
-    this.setState({ startDate: newDate });
+    this.setState({ startDate: newDate, startTime: newDate, endTime: newDate });
   }
 
  handleStartTimeChange = (time) => {
