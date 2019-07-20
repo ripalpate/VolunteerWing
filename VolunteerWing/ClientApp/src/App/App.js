@@ -11,6 +11,11 @@ import userRequests from '../helpers/data/userRequests';
 import Auth from '../components/pages/Auth/Auth';
 import Home from '../components/pages/Home/Home';
 import Register from '../components/pages/Register/Register';
+import Profile from '../components/pages/Profile/Profile';
+import AddEditEvent from '../components/pages/AddEditEvent/AddEditEvent';
+import ViewSignUps from '../components/pages/ViewSignUps/ViewSignUps';
+import CreatedEvents from '../components/pages/CreatedEvents/CreatedEvents';
+import VolunteerInfo from '../components/pages/VolunteerInfo/VolunteerInfo';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = props => (authed === false
@@ -89,6 +94,11 @@ class App extends React.Component {
             <PrivateRoute exact path='/' component={Home} authed={authed} />
             <PrivateRoute path='/register' exact component={props => <Register getUser={this.getUser} isRegistered={isRegistered} {...props} currentUser={currentUser}/>} authed={authed}/>
             <PrivateRoute path='/home' exact component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute path='/addEditEvent' component={props => <AddEditEvent {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute exact path='/viewSignUps' component={ViewSignUps} authed={authed} />
+            <PrivateRoute exact path='/createdEvents' component={CreatedEvents} authed={authed} />
+            <PrivateRoute exact path='/volunteerInfo' component={VolunteerInfo} authed={authed} />
           </Switch>
           </React.Fragment>
         </BrowserRouter>

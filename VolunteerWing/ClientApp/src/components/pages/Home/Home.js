@@ -37,7 +37,7 @@ class Home extends React.Component {
       }
     };
     return (
-      <div className="home w-75 mx-auto">
+      <div className="home w-75 mx-auto pt-4">
         <div className="homeWrapper mt-5 d-flex flex-wrap justify-content-center">
             <div className="card mt-3 border-dark animated zoomIn" id="profile" onClick={this.changeView}>
               <div className="card-body home text-center">
@@ -46,14 +46,14 @@ class Home extends React.Component {
                 <p className="card-text">View Profile</p>
               </div>
             </div>
-            <div className="card mt-3 border-dark animated zoomIn" id="createEvent" onClick={this.changeView}>
+            <div className="card mt-3 border-dark animated zoomIn" id="addEditEvent" onClick={this.changeView}>
               <div className="card-body home text-center">
                 <h4 className="card-title"><i className="fas fa-plus-circle fa-6x"></i></h4>
                 <h5 className="card-subtitle mb-2 text-muted">Create Event</h5>
                 <p className="card-text">Add your event here to volunteer</p>
               </div>
             </div>
-            <div className="card mt-3 border-dark animated zoomIn" id="viewSignup" onClick={this.changeView}>
+            <div className="card mt-3 border-dark animated zoomIn" id="viewSignups" onClick={this.changeView}>
               <div className="card-body home text-center">
                 <h4 className="card-title"><i className="fas fa-hands-helping fa-6x"></i></h4>
                 <h5 className="card-subtitle mb-2 text-muted">View signups</h5>
