@@ -18,7 +18,7 @@ namespace VolunteerWing.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public VolunteerEvent AddVolunteerEvent(string eventName, string description, string location, DateTime startDate, TimeSpan startTime, TimeSpan endTime, int adminId)
+        public VolunteerEvent AddVolunteerEvent(string eventName, string description, string location, DateTime startDate, DateTime startTime, DateTime endTime, int adminId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
