@@ -4,6 +4,7 @@ import volunteerEventRequests from '../../../helpers/data/volunteerEventRequests
 import formateDateTime from '../../../helpers/formatDateTime';
 import TaskFormModal from '../../TaskFormModal/TaskFormModal';
 import taskRequests from '../../../helpers/data/taskRequests';
+import Tasks from '../../Tasks/Tasks';
 
 class MyEvent extends React.Component {
     state = {
@@ -36,13 +37,16 @@ class MyEvent extends React.Component {
 
     componentDidMount() {
       this.getsingleEvent();
+    }
+
+    componentWillUpdate() {
       this.getAllTasks();
     }
 
     render() {
       const singleEvent = { ...this.state.singleEvent };
-      const { currentUser } = this.props;
       const { taskModal } = this.state;
+      const tasks = [...this.state.tasks];
       return (
         <div>
             <h4>Event Name:{singleEvent.eventName}</h4>
@@ -50,12 +54,14 @@ class MyEvent extends React.Component {
             <p>Description: {singleEvent.description}</p>
             <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
             <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
-            <button className="bttn-pill bttn-info" onClick={this.toggleTaskModal}>Add Tasks</button>
+            <button className="bttn-pill bttn-success" onClick={this.toggleTaskModal}>Add Tasks</button>
             <TaskFormModal
-             currentUser={currentUser}
              taskModal = {taskModal}
              toggleTaskModal={this.toggleTaskModal}
              eventId = {this.props.match.params.id * 1}
+            />
+            <Tasks
+             tasks = {tasks}
             />
         </div>
       );
