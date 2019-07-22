@@ -18,9 +18,14 @@ namespace VolunteerWing.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public VolunteerEvent AddVolunteerEvent(string eventName, string description, string location, DateTime startDate, TimeSpan startTime, TimeSpan endTime, int adminId)
+        public VolunteerEvent AddVolunteerEvent(string eventName, string description, string location, DateTime start_date, DateTime start_time, DateTime end_time, int adminId)
         {
+            DateTime startTime = start_time.ToLocalTime();
+            DateTime endTime = end_time.ToLocalTime();
+            DateTime startDate = start_date.ToLocalTime();
+
             using (var db = new SqlConnection(_connectionString))
+
             {
                 var sqlQuery = @"insert into volunteerEvents (eventName, description, location, startDate, startTime, endTime, adminId)
                                 output inserted.*
@@ -30,6 +35,11 @@ namespace VolunteerWing.Data
 
                 if (newVolunteerEvent != null)
                 {
+                    var updateSql = @"Update Users 
+                                      Set IsAdmin = 1
+                                      Where Id = @adminId";
+                    var updateParameter = new { adminId };
+                    var updateUser = db.Execute(updateSql, updateParameter);
                     return newVolunteerEvent;
                 }
             }
