@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './MyEvent.scss';
 import volunteerEventRequests from '../../../helpers/data/volunteerEventRequests';
 import formateDateTime from '../../../helpers/formatDateTime';
@@ -11,6 +12,10 @@ class MyEvent extends React.Component {
       singleEvent: {},
       taskModal: false,
       tasks: [],
+    }
+
+    static propTypes = {
+      currentUser: PropTypes.object,
     }
 
     getsingleEvent = () => {
@@ -47,23 +52,40 @@ class MyEvent extends React.Component {
       const singleEvent = { ...this.state.singleEvent };
       const { taskModal } = this.state;
       const tasks = [...this.state.tasks];
+      const { currentUser } = this.props;
+
+      const adminViewForThePage = () => {
+        if (currentUser.isAdmin) {
+          return (
+                <div className="w-75 mx-auto pt-3">
+                    <h4>Event Name:{singleEvent.eventName}</h4>
+                    <p>Location: {singleEvent.location}</p>
+                    <p>Description: {singleEvent.description}</p>
+                    <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+                    <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+                    <button className="bttn-pill bttn-success" onClick={this.toggleTaskModal}>Add Tasks</button>
+                    <TaskFormModal
+                     taskModal = {taskModal}
+                     toggleTaskModal={this.toggleTaskModal}
+                     eventId = {this.props.match.params.id * 1}
+                    />
+                    <Tasks
+                     tasks = {tasks}
+                    />
+                </div>
+          );
+        } return (
+            <div className="text-center">
+              <h4>404</h4>
+              <h6>Oopsss!!! This isn't good</h6>
+              <p>Seems like you got lost</p>
+            </div>
+        );
+      };
       return (
-        <div>
-            <h4>Event Name:{singleEvent.eventName}</h4>
-            <p>Location: {singleEvent.location}</p>
-            <p>Description: {singleEvent.description}</p>
-            <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-            <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
-            <button className="bttn-pill bttn-success" onClick={this.toggleTaskModal}>Add Tasks</button>
-            <TaskFormModal
-             taskModal = {taskModal}
-             toggleTaskModal={this.toggleTaskModal}
-             eventId = {this.props.match.params.id * 1}
-            />
-            <Tasks
-             tasks = {tasks}
-            />
-        </div>
+       <div className="w-75 mx-auto pt-5">
+           {adminViewForThePage()}
+       </div>
       );
     }
 }

@@ -7,9 +7,9 @@ class SingleTask extends React.Component {
       task: taskShape,
     }
 
-  render() {
-    const { task } = this.props;
-    return (
+    render() {
+      const { task } = this.props;
+      return (
         <div className="row">
             <p className="col">{task.taskName}</p>
             <p className="col">Availble spots({task.numberOfPeopleNeed})</p>
@@ -19,8 +19,8 @@ class SingleTask extends React.Component {
                 <button className="bttn-pill bttn-danger"><i className="fas fa-trash fa-1x"></i></button>
             </div>
         </div>
-    );
-  }
+      );
+    }
 }
 
 export default SingleTask;
