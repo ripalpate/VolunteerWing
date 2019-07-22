@@ -53,13 +53,13 @@ class AddEditEvent extends React.Component {
  createEvent = (myEvent) => {
    volunteerEventRequests.createEvent(myEvent)
      .then((event) => {
-       this.props.history.push(`/myEvent/${event.data.id}`);
        this.setState({
          newEvent: defaultEvent,
          startDate: new Date(),
          startTime: new Date(),
          endTime: new Date(),
        });
+       this.props.history.push(`/myEvent/${event.data.id}`);
      });
  }
 

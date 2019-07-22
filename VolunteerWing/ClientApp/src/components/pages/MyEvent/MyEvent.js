@@ -3,11 +3,13 @@ import './MyEvent.scss';
 import volunteerEventRequests from '../../../helpers/data/volunteerEventRequests';
 import formateDateTime from '../../../helpers/formatDateTime';
 import TaskFormModal from '../../TaskFormModal/TaskFormModal';
+import taskRequests from '../../../helpers/data/taskRequests';
 
 class MyEvent extends React.Component {
     state = {
       singleEvent: {},
       taskModal: false,
+      tasks: [],
     }
 
     getsingleEvent = () => {
@@ -18,6 +20,15 @@ class MyEvent extends React.Component {
         }).catch(err => console.error(err));
     }
 
+    getAllTasks = () => {
+      const eventId = this.props.match.params.id * 1;
+      taskRequests.getAllTasks()
+        .then((tasks) => {
+          const eventRelatedTasks = tasks.filter(task => task.eventId === eventId);
+          this.setState({ tasks: eventRelatedTasks });
+        });
+    }
+
     toggleTaskModal = () => {
       const { taskModal } = this.state;
       this.setState({ taskModal: !taskModal });
@@ -25,6 +36,7 @@ class MyEvent extends React.Component {
 
     componentDidMount() {
       this.getsingleEvent();
+      this.getAllTasks();
     }
 
     render() {
