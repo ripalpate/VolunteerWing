@@ -35,6 +35,11 @@ namespace VolunteerWing.Data
 
                 if (newVolunteerEvent != null)
                 {
+                    var updateSql = @"Update Users 
+                                      Set IsAdmin = 1
+                                      Where Id = @adminId";
+                    var updateParameter = new { adminId };
+                    var updateUser = db.Execute(updateSql, updateParameter);
                     return newVolunteerEvent;
                 }
             }
