@@ -71,6 +71,7 @@ class MyEvent extends React.Component {
                     />
                     <Tasks
                      tasks = {tasks}
+                     currentUser = {currentUser}
                     />
                 </div>
           );
