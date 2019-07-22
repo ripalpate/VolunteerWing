@@ -5,6 +5,7 @@ import {
   ModalHeader,
   ModalBody,
 } from 'reactstrap';
+import taskRequests from '../../helpers/data/taskRequests';
 import './TaskFormModal.scss';
 
 const defaultTask = {
@@ -22,6 +23,7 @@ class TaskFormModal extends React.Component {
     static propTypes = {
       toggleTaskModal: PropTypes.func,
       taskModal: PropTypes.bool,
+      eventId: PropTypes.number,
     }
 
     toggleEvent = () => {
@@ -49,6 +51,17 @@ class TaskFormModal extends React.Component {
 
     numberOFPeopleNeedChange = e => this.formFieldNumberState('numberOfPeopleNeed', e);
 
+    formSubmit = (e) => {
+      const { eventId, toggleTaskModal } = this.props;
+      e.preventDefault();
+      const myTask = { ...this.state.newTask };
+      myTask.eventId = eventId;
+      taskRequests.createTask(myTask)
+        .then(() => {
+          this.setState({ newTask: defaultTask }, toggleTaskModal());
+        }).catch(err => console.error(err));
+    }
+
     render() {
       const { taskModal } = this.props;
       const { newTask } = this.state;
@@ -57,7 +70,7 @@ class TaskFormModal extends React.Component {
             <Modal isOpen={taskModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Add Task</ModalHeader>
                 <ModalBody className="modal-body">
-                    <form className= "task-modal-form">
+                    <form className= "task-modal-form" onSubmit={this.formSubmit}>
                         <div className="form-group row">
                             <label htmlFor="taskName" className="col-sm-2 col-form-label">Task Name:</label>
                             <div className="col-sm-10">
@@ -97,8 +110,8 @@ class TaskFormModal extends React.Component {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <div className="col-sm-10">
-                                <button type="submit" className="btn btn-primary">Save</button>
+                            <div className="col-sm-10 text-center">
+                                <button type="submit" className="bttn-pill bttn-success">Save</button>
                             </div>
                         </div>
                     </form>
