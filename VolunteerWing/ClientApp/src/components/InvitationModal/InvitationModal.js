@@ -38,9 +38,9 @@ class InvitationModal extends React.Component {
     }
 
     // formSubmit = (e) => {
+    //   e.preventDefault();
     //   const { toggleInvitationModal } = this.props;
     //   const currentUser = { ...this.props.currentUser };
-    //   e.preventDefault();
     //   const myInvitation = { ...this.state.newInvitation };
     //   myInvitation.from = currentUser.email;
     //   invitationRequests.createInvitation(myInvitation)
