@@ -37,17 +37,17 @@ class InvitationModal extends React.Component {
       this.setState({ newInvitation: tempInvitation });
     }
 
-    // formSubmit = (e) => {
-    //   e.preventDefault();
-    //   const { toggleInvitationModal } = this.props;
-    //   const currentUser = { ...this.props.currentUser };
-    //   const myInvitation = { ...this.state.newInvitation };
-    //   myInvitation.from = currentUser.email;
-    //   invitationRequests.createInvitation(myInvitation)
-    //     .then(() => {
-    //       this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
-    //     });
-    // }
+    formSubmit = (e) => {
+      e.preventDefault();
+      const { toggleInvitationModal } = this.props;
+      const currentUser = { ...this.props.currentUser };
+      const myInvitation = { ...this.state.newInvitation };
+      myInvitation.from = currentUser.email;
+      invitationRequests.createInvitation(myInvitation)
+        .then(() => {
+          this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
+        });
+    }
 
     toChange = e => this.formFieldStringState('to', e);
 
@@ -109,7 +109,7 @@ class InvitationModal extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="bttn-pill bttn-primary">Send</button>
+                            <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
                         </div>
                        </form>
                 </ModalBody>
