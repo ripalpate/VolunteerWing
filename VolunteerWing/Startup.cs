@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using VolunteerWing.Data;
+using VolunteerWing.ServiceWork;
 
 namespace VolunteerWing
 {
@@ -93,5 +94,7 @@ namespace VolunteerWing
     public class DbConfiguration
     {
         public string ConnectionString { get; set; }
+        public string ApiKeys { get; set; }
+        public string ApiBaseUrl { get; set; }
     }
 }

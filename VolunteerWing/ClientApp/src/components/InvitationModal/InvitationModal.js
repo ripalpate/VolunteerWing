@@ -5,9 +5,20 @@ import {
   ModalHeader,
   ModalBody,
 } from 'reactstrap';
+import invitationRequests from '../../helpers/data/invitationRequests';
 import './InvitationModal.scss';
 
+const defaultInvitation = {
+  to: '',
+  subject: '',
+  body: '',
+};
+
 class InvitationModal extends React.Component {
+    state = {
+      newInvitation: defaultInvitation,
+    }
+
     static propTypes = {
       toggleInvitationModal: PropTypes.func,
       invitationModal: PropTypes.bool,
@@ -19,8 +30,34 @@ class InvitationModal extends React.Component {
       toggleInvitationModal();
     }
 
+    formFieldStringState = (name, e) => {
+      e.preventDefault();
+      const tempInvitation = { ...this.state.newInvitation };
+      tempInvitation[name] = e.target.value;
+      this.setState({ newInvitation: tempInvitation });
+    }
+
+    // formSubmit = (e) => {
+    //   const { toggleInvitationModal } = this.props;
+    //   const currentUser = { ...this.props.currentUser };
+    //   e.preventDefault();
+    //   const myInvitation = { ...this.state.newInvitation };
+    //   myInvitation.from = currentUser.email;
+    //   invitationRequests.createInvitation(myInvitation)
+    //     .then(() => {
+    //       this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
+    //     });
+    // }
+
+    toChange = e => this.formFieldStringState('to', e);
+
+    bodyChange = e => this.formFieldStringState('body', e);
+
+    subjectChange = e => this.formFieldStringState('subject', e);
+
     render() {
       const { invitationModal, currentUser } = this.props;
+      const { newInvitation } = this.state;
       return (
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
@@ -30,7 +67,7 @@ class InvitationModal extends React.Component {
                             <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
                             <div className="col-sm-10">
                                 <p className="col-sm-2 col-form-label">{currentUser.email}</p>
-                            </div>    
+                            </div>
                         </div>
                         <div className="form-group row">
                             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
@@ -40,6 +77,21 @@ class InvitationModal extends React.Component {
                                 className="form-control"
                                 id="to"
                                 placeholder="test@test.com"
+                                value= {newInvitation.to}
+                                onChange= {this.toChange}
+                                />
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="subject" className="col-sm-2 col-form-label">Subject:</label>
+                            <div className="col-sm-10">
+                                <textarea
+                                type="text"
+                                className="form-control"
+                                id="subject"
+                                placeholder="subject"
+                                value= {newInvitation.subject}
+                                onChange= {this.subjectChange}
                                 />
                             </div>
                         </div>
@@ -51,6 +103,8 @@ class InvitationModal extends React.Component {
                                 className="form-control"
                                 id="message"
                                 placeholder="Type your message here"
+                                value= {newInvitation.body}
+                                onChange= {this.bodyChange}
                                 />
                             </div>
                         </div>
