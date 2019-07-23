@@ -8,6 +8,8 @@ import taskRequests from '../../../helpers/data/taskRequests';
 import Tasks from '../../Tasks/Tasks';
 
 class MyEvent extends React.Component {
+    myEventMounted = false;
+
     state = {
       singleEvent: {},
       taskModal: false,
@@ -41,11 +43,19 @@ class MyEvent extends React.Component {
     }
 
     componentDidMount() {
-      this.getsingleEvent();
+      const { currentUser } = this.props;
+      this.myEventMounted = !!currentUser.id;
+      if (this.myEventMounted) {
+        this.getsingleEvent();
+      }
     }
 
     componentWillUpdate() {
       this.getAllTasks();
+    }
+
+    componentWillUnmount() {
+      this.myEventMounted = false;
     }
 
     render() {
