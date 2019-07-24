@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using VolunteerWing.Data;
+using VolunteerWing.ServiceWork;
 
 namespace VolunteerWing
 {
@@ -43,6 +44,7 @@ namespace VolunteerWing
             services.AddTransient<VolunteerEventRepository>();
             services.AddTransient<TaskRepository>();
             services.AddTransient<UserTaskRepository>();
+            services.AddTransient<EmailService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -93,5 +95,7 @@ namespace VolunteerWing
     public class DbConfiguration
     {
         public string ConnectionString { get; set; }
+        public string ApiKeys { get; set; }
+        public string ApiBaseUrl { get; set; }
     }
 }

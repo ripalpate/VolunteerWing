@@ -7,6 +7,7 @@ import './Tasks.scss';
 class Tasks extends React.Component {
     static propTypes = {
       tasks: PropTypes.arrayOf(taskShape),
+      currentUser: PropTypes.object,
     }
 
     render() {
@@ -18,23 +19,10 @@ class Tasks extends React.Component {
             />
       ));
 
-      const checkLength = () => {
-        if (tasks.length !== 0) {
-          return (
-            <button className="bttn-pill bttn-success text-center">Send Invitations</button>
-          );
-        } return (
-            <span></span>
-        );
-      };
-
       return (
-        <div>
           <div>
             {singleTaskComponent}
           </div>
-          <div>{checkLength()}</div>
-        </div>
       );
     }
 }

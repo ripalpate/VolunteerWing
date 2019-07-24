@@ -6,12 +6,16 @@ import formateDateTime from '../../../helpers/formatDateTime';
 import TaskFormModal from '../../TaskFormModal/TaskFormModal';
 import taskRequests from '../../../helpers/data/taskRequests';
 import Tasks from '../../Tasks/Tasks';
+import InvitationModal from '../../InvitationModal/InvitationModal';
 
 class MyEvent extends React.Component {
+    myEventMounted = false;
+
     state = {
       singleEvent: {},
       taskModal: false,
       tasks: [],
+      invitationModal: false,
     }
 
     static propTypes = {
@@ -41,11 +45,28 @@ class MyEvent extends React.Component {
     }
 
     componentDidMount() {
-      this.getsingleEvent();
+      const { currentUser } = this.props;
+      this.myEventMounted = !!currentUser.id;
+      if (this.myEventMounted) {
+        this.getsingleEvent();
+      }
     }
 
     componentWillUpdate() {
       this.getAllTasks();
+    }
+
+    componentWillUnmount() {
+      this.myEventMounted = false;
+    }
+
+    toggleInvitationModal = () => {
+      const { invitationModal } = this.state;
+      this.setState({ invitationModal: !invitationModal });
+    }
+
+    routeToCreatedEvents = () => {
+      this.props.history.push('/createdEvents');
     }
 
     render() {
@@ -53,6 +74,7 @@ class MyEvent extends React.Component {
       const { taskModal } = this.state;
       const tasks = [...this.state.tasks];
       const { currentUser } = this.props;
+      const { invitationModal } = this.state;
 
       const adminViewForThePage = () => {
         if (currentUser.isAdmin) {
@@ -71,6 +93,7 @@ class MyEvent extends React.Component {
                     />
                     <Tasks
                      tasks = {tasks}
+                     currentUser = {currentUser}
                     />
                 </div>
           );
@@ -82,9 +105,27 @@ class MyEvent extends React.Component {
             </div>
         );
       };
+
+      const checkLength = () => {
+        if (tasks.length !== 0) {
+          return (
+            <div><button className="bttn-pill bttn-success text-center" onClick={this.toggleInvitationModal}>Send Invitations</button></div>
+          );
+        } return (
+            <span></span>
+        );
+      };
+
       return (
        <div className="w-75 mx-auto pt-5">
            {adminViewForThePage()}
+           {checkLength()}
+           <InvitationModal
+            invitationModal = {invitationModal}
+            currentUser = {currentUser}
+            toggleInvitationModal = {this.toggleInvitationModal}
+            routeToCreatedEvents = {this.routeToCreatedEvents}
+          />
        </div>
       );
     }
