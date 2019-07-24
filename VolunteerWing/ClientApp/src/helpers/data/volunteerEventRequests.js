@@ -13,7 +13,18 @@ const getSingleEvent = eventId => new Promise((resolve, reject) => {
     }).catch(err => reject(err));
 });
 
+const getAllEvents = () => new Promise((resolve, reject) => {
+  axios
+    .get(apiUrl)
+    .then((results) => {
+      const events = results.data;
+      resolve(events);
+    })
+    .catch(err => reject(err));
+});
+
 export default {
   createEvent,
   getSingleEvent,
+  getAllEvents,
 };

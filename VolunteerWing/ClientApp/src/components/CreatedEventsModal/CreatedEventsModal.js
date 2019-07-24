@@ -5,34 +5,78 @@ import {
   ModalHeader,
   ModalBody,
 } from 'reactstrap';
+import SingleCreatedEvent from '../SingleCreatedEvent/SingleCreatedEvent';
 import './CreatedEventsModal.scss';
+import volunteerEventRequests from '../../helpers/data/volunteerEventRequests';
 
 class CreatedEventsModal extends React.Component {
+    createdEventsModalMounted = false;
+
+    state = {
+      events: [],
+    }
+
     static propTypes = {
       toggleCreatedEventsModal: PropTypes.func,
       createdEventsModal: PropTypes.bool,
       currentUser: PropTypes.object,
     }
 
-      toggleEvent = () => {
-        const { toggleCreatedEventsModal } = this.props;
-        toggleCreatedEventsModal();
-      }
+    toggleEvent = () => {
+      const { toggleCreatedEventsModal } = this.props;
+      toggleCreatedEventsModal();
+    }
 
-      render() {
-        const { createdEventsModal, currentUser } = this.props;
-        return (
-            <Modal isOpen={createdEventsModal} toggle={this.toggleEvent} className="modal-lg">
-                <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Events</ModalHeader>
-                <ModalBody className="modal-body">
-                    <div>
-                        <h4>Event</h4>
-                        <p>Start Date</p>
-                    </div>
-                </ModalBody>
-            </Modal>
-        );
+    getAllEventsAssociatedToAdmin = () => {
+      const { currentUser } = this.props;
+      volunteerEventRequests.getAllEvents()
+        .then((allEvents) => {
+          const eventsAssociatedWithAdmin = allEvents.filter(event => event.adminId === currentUser.id);
+          this.setState({ events: eventsAssociatedWithAdmin });
+        });
+    }
+
+    componentDidMount() {
+      const { currentUser } = this.props;
+      this.createdEventsModalMounted = !!currentUser.id;
+      if (this.createdEventsModalMounted) {
+        this.getAllEventsAssociatedToAdmin();
       }
+    }
+
+    render() {
+      const { createdEventsModal } = this.props;
+      const { events } = this.state;
+
+      const singleEventComponent = events.map(event => (
+        <SingleCreatedEvent
+         event = {event}
+         key = {event.id}
+        />
+      ));
+
+      return (
+        <Modal isOpen={createdEventsModal} toggle={this.toggleEvent} className="modal-lg">
+            <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> Created Events</ModalHeader>
+            <ModalBody className="modal-body">
+                <div>
+                    <table className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Event</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">Location</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {singleEventComponent}
+                        </tbody>
+                    </table>
+                </div>
+            </ModalBody>
+        </Modal>
+      );
+    }
 }
 
 export default CreatedEventsModal;
