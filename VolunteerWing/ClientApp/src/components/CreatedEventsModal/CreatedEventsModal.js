@@ -20,6 +20,7 @@ class CreatedEventsModal extends React.Component {
       toggleCreatedEventsModal: PropTypes.func,
       createdEventsModal: PropTypes.bool,
       currentUser: PropTypes.object,
+      eventDetailView: PropTypes.func,
     }
 
     toggleEvent = () => {
@@ -45,13 +46,14 @@ class CreatedEventsModal extends React.Component {
     }
 
     render() {
-      const { createdEventsModal } = this.props;
+      const { createdEventsModal, eventDetailView } = this.props;
       const { events } = this.state;
 
       const singleEventComponent = events.map(event => (
         <SingleCreatedEvent
          event = {event}
          key = {event.id}
+         eventDetailView = {eventDetailView}
         />
       ));
 

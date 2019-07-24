@@ -98,7 +98,7 @@ class App extends React.Component {
             <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/addEditEvent' component={props => <AddEditEvent {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute exact path='/viewSignUps' component={ViewSignUps} authed={authed} />
-            <PrivateRoute exact path='/createdEvents' component={CreatedEvents} authed={authed} />
+            <PrivateRoute exact path='/createdEvent/:id' component={CreatedEvents} authed={authed} />
             <PrivateRoute exact path='/volunteerInfo' component={VolunteerInfo} authed={authed} />
             <PrivateRoute exact path='/myEvent/:id' component={props => <MyEvent {...props} currentUser={currentUser}/>} authed={authed}/>
           </Switch>

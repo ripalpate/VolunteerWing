@@ -22,9 +22,12 @@ class Home extends React.Component {
     this.setState({ createdEventsModal: !createdEventsModal });
   }
 
+  eventDetailView = (eventId) => {
+    this.props.history.push(`/createdEvent/${eventId}`);
+  }
 
   render() {
-    const { currentUser } = this.props; 
+    const { currentUser } = this.props;
     const { createdEventsModal } = this.state;
     const adminCards = () => {
       if (currentUser.isAdmin) {
@@ -78,6 +81,7 @@ class Home extends React.Component {
         createdEventsModal = {createdEventsModal}
         toggleCreatedEventsModal = {this.toggleCreatedEventsModal}
         currentUser = {currentUser}
+        eventDetailView = {this.eventDetailView}
         />
       </div>
     );
