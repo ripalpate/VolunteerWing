@@ -23,6 +23,7 @@ class InvitationModal extends React.Component {
       toggleInvitationModal: PropTypes.func,
       invitationModal: PropTypes.bool,
       currentUser: PropTypes.object,
+      routeToCreatedEvents: PropTypes.func,
     }
 
     toggleEvent = () => {
@@ -39,17 +40,25 @@ class InvitationModal extends React.Component {
 
     formSubmit = (e) => {
       e.preventDefault();
-      const { toggleInvitationModal } = this.props;
+      const { toggleInvitationModal, routeToCreatedEvents } = this.props;
       const currentUser = { ...this.props.currentUser };
       const myInvitation = { ...this.state.newInvitation };
       myInvitation.from = currentUser.email;
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
+          routeToCreatedEvents();
         });
     }
 
-    toChange = e => this.formFieldStringState('to', e);
+    formFieldArrayState = (name, e) => {
+      e.preventDefault();
+      const tempInvitation = { ...this.state.newInvitation };
+      tempInvitation[name] = e.target.value.split(',');
+      this.setState({ newInvitation: tempInvitation });
+    }
+
+    toChange = e => this.formFieldArrayState('to', e);
 
     bodyChange = e => this.formFieldStringState('body', e);
 
@@ -62,7 +71,7 @@ class InvitationModal extends React.Component {
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
                 <ModalBody className="modal-body">
-                    <form className= "task-modal-form">
+                    <form className= "task-modal-form" onSubmit={this.formSubmit}>
                         <div className="form-group row">
                             <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
                             <div className="col-sm-10">
@@ -109,7 +118,7 @@ class InvitationModal extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
+                            <button className="bttn-pill bttn-primary">Send</button>
                         </div>
                        </form>
                 </ModalBody>

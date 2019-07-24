@@ -65,6 +65,10 @@ class MyEvent extends React.Component {
       this.setState({ invitationModal: !invitationModal });
     }
 
+    routeToCreatedEvents = () => {
+      this.props.history.push('/createdEvents');
+    }
+
     render() {
       const singleEvent = { ...this.state.singleEvent };
       const { taskModal } = this.state;
@@ -120,6 +124,7 @@ class MyEvent extends React.Component {
             invitationModal = {invitationModal}
             currentUser = {currentUser}
             toggleInvitationModal = {this.toggleInvitationModal}
+            routeToCreatedEvents = {this.routeToCreatedEvents}
           />
        </div>
       );
