@@ -37,6 +37,13 @@ class CreatedEvents extends React.Component {
       });
   }
 
+  updateTaskSignUp = (taskId, task) => {
+    taskRequests.updatePeopleSignup(taskId, task)
+      .then(() => {
+        this.getAllTasks();
+      });
+  };
+
   componentDidMount() {
     const { currentUser } = this.props;
     this.createdEventMounted = !!currentUser.id;
@@ -49,7 +56,6 @@ class CreatedEvents extends React.Component {
   createUserTask = (newUserTask) => {
     userTaskRequests.createUserTask(newUserTask)
       .then(() => {
-
       });
   }
 
@@ -70,6 +76,7 @@ class CreatedEvents extends React.Component {
         currentUser = {currentUser}
         isCreating = {isCreating}
         createUserTask = {this.createUserTask}
+        updateTaskSignUp = {this.updateTaskSignUp}
         />
       </div>
     );

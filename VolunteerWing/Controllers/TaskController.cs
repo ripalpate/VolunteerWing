@@ -56,6 +56,17 @@ namespace VolunteerWing.Controllers
             return Ok(updateTask);
         }
 
+        [HttpPut("signUp/{id}")]
+        public ActionResult UpdateNumberOfPeopleSignUp(int id, Task taskToUpdate)
+        {
+            if (id != taskToUpdate.Id)
+            {
+                return BadRequest();
+            }
+            var updatePeopleSignUp = _repository.UpdatePeopleSignUp(taskToUpdate);
+            return Ok(updatePeopleSignUp);
+        }
+
         [HttpDelete("{id}")]
         public ActionResult deleteTask(int id)
         {

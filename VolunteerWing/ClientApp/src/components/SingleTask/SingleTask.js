@@ -1,5 +1,6 @@
 import React from 'react';
 import taskShape from '../../helpers/propz/taskShape';
+import taskRequests from '../../helpers/data/taskRequests';
 
 class SingleTask extends React.Component {
     static propTypes = {
@@ -7,12 +8,20 @@ class SingleTask extends React.Component {
     }
 
     signupEvent = () => {
-      const { createUserTask, currentUser, task } = this.props;
+      const {
+        createUserTask,
+        currentUser,
+        task,
+        updateTaskSignUp,
+      } = this.props;
+
       const myTask = {
         userId: currentUser.id,
         taskId: task.id,
       };
       createUserTask(myTask);
+      const taskId = task.id;
+      updateTaskSignUp(taskId, task);
     }
 
     render() {

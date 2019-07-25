@@ -11,7 +11,14 @@ class Tasks extends React.Component {
     }
 
     render() {
-      const { tasks, isCreating, createUserTask, currentUser } = this.props;
+      const {
+        tasks,
+        isCreating,
+        createUserTask,
+        currentUser,
+        updateTaskSignUp,
+      } = this.props;
+
       const singleTaskComponent = tasks.map(task => (
             <SingleTask
              task = {task}
@@ -19,6 +26,7 @@ class Tasks extends React.Component {
              isCreating = {isCreating}
              createUserTask = {createUserTask}
              currentUser = {currentUser}
+             updateTaskSignUp = {updateTaskSignUp}
             />
       ));
 

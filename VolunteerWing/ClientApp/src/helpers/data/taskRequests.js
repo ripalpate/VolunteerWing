@@ -14,7 +14,20 @@ const getAllTasks = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const getSingleTask = taskId => new Promise((resolve, reject) => {
+  axios.get(`${apiUrl}/${taskId}`)
+    .then((result) => {
+      const singleTask = result.data;
+      singleTask.id = taskId;
+      resolve(singleTask);
+    }).catch(err => reject(err));
+});
+
+const updatePeopleSignup = (taskId, taskObject) => axios.put(`${apiUrl}/signUp/${taskId}`, taskObject);
+
 export default {
   createTask,
   getAllTasks,
+  updatePeopleSignup,
+  getSingleTask,
 };
