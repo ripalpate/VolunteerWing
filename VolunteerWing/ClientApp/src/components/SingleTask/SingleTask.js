@@ -7,18 +7,33 @@ class SingleTask extends React.Component {
     }
 
     render() {
-      const { task } = this.props;
+      const { task, isCreating } = this.props;
+
+      const makeButtons = () => {
+        if (isCreating === false) {
+          return (
+          <td className="buttons">
+            <button className="bttn-pill bttn-success" title="signup"><i className="fas fa-file-contract fa-1x"></i></button>
+            <button className="bttn-pill bttn-danger ml-2" title="delete"><i className="fas fa-trash fa-1x"></i></button>
+          </td>
+          );
+        } if (isCreating === true) {
+          return (
+          <td className="buttons">
+            <button className="bttn-pill bttn-warning"><i className="far fa-edit fa-1x"/></button>
+            <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
+          </td>
+          );
+        }
+      };
 
       return (
-        <div className="row">
-            <p className="col">{task.taskName}</p>
-            <p className="col">Availble spots({task.numberOfPeopleNeed})</p>
-            <p className="col">{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} spots filled</p>
-            <div className="col">
-                <button className="bttn-pill bttn-warning"><i className="far fa-edit fa-1x"/></button>
-                <button className="bttn-pill bttn-danger"><i className="fas fa-trash fa-1x"></i></button>
-            </div>
-        </div>
+        <tr>
+            <td>{task.taskName}</td>
+            <td>Availble spots({task.numberOfPeopleNeed})</td>
+            <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} spots filled</td>
+            {makeButtons()}
+        </tr>
       );
     }
 }

@@ -23,7 +23,7 @@ class SingleCreatedEvent extends React.Component {
           <td className="event-name">{event.eventName}</td>
           <td className="event-start">{formatDateTime.formatMDYDate(event.startDate)}</td>
           <td className="event-location">{event.location}</td>
-      </tr>
+        </tr>
       );
     }
 }
