@@ -6,6 +6,15 @@ class SingleTask extends React.Component {
       task: taskShape,
     }
 
+    signupEvent = () => {
+      const { createUserTask, currentUser, task } = this.props;
+      const myTask = {
+        userId: currentUser.id,
+        taskId: task.id,
+      };
+      createUserTask(myTask);
+    }
+
     render() {
       const { task, isCreating } = this.props;
 
@@ -13,7 +22,7 @@ class SingleTask extends React.Component {
         if (isCreating === false) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-success" title="signup"><i className="fas fa-file-contract fa-1x"></i></button>
+            <button className="bttn-pill bttn-success" title="signup" onClick={this.signupEvent}><i className="fas fa-file-contract fa-1x"></i></button>
             <button className="bttn-pill bttn-danger ml-2" title="delete"><i className="fas fa-trash fa-1x"></i></button>
           </td>
           );
@@ -28,7 +37,7 @@ class SingleTask extends React.Component {
       };
 
       return (
-        <tr>
+        <tr id={task.id}>
             <td>{task.taskName}</td>
             <td>Availble spots({task.numberOfPeopleNeed})</td>
             <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} spots filled</td>

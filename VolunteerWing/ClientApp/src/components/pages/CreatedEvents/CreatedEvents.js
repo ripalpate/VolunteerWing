@@ -5,6 +5,7 @@ import volunteerEventRequests from '../../../helpers/data/volunteerEventRequests
 import taskRequests from '../../../helpers/data/taskRequests';
 import formateDateTime from '../../../helpers/formatDateTime';
 import './CreatedEvents.scss';
+import userTaskRequests from '../../../helpers/data/userTaskRequests';
 
 class CreatedEvents extends React.Component {
   createdEventMounted = false;
@@ -45,6 +46,13 @@ class CreatedEvents extends React.Component {
     }
   }
 
+  createUserTask = (newUserTask) => {
+    userTaskRequests.createUserTask(newUserTask)
+      .then(() => {
+
+      });
+  }
+
   render() {
     const singleEvent = { ...this.state.singleEvent };
     const tasks = [...this.state.tasks];
@@ -61,6 +69,7 @@ class CreatedEvents extends React.Component {
         tasks = {tasks}
         currentUser = {currentUser}
         isCreating = {isCreating}
+        createUserTask = {this.createUserTask}
         />
       </div>
     );

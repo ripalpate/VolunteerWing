@@ -11,12 +11,14 @@ class Tasks extends React.Component {
     }
 
     render() {
-      const { tasks, isCreating } = this.props;
+      const { tasks, isCreating, createUserTask, currentUser } = this.props;
       const singleTaskComponent = tasks.map(task => (
             <SingleTask
              task = {task}
              key = {task.id}
              isCreating = {isCreating}
+             createUserTask = {createUserTask}
+             currentUser = {currentUser}
             />
       ));
 
