@@ -16,6 +16,7 @@ class MyEvent extends React.Component {
       taskModal: false,
       tasks: [],
       invitationModal: false,
+      isCreating: true,
     }
 
     static propTypes = {
@@ -73,10 +74,9 @@ class MyEvent extends React.Component {
 
     render() {
       const singleEvent = { ...this.state.singleEvent };
-      const { taskModal } = this.state;
+      const { taskModal, invitationModal, isCreating } = this.state;
       const tasks = [...this.state.tasks];
       const { currentUser } = this.props;
-      const { invitationModal } = this.state;
 
       const adminViewForThePage = () => {
         if (currentUser.isAdmin) {
@@ -87,7 +87,7 @@ class MyEvent extends React.Component {
                     <p>Description: {singleEvent.description}</p>
                     <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
                     <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
-                    <button className="bttn-pill bttn-success" onClick={this.toggleTaskModal}>Add Tasks</button>
+                    <button className="bttn-pill bttn-success" onClick={ this.toggleTaskModal}>Add Tasks</button>
                     <TaskFormModal
                      taskModal = {taskModal}
                      toggleTaskModal={this.toggleTaskModal}
@@ -96,6 +96,7 @@ class MyEvent extends React.Component {
                     <Tasks
                      tasks = {tasks}
                      currentUser = {currentUser}
+                     isCreating = {isCreating}
                     />
                 </div>
           );
