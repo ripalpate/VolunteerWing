@@ -16,6 +16,7 @@ class MyEvent extends React.Component {
       taskModal: false,
       tasks: [],
       invitationModal: false,
+      isCreating: true,
     }
 
     static propTypes = {
@@ -53,7 +54,11 @@ class MyEvent extends React.Component {
     }
 
     componentWillUpdate() {
-      this.getAllTasks();
+      const { currentUser } = this.props;
+      this.myEventMounted = !!currentUser.id;
+      if (this.myEventMounted) {
+        this.getAllTasks();
+      }
     }
 
     componentWillUnmount() {
@@ -66,36 +71,38 @@ class MyEvent extends React.Component {
     }
 
     routeToCreatedEvents = () => {
-      this.props.history.push('/createdEvents');
+      const { singleEvent } = this.state;
+      const eventId = singleEvent.id * 1;
+      this.props.history.push(`/createdEvents/${eventId}`);
     }
 
     render() {
       const singleEvent = { ...this.state.singleEvent };
-      const { taskModal } = this.state;
+      const { taskModal, invitationModal, isCreating } = this.state;
       const tasks = [...this.state.tasks];
       const { currentUser } = this.props;
-      const { invitationModal } = this.state;
 
       const adminViewForThePage = () => {
         if (currentUser.isAdmin) {
           return (
-                <div className="w-75 mx-auto pt-3">
-                    <h4>Event Name:{singleEvent.eventName}</h4>
-                    <p>Location: {singleEvent.location}</p>
-                    <p>Description: {singleEvent.description}</p>
-                    <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-                    <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
-                    <button className="bttn-pill bttn-success" onClick={this.toggleTaskModal}>Add Tasks</button>
-                    <TaskFormModal
-                     taskModal = {taskModal}
-                     toggleTaskModal={this.toggleTaskModal}
-                     eventId = {this.props.match.params.id * 1}
-                    />
-                    <Tasks
-                     tasks = {tasks}
-                     currentUser = {currentUser}
-                    />
-                </div>
+            <div className="w-75 mx-auto pt-3">
+                <h4>Event Name:{singleEvent.eventName}</h4>
+                <p>Location: {singleEvent.location}</p>
+                <p>Description: {singleEvent.description}</p>
+                <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+                <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+                <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}>Add Tasks</button>
+                <TaskFormModal
+                  taskModal = {taskModal}
+                  toggleTaskModal={this.toggleTaskModal}
+                  eventId = {this.props.match.params.id * 1}
+                />
+                <Tasks
+                  tasks = {tasks}
+                  currentUser = {currentUser}
+                  isCreating = {isCreating}
+                />
+            </div>
           );
         } return (
             <div className="text-center">
@@ -109,7 +116,10 @@ class MyEvent extends React.Component {
       const checkLength = () => {
         if (tasks.length !== 0) {
           return (
-            <div><button className="bttn-pill bttn-success text-center" onClick={this.toggleInvitationModal}>Send Invitations</button></div>
+            <div className="w-75 mx-auto">
+              <button className="bttn-pill bttn-success text-center" onClick={this.toggleInvitationModal}>Send Invitations
+              </button>
+            </div>
           );
         } return (
             <span></span>
