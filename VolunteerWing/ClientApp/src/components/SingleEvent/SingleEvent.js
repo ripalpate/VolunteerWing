@@ -12,7 +12,7 @@ class SingleEvent extends React.Component {
     changeEventToDetailView = (e) => {
       e.preventDefault();
       const { eventDetailView, event } = this.props;
-      eventDetailView(event.EventId);
+      eventDetailView(event.eventId);
     }
 
     render() {
@@ -20,9 +20,9 @@ class SingleEvent extends React.Component {
 
       return (
         <tr className="createdEvent" onClick={this.changeEventToDetailView}>
-          <td className="event-name">{event.EventName}</td>
-          <td className="event-start">{formatDateTime.formatMDYDate(event.StartDate)}</td>
-          <td className="event-location">{event.Location}</td>
+          <td className="event-name">{event.eventName}</td>
+          <td className="event-start">{formatDateTime.formatMDYDate(event.startDate)}</td>
+          <td className="event-location">{event.location}</td>
         </tr>
       );
     }

@@ -28,7 +28,21 @@ class SignupModal extends React.Component {
     const userId = currentUser.id;
     userTaskRequests.getAllEventsThatUserSignup(userId)
       .then((events) => {
-        this.setState({ events });
+        const uniqueEvents = [];
+        events.forEach((event) => {
+          const i = uniqueEvents.findIndex(x => x.eventId === event.EventId);
+          if (i <= -1) {
+            uniqueEvents.push({
+              id: event.id,
+              eventName: event.EventName,
+              startDate: event.StartDate,
+              endTime: event.EndTime,
+              location: event.Location,
+              eventId: event.EventId,
+            });
+          }
+        });
+        this.setState({ events: uniqueEvents });
       });
   }
 
