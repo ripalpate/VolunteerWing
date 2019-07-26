@@ -6,7 +6,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 import userTaskRequests from '../../helpers/data/userTaskRequests';
-import SingleEvent from '../SingleEvent/SingleEvent';
+import SingleCreatedEvent from '../SingleCreatedEvent/SingleCreatedEvent';
 import './SignupModal.scss';
 
 class SignupModal extends React.Component {
@@ -30,15 +30,15 @@ class SignupModal extends React.Component {
       .then((events) => {
         const uniqueEvents = [];
         events.forEach((event) => {
-          const i = uniqueEvents.findIndex(x => x.eventId === event.EventId);
+          const i = uniqueEvents.findIndex(x => x.id === event.id);
           if (i <= -1) {
             uniqueEvents.push({
-              id: event.id,
+              userTaskid: event.UserTaskId,
               eventName: event.EventName,
               startDate: event.StartDate,
               endTime: event.EndTime,
               location: event.Location,
-              eventId: event.EventId,
+              id: event.id,
             });
           }
         });
@@ -64,9 +64,9 @@ class SignupModal extends React.Component {
     const { events } = this.state;
 
     const singleEventComponent = events.map(event => (
-      <SingleEvent
+      <SingleCreatedEvent
        event = {event}
-       key = {event.id}
+       key = {event.userTaskid}
        eventDetailView = {eventDetailView}
       />
     ));

@@ -71,7 +71,7 @@ namespace VolunteerWing.Data
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @" Select VE.EventName, VE.StartDate, VE.StartTime, VE.EndTime, VE.Location, UserTasks.id, VE.id as EventId 
+                var sqlQuery = @" Select VE.EventName, VE.StartDate, VE.StartTime, VE.EndTime, VE.Location, UserTasks.id as UserTaskId, VE.id 
                                 From UserTasks
                                 Join Tasks as T
                                 on T.Id = UserTasks.TaskId
