@@ -40,10 +40,11 @@ class InvitationModal extends React.Component {
 
     formSubmit = (e) => {
       e.preventDefault();
-      const { toggleInvitationModal, routeToCreatedEvents } = this.props;
+      const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
       const currentUser = { ...this.props.currentUser };
       const myInvitation = { ...this.state.newInvitation };
       myInvitation.from = currentUser.email;
+      myInvitation.body = `http://localhost:64575/createdEvent/${singleEvent.id}`;
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
