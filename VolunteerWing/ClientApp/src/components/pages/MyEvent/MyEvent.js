@@ -73,7 +73,7 @@ class MyEvent extends React.Component {
     routeToCreatedEvents = () => {
       const { singleEvent } = this.state;
       const eventId = singleEvent.id * 1;
-      this.props.history.push(`/createdEvents/${eventId}`);
+      this.props.history.push(`/createdEvent/${eventId}`);
     }
 
     render() {
@@ -135,6 +135,7 @@ class MyEvent extends React.Component {
             currentUser = {currentUser}
             toggleInvitationModal = {this.toggleInvitationModal}
             routeToCreatedEvents = {this.routeToCreatedEvents}
+            singleEvent= {singleEvent}
           />
        </div>
       );

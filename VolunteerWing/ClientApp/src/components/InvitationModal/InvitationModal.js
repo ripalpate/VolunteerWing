@@ -6,6 +6,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 import invitationRequests from '../../helpers/data/invitationRequests';
+import formateDateTime from '../../helpers/formatDateTime';
 import './InvitationModal.scss';
 
 const defaultInvitation = {
@@ -40,10 +41,18 @@ class InvitationModal extends React.Component {
 
     formSubmit = (e) => {
       e.preventDefault();
-      const { toggleInvitationModal, routeToCreatedEvents } = this.props;
+      const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
       const currentUser = { ...this.props.currentUser };
       const myInvitation = { ...this.state.newInvitation };
+      const message = `Hello Friends, 
+        Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}. Below is the link to sign up for the event.
+
+      http://localhost:64575/createdEvent/${singleEvent.id}
+
+      Thank you, 
+      ${currentUser.name}`;
       myInvitation.from = currentUser.email;
+      myInvitation.body = message;
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
@@ -65,8 +74,17 @@ class InvitationModal extends React.Component {
     subjectChange = e => this.formFieldStringState('subject', e);
 
     render() {
-      const { invitationModal, currentUser } = this.props;
+      const { invitationModal, currentUser, singleEvent } = this.props;
       const { newInvitation } = this.state;
+
+      const message = `Hello Friends, 
+  Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}.
+Below is the link to sign up for the event.
+
+http://localhost:64575/createdEvent/${singleEvent.id}
+
+Thank you, 
+${currentUser.name}`;
       return (
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
@@ -107,14 +125,7 @@ class InvitationModal extends React.Component {
                         <div className="form-group row">
                             <label htmlFor="message" className="col-sm-2 col-form-label">Message</label>
                             <div className="col-sm-10">
-                                <textarea
-                                type="text"
-                                className="form-control"
-                                id="message"
-                                placeholder="Type your message here"
-                                value= {newInvitation.body}
-                                onChange= {this.bodyChange}
-                                />
+                              <pre className="col-form-label">{message}</pre>
                             </div>
                         </div>
                         <div>

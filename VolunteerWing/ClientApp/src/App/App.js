@@ -13,9 +13,7 @@ import Home from '../components/pages/Home/Home';
 import Register from '../components/pages/Register/Register';
 import Profile from '../components/pages/Profile/Profile';
 import AddEditEvent from '../components/pages/AddEditEvent/AddEditEvent';
-import ViewSignUps from '../components/pages/ViewSignUps/ViewSignUps';
 import CreatedEvents from '../components/pages/CreatedEvents/CreatedEvents';
-import VolunteerInfo from '../components/pages/VolunteerInfo/VolunteerInfo';
 import MyEvent from '../components/pages/MyEvent/MyEvent';
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
@@ -97,9 +95,7 @@ class App extends React.Component {
             <PrivateRoute path='/home' exact component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/addEditEvent' component={props => <AddEditEvent {...props} currentUser={currentUser}/>} authed={authed} />
-            <PrivateRoute exact path='/viewSignUps' component={ViewSignUps} authed={authed} />
             <PrivateRoute exact path='/createdEvent/:id' component={props => <CreatedEvents {...props} currentUser={currentUser}/>} authed={authed} />
-            <PrivateRoute exact path='/volunteerInfo' component={VolunteerInfo} authed={authed} />
             <PrivateRoute exact path='/myEvent/:id' component={props => <MyEvent {...props} currentUser={currentUser}/>} authed={authed}/>
           </Switch>
           </React.Fragment>

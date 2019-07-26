@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CreatedEventsModal from '../../CreatedEventsModal/CreatedEventsModal';
+import SignupModal from '../../SignupModal/SignupModal';
 import './Home.scss';
 
 class Home extends React.Component {
   state = {
     createdEventsModal: false,
+    viewSignupModal: false,
   }
 
   static = {
@@ -22,13 +24,18 @@ class Home extends React.Component {
     this.setState({ createdEventsModal: !createdEventsModal });
   }
 
+  toggleViewSignupModal = () => {
+    const { viewSignupModal } = this.state;
+    this.setState({ viewSignupModal: !viewSignupModal });
+  }
+
   eventDetailView = (eventId) => {
     this.props.history.push(`/createdEvent/${eventId}`);
   }
 
   render() {
     const { currentUser } = this.props;
-    const { createdEventsModal } = this.state;
+    const { createdEventsModal, viewSignupModal } = this.state;
     const adminCards = () => {
       if (currentUser.isAdmin) {
         return (
@@ -38,13 +45,6 @@ class Home extends React.Component {
               <h4 className="card-title"><i className="fas fa-calendar-alt fa-6x"></i></h4>
               <h5 className="card-subtitle mb-2 text-muted">View created Events</h5>
               <p className="card-text">View the events that I have created </p>
-            </div>
-          </div>
-          <div className="card mt-3 border-dark animated zoomIn" id="volunteerInfo" onClick={this.changeView}>
-            <div className="card-body home text-center">
-              <h4 className="card-title"><i className="fas fa-users fa-6x"></i></h4>
-              <h5 className="card-subtitle mb-2 text-muted">View Volunteers</h5>
-              <p className="card-text">View all volunteers information </p>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ class Home extends React.Component {
                 <p className="card-text">Add your event here to volunteer</p>
               </div>
             </div>
-            <div className="card mt-3 border-dark animated zoomIn" id="viewSignups" onClick={this.changeView}>
+            <div className="card mt-3 border-dark animated zoomIn" id="viewSignups" onClick={this.toggleViewSignupModal}>
               <div className="card-body home text-center">
                 <h4 className="card-title"><i className="fas fa-hands-helping fa-6x"></i></h4>
                 <h5 className="card-subtitle mb-2 text-muted">View signups</h5>
@@ -80,6 +80,12 @@ class Home extends React.Component {
         <CreatedEventsModal
         createdEventsModal = {createdEventsModal}
         toggleCreatedEventsModal = {this.toggleCreatedEventsModal}
+        currentUser = {currentUser}
+        eventDetailView = {this.eventDetailView}
+        />
+        <SignupModal
+        viewSignupModal = {viewSignupModal}
+        toggleViewSignupModal = {this.toggleViewSignupModal}
         currentUser = {currentUser}
         eventDetailView = {this.eventDetailView}
         />
