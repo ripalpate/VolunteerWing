@@ -107,14 +107,15 @@ class InvitationModal extends React.Component {
                         <div className="form-group row">
                             <label htmlFor="message" className="col-sm-2 col-form-label">Message</label>
                             <div className="col-sm-10">
-                                <textarea
+                                {/* <textarea
                                 type="text"
                                 className="form-control"
                                 id="message"
                                 placeholder="Type your message here"
                                 value= {newInvitation.body}
                                 onChange= {this.bodyChange}
-                                />
+                                /> */}
+                              <p className="col-sm-2 col-form-label">http://localhost:64575/createdEvent/</p>
                             </div>
                         </div>
                         <div>
