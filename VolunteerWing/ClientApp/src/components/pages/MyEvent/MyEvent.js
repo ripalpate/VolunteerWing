@@ -125,6 +125,7 @@ class MyEvent extends React.Component {
             currentUser = {currentUser}
             toggleInvitationModal = {this.toggleInvitationModal}
             routeToCreatedEvents = {this.routeToCreatedEvents}
+            singleEvent= {singleEvent}
           />
        </div>
       );

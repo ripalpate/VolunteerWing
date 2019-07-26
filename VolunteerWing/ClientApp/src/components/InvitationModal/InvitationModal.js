@@ -65,7 +65,7 @@ class InvitationModal extends React.Component {
     subjectChange = e => this.formFieldStringState('subject', e);
 
     render() {
-      const { invitationModal, currentUser } = this.props;
+      const { invitationModal, currentUser, singleEvent } = this.props;
       const { newInvitation } = this.state;
       return (
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
@@ -115,7 +115,7 @@ class InvitationModal extends React.Component {
                                 value= {newInvitation.body}
                                 onChange= {this.bodyChange}
                                 /> */}
-                              <p className="col-sm-2 col-form-label">http://localhost:64575/createdEvent/</p>
+                              <p className="col-sm-2 col-form-label">http://localhost:64575/createdEvent/{singleEvent.id}</p>
                             </div>
                         </div>
                         <div>
