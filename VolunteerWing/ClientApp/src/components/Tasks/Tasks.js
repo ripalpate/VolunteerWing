@@ -8,21 +8,45 @@ class Tasks extends React.Component {
     static propTypes = {
       tasks: PropTypes.arrayOf(taskShape),
       currentUser: PropTypes.object,
+      createUserTask: PropTypes.func,
+      updateTaskSignup: PropTypes.func,
+      isCreating: PropTypes.bool,
     }
 
     render() {
-      const { tasks } = this.props;
+      const {
+        tasks,
+        isCreating,
+        createUserTask,
+        currentUser,
+        updateTaskSignUp,
+      } = this.props;
+
       const singleTaskComponent = tasks.map(task => (
             <SingleTask
              task = {task}
              key = {task.id}
+             isCreating = {isCreating}
+             createUserTask = {createUserTask}
+             currentUser = {currentUser}
+             updateTaskSignUp = {updateTaskSignUp}
             />
       ));
 
       return (
-          <div>
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Task</th>
+              <th scope="col">Available Slots</th>
+              <th scope="col">Filled slots</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
             {singleTaskComponent}
-          </div>
+          </tbody>
+        </table>
       );
     }
 }

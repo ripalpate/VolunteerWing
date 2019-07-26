@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CreatedEventsModal from '../../CreatedEventsModal/CreatedEventsModal';
 import './Home.scss';
 
 class Home extends React.Component {
+  state = {
+    createdEventsModal: false,
+  }
+
   static = {
     currentUser: PropTypes.object,
   }
@@ -12,13 +17,23 @@ class Home extends React.Component {
     this.props.history.push(`/${view}`);
   }
 
+  toggleCreatedEventsModal = () => {
+    const { createdEventsModal } = this.state;
+    this.setState({ createdEventsModal: !createdEventsModal });
+  }
+
+  eventDetailView = (eventId) => {
+    this.props.history.push(`/createdEvent/${eventId}`);
+  }
+
   render() {
-    const { currentUser } = this.props; 
+    const { currentUser } = this.props;
+    const { createdEventsModal } = this.state;
     const adminCards = () => {
       if (currentUser.isAdmin) {
         return (
         <div className="d-flex flex-wrap justify-content-center">
-          <div className="card mt-3 border-dark animated zoomIn" id="createdEvents" onClick={this.changeView}>
+          <div className="card mt-3 border-dark animated zoomIn" id="createdEvents" onClick={this.toggleCreatedEventsModal}>
             <div className="card-body home text-center">
               <h4 className="card-title"><i className="fas fa-calendar-alt fa-6x"></i></h4>
               <h5 className="card-subtitle mb-2 text-muted">View created Events</h5>
@@ -62,6 +77,12 @@ class Home extends React.Component {
             </div>
             {adminCards()}
         </div>
+        <CreatedEventsModal
+        createdEventsModal = {createdEventsModal}
+        toggleCreatedEventsModal = {this.toggleCreatedEventsModal}
+        currentUser = {currentUser}
+        eventDetailView = {this.eventDetailView}
+        />
       </div>
     );
   }
