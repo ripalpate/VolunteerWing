@@ -6,6 +6,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 import invitationRequests from '../../helpers/data/invitationRequests';
+import formateDateTime from '../../helpers/formatDateTime';
 import './InvitationModal.scss';
 
 const defaultInvitation = {
@@ -43,8 +44,15 @@ class InvitationModal extends React.Component {
       const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
       const currentUser = { ...this.props.currentUser };
       const myInvitation = { ...this.state.newInvitation };
+      const message = `Hello Friends, 
+        Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}. Below is the link to sign up for the event.
+
+      http://localhost:64575/createdEvent/${singleEvent.id}
+
+      Thank you, 
+      ${currentUser.name}`;
       myInvitation.from = currentUser.email;
-      myInvitation.body = `http://localhost:64575/createdEvent/${singleEvent.id}`;
+      myInvitation.body = message;
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
@@ -68,6 +76,15 @@ class InvitationModal extends React.Component {
     render() {
       const { invitationModal, currentUser, singleEvent } = this.props;
       const { newInvitation } = this.state;
+
+      const message = `Hello Friends, 
+  Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}.
+Below is the link to sign up for the event.
+
+http://localhost:64575/createdEvent/${singleEvent.id}
+
+Thank you, 
+${currentUser.name}`;
       return (
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
@@ -116,7 +133,7 @@ class InvitationModal extends React.Component {
                                 value= {newInvitation.body}
                                 onChange= {this.bodyChange}
                                 /> */}
-                              <p className="col-sm-2 col-form-label">http://localhost:64575/createdEvent/{singleEvent.id}</p>
+                              <pre className="col-form-label">{message}</pre>
                             </div>
                         </div>
                         <div>
