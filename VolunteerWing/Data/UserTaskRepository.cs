@@ -67,6 +67,26 @@ namespace VolunteerWing.Data
             throw new Exception("Single userTask is not found");
         }
 
+        public IEnumerable<Object> GetAllEventsThatUserSignup(int userId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @" Select VE.EventName, VE.StartDate, VE.StartTime, VE.EndTime, VE.Location, UserTasks.id, VE.id as EventId 
+                                From UserTasks
+                                Join Tasks as T
+                                on T.Id = UserTasks.TaskId
+                                Join VolunteerEvents as VE
+                                On VE.Id = T.EventId
+                                Where UserTasks.UserId = @userId;";
+                var parameters = new { userId };
+                var allSignupEvents = db.Query<Object>(sqlQuery, parameters).ToList();
+                if (allSignupEvents != null)
+                {
+                    return allSignupEvents;
+                }
+                throw new Exception("Something went wrong. Could not get all signup events");
+            }
+        }
         public UserTask UpdateUserTask(UserTask userTaskToUpdate)
         {
             using (var db = new SqlConnection(_connectionString))

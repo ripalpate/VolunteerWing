@@ -14,7 +14,18 @@ const getAllUsersTasks = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const getAllEventsThatUserSignup = userId => new Promise((resolve, reject) => {
+  axios
+    .get(`${apiUrl}/event/${userId}`)
+    .then((results) => {
+      const signupEvents = results.data;
+      resolve(signupEvents);
+    })
+    .catch(err => reject(err));
+});
+
 export default {
   createUserTask,
   getAllUsersTasks,
+  getAllEventsThatUserSignup,
 };

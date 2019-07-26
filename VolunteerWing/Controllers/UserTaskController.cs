@@ -42,6 +42,13 @@ namespace VolunteerWing.Controllers
             return Ok(getSingleUserTask);
         }
 
+        [HttpGet("event/{id}")]
+        public ActionResult GetAllEventsThatUserSignup(int id)
+        {
+            var signupEvents = _repository.GetAllEventsThatUserSignup(id);
+            return Ok(signupEvents);
+        }
+
 
         [HttpPut("{id}")]
         public ActionResult UpdateUserTask(int id, UserTask userTaskToUpdate)
