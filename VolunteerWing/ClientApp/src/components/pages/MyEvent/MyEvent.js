@@ -54,7 +54,11 @@ class MyEvent extends React.Component {
     }
 
     componentWillUpdate() {
-      this.getAllTasks();
+      const { currentUser } = this.props;
+      this.myEventMounted = !!currentUser.id;
+      if (this.myEventMounted) {
+        this.getAllTasks();
+      }
     }
 
     componentWillUnmount() {
