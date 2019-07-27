@@ -77,6 +77,12 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
+    editEvent = () => {
+      const { isEditing, toggleTaskModal } = this.props;
+      this.setState({ isEditing: !isEditing });
+      toggleTaskModal();
+    }
+
     render() {
       const { task, isCreating } = this.props;
       const { isSignup, isDeleted } = this.state;
@@ -90,7 +96,7 @@ class SingleTask extends React.Component {
         } if (isCreating === true) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-warning"><i className="far fa-edit fa-1x"/></button>
+            <button className="bttn-pill bttn-warning" onClick={this.editEvent}><i className="far fa-edit fa-1x"/></button>
             <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
           </td>
           );
