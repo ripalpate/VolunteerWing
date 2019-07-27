@@ -14,6 +14,7 @@ class CreatedEvents extends React.Component {
     singleEvent: {},
     tasks: [],
     isCreating: false,
+    usersTasks: [],
   }
 
   static propTypes = {
@@ -28,12 +29,33 @@ class CreatedEvents extends React.Component {
       }).catch(err => console.error(err));
   }
 
+  deleteUserTask= (userTaskId) => {
+    userTaskRequests.deleteUserTask(userTaskId)
+      .then(() => {
+        // this.getAllTasks();
+      });
+  }
+
   getAllTasks = () => {
     const eventId = this.props.match.params.id * 1;
     taskRequests.getAllTasks()
       .then((tasks) => {
         const eventRelatedTasks = tasks.filter(task => task.eventId === eventId);
         this.setState({ tasks: eventRelatedTasks });
+      });
+  }
+
+  getAllUsersTasks = () => {
+    userTaskRequests.getAllUsersTasks()
+      .then((usersTasks) => {
+        this.setState({ usersTasks });
+      });
+  }
+
+  updateTaskSignUpUponDelete = (taskId, task) => {
+    taskRequests.updatePeopleSignupAfterRemoval(taskId, task)
+      .then(() => {
+        this.getAllTasks();
       });
   }
 
@@ -53,6 +75,10 @@ class CreatedEvents extends React.Component {
     }
   }
 
+  componentWillUpdate() {
+    this.getAllUsersTasks();
+  }
+
   createUserTask = (newUserTask) => {
     userTaskRequests.createUserTask(newUserTask)
       .then(() => {
@@ -62,6 +88,7 @@ class CreatedEvents extends React.Component {
   render() {
     const singleEvent = { ...this.state.singleEvent };
     const tasks = [...this.state.tasks];
+    const usersTasks = [...this.state.usersTasks];
     const { currentUser } = this.props;
     const { isCreating } = this.state;
     return (
@@ -77,6 +104,9 @@ class CreatedEvents extends React.Component {
         isCreating = {isCreating}
         createUserTask = {this.createUserTask}
         updateTaskSignUp = {this.updateTaskSignUp}
+        deleteUserTask = {this.deleteUserTask}
+        usersTasks = {usersTasks}
+        updateTaskSignUpUponDelete = {this.updateTaskSignUpUponDelete}
         />
       </div>
     );

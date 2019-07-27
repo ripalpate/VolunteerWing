@@ -7,6 +7,7 @@ import './SingleTask.scss';
 class SingleTask extends React.Component {
   state = {
     isSignup: false,
+    isDeleted: false,
   }
 
     static propTypes = {
@@ -15,6 +16,7 @@ class SingleTask extends React.Component {
       currentUser: PropTypes.object,
       updateTaskSignup: PropTypes.func,
       isCreating: PropTypes.bool,
+      userTask: PropTypes.array,
     }
 
     signupEvent = () => {
@@ -32,6 +34,24 @@ class SingleTask extends React.Component {
       createUserTask(myTask);
       const taskId = task.id;
       updateTaskSignUp(taskId, task);
+      this.checkExistingUserInTask();
+    }
+
+    removeSignupEvent = () => {
+      const {
+        deleteUserTask,
+        currentUser,
+        task,
+        updateTaskSignUpUponDelete,
+        usersTasks,
+      } = this.props;
+
+      const taskId = task.id;
+      const userId = currentUser.id;
+      const singleUserTask = usersTasks.filter(userTask => userTask.userId === userId && userTask.taskId === taskId);
+      const userTaskId = singleUserTask[0].id;
+      deleteUserTask(userTaskId);
+      updateTaskSignUpUponDelete(taskId, task);
     }
 
     componentDidMount() {
@@ -51,15 +71,20 @@ class SingleTask extends React.Component {
         });
     }
 
+    changeIsDeletedState = () => {
+      const { isDeleted } = this.state;
+      this.setState({ isSignup: false });
+      this.setState({ isDeleted: !isDeleted });
+    }
+
     render() {
       const { task, isCreating } = this.props;
-      const { isSignup } = this.state;
+      const { isSignup, isDeleted } = this.state;
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
           return (
           <td className="buttons">
             <button className="bttn-pill bttn-success" title="signup" onClick={this.signupEvent}><i className="fas fa-file-contract fa-1x"></i></button>
-            <button className="bttn-pill bttn-danger ml-2" title="delete"><i className="fas fa-trash fa-1x"></i></button>
           </td>
           );
         } if (isCreating === true) {
@@ -69,19 +94,24 @@ class SingleTask extends React.Component {
             <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
           </td>
           );
-        } if (isCreating === false && task.numberOfPeopleNeed === task.numberOfPeopleSignUp && isSignup === false) {
+        } if (isCreating === false && task.numberOfPeopleNeed === task.numberOfPeopleSignUp && isSignup === false && isDeleted === false) {
           return (
             <td className="buttons">
               <button disabled className="bttn-pill bttn-danger" title="full"><i className="fas fa-ban fa-1x fa-diasabled"></i></button>
-              <button className="bttn-pill bttn-danger ml-2" title="delete"><i className="fas fa-trash fa-1x"></i></button>
             </td>
           );
         } if (isCreating === false && isSignup === true) {
           return (
             <td className="buttons">
               <button disabled className="bttn-pill bttn-success" title="signed up"><i className="fas fa-user-check"></i></button>
-              <button className="bttn-pill bttn-danger ml-2" title="delete"><i className="fas fa-trash fa-1x"></i></button>
+              <button className="bttn-pill bttn-danger ml-2" title="unassign" onClick={() => { this.removeSignupEvent(); this.changeIsDeletedState(); }}><i className="fas fa-trash fa-1x"></i></button>
             </td>
+          );
+        } if (isCreating === false && isDeleted === true) {
+          return (
+          <td className="buttons">
+            <button className="bttn-pill bttn-success" title="signup" onClick={this.signupEvent}><i className="fas fa-file-contract fa-1x"></i></button>
+          </td>
           );
         }
       };
