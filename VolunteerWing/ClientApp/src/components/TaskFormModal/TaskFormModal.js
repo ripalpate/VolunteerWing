@@ -24,6 +24,7 @@ class TaskFormModal extends React.Component {
       toggleTaskModal: PropTypes.func,
       taskModal: PropTypes.bool,
       eventId: PropTypes.number,
+      isEditing: PropTypes.bool,
     }
 
     toggleEvent = () => {
@@ -52,15 +53,30 @@ class TaskFormModal extends React.Component {
     numberOFPeopleNeedChange = e => this.formFieldNumberState('numberOfPeopleNeed', e);
 
     formSubmit = (e) => {
-      const { eventId, toggleTaskModal } = this.props;
+      const { eventId, toggleTaskModal, isEditing } = this.props;
       e.preventDefault();
       const myTask = { ...this.state.newTask };
       myTask.eventId = eventId;
-      taskRequests.createTask(myTask)
-        .then(() => {
-          this.setState({ newTask: defaultTask }, toggleTaskModal());
-        }).catch(err => console.error(err));
+      if (isEditing) {
+        taskRequests.updateTask(myTask.id, myTask)
+          .then(() => {
+            this.setState({ newTask: defaultTask }, toggleTaskModal());
+          });
+      } else {
+        taskRequests.createTask(myTask)
+          .then(() => {
+            this.setState({ newTask: defaultTask }, toggleTaskModal());
+          }).catch(err => console.error(err));
+      }
     }
+
+    // componentWillReceiveProps(props) {
+    //   const { isEditing } = props;
+    //   // console.log(this.props.task);
+    //   if (isEditing) {
+    //     this.setState({ newTask:});
+    //   }
+    // }
 
     render() {
       const { taskModal } = this.props;

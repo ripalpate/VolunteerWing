@@ -78,8 +78,8 @@ class SingleTask extends React.Component {
     }
 
     editEvent = () => {
-      const { isEditing, toggleTaskModal } = this.props;
-      this.setState({ isEditing: !isEditing });
+      const { toggleTaskModal } = this.props;
+      // this.setState({ isEditing: !isEditing });
       toggleTaskModal();
     }
 

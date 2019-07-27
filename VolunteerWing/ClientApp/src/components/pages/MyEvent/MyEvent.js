@@ -42,8 +42,8 @@ class MyEvent extends React.Component {
     }
 
     toggleTaskModal = () => {
-      const { taskModal } = this.state;
-      this.setState({ taskModal: !taskModal });
+      const { taskModal, isEditing } = this.state;
+      this.setState({ taskModal: !taskModal, isEditing:!isEditing });
     }
 
     componentDidMount() {
