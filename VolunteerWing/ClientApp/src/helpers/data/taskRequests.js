@@ -25,9 +25,12 @@ const getSingleTask = taskId => new Promise((resolve, reject) => {
 
 const updatePeopleSignup = (taskId, taskObject) => axios.put(`${apiUrl}/signUp/${taskId}`, taskObject);
 
+const updatePeopleSignupAfterRemoval = (taskId, task) => axios.put(`${apiUrl}/removeSignUp/${taskId}`, task);
+
 export default {
   createTask,
   getAllTasks,
   updatePeopleSignup,
   getSingleTask,
+  updatePeopleSignupAfterRemoval,
 };

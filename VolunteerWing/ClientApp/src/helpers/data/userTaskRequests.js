@@ -24,8 +24,11 @@ const getAllEventsThatUserSignup = userId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const deleteUserTask = userTaskId => axios.delete(`${apiUrl}/${userTaskId}`);
+
 export default {
   createUserTask,
   getAllUsersTasks,
   getAllEventsThatUserSignup,
+  deleteUserTask,
 };

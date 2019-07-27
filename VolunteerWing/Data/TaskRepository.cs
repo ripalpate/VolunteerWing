@@ -104,7 +104,24 @@ namespace VolunteerWing.Data
                 throw new Exception("Could not update numberOfPeopleSignup");
             }
         }
-        
+
+        public Task UpdatePeopleSignUpUponDelete(Task taskToUpdate)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @"update tasks
+                            set numberOfPeopleSignUp = numberOfPeopleSignUp - 1
+                            Where tasks.id = @id";
+                var rowsAffected = db.Execute(sqlQuery, taskToUpdate);
+
+                if (rowsAffected == 1)
+                {
+                    return taskToUpdate;
+                }
+                throw new Exception("Could not update numberOfPeopleSignup");
+            }
+        }
+
         public void DeleteTask(int id)
         {
             using (var db = new SqlConnection(_connectionString))
