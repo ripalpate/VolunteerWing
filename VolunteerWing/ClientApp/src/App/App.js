@@ -93,7 +93,7 @@ class App extends React.Component {
             <PrivateRoute exact path='/' component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/register' exact component={props => <Register getUser={this.getUser} isRegistered={isRegistered} {...props} currentUser={currentUser}/>} authed={authed}/>
             <PrivateRoute path='/home' exact component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
-            <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser} getUser={this.getUser}/>} authed={authed} />
             <PrivateRoute path='/addEditEvent' component={props => <AddEditEvent {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute exact path='/createdEvent/:id' component={props => <CreatedEvents {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute exact path='/myEvent/:id' component={props => <MyEvent {...props} currentUser={currentUser}/>} authed={authed}/>
