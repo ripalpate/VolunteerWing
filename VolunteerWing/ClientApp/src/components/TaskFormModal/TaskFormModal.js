@@ -71,18 +71,26 @@ class TaskFormModal extends React.Component {
       }
     }
 
-    componentDidUpdate(prevProps) {
-      const { isEditing, task } = this.props;
-      if (prevProps !== this.props && isEditing) {
+    // componentDidUpdate(prevProps) {
+    //   const { isEditing, selectedTask } = this.props;
+    //   if (prevProps !== this.props && isEditing) {
+    //   // if (isEditing) {
+    //     this.setState({ newTask: selectedTask });
+    //   }
+    //   // }
+    // }
+
+    componentWillReceiveProps(props) {
+      const { isEditing, selectedTask } = props;
+      if (isEditing) {
       // if (isEditing) {
-        this.setState({ newTask: task });
+        this.setState({ newTask: selectedTask });
       }
-      // }
     }
 
     render() {
       const { taskModal } = this.props;
-      const { newTask } = this.state;
+      const newTask = { ...this.state.newTask };
       return (
         <div>
             <Modal isOpen={taskModal} toggle={this.toggleEvent} className="modal-lg">

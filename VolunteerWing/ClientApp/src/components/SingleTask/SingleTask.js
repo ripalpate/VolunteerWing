@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import userTaskRequests from '../../helpers/data/userTaskRequests';
+import taskRequests from '../../helpers/data/taskRequests';
 import taskShape from '../../helpers/propz/taskShape';
 import './SingleTask.scss';
 import TaskFormModal from '../TaskFormModal/TaskFormModal';
@@ -11,6 +12,7 @@ class SingleTask extends React.Component {
     isDeleted: false,
     isEditing: false,
     taskModal: false,
+    selectedTask: {},
   }
 
     static propTypes = {
@@ -61,7 +63,6 @@ class SingleTask extends React.Component {
     }
 
     deleteSingleTask = () => {
-      // e.preventDefault();
       const { task, deleteTask } = this.props;
       const taskId = task.id;
       deleteTask(taskId);
@@ -90,18 +91,31 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
+    getSingleTask = () => {
+      const taskId = this.props.task.id * 1;
+      // this.setState({ taskId });
+      taskRequests.getSingleTask(taskId)
+      .then((singleTask) => {
+        this.setState({ selectedTask: singleTask });
+     });
+    }
+
     toggleTaskModal =(e) => {
       const { isEditing, taskModal } = this.state;
+      const task = { ...this.props.task };
       if (isEditing) {
         this.setState({ taskModal: !taskModal, isEditing: false });
       }
       this.setState({ taskModal: !taskModal, isEditing: true });
+      this.getSingleTask();
+      // this.setState({ selectedTask: task });
     }
 
     render() {
       const { task, isCreating, eventId } = this.props;
       const { isEditing, taskModal } = this.state;
       const { isSignup, isDeleted } = this.state;
+      const { selectedTask } = this.state;
 
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
@@ -118,7 +132,7 @@ class SingleTask extends React.Component {
             <TaskFormModal
             taskModal = {taskModal}
             isEditing = {isEditing}
-            task = {task}
+            selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
             />
