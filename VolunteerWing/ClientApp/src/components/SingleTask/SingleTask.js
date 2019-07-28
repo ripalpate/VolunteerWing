@@ -12,7 +12,8 @@ class SingleTask extends React.Component {
     isDeleted: false,
     isEditing: false,
     taskModal: false,
-    selectedTask: {},
+    // selectedTask: {},
+    editId: -1,
   }
 
     static propTypes = {
@@ -91,31 +92,34 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
-    getSingleTask = () => {
-      const taskId = this.props.task.id * 1;
-      // this.setState({ taskId });
-      taskRequests.getSingleTask(taskId)
-      .then((singleTask) => {
-        this.setState({ selectedTask: singleTask });
-     });
-    }
+    // getSingleTask = () => {
+    //   const taskId = this.props.task.id * 1;
+    //   // this.setState({ taskId });
+    //   taskRequests.getSingleTask(taskId)
+    //   .then((singleTask) => {
+    //     this.setState({ selectedTask: singleTask });
+    //  });
+    // }
 
     toggleTaskModal =(e) => {
       const { isEditing, taskModal } = this.state;
+      // const { getSingleTask } = this.props;
       const task = { ...this.props.task };
+      const taskId = task.id * 1;
       if (isEditing) {
         this.setState({ taskModal: !taskModal, isEditing: false });
       }
       this.setState({ taskModal: !taskModal, isEditing: true });
-      this.getSingleTask();
+      this.setState({ editId: taskId });
+      // getSingleTask(taskId);
       // this.setState({ selectedTask: task });
     }
 
     render() {
       const { task, isCreating, eventId } = this.props;
-      const { isEditing, taskModal } = this.state;
+      const { isEditing, taskModal, editId } = this.state;
       const { isSignup, isDeleted } = this.state;
-      const { selectedTask } = this.state;
+      const { selectedTask } = this.props;
 
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
@@ -135,6 +139,7 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
+            editId = {editId}
             />
           </td>
           );

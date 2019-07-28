@@ -18,13 +18,20 @@ class MyEvent extends React.Component {
       invitationModal: false,
       isCreating: true,
       isEditing: false,
-      singleTask: {},
+      selectedTask: {},
       eventId: 0,
     }
 
     static propTypes = {
       currentUser: PropTypes.object,
     }
+
+    // getSingleTask = (taskId) => {
+    //   taskRequests.getSingleTask(taskId)
+    //     .then((singleTask) => {
+    //       this.setState({ selectedTask: singleTask });
+    //     });
+    // }
 
     getsingleEvent = () => {
       const eventId = this.props.match.params.id * 1;
@@ -96,6 +103,7 @@ class MyEvent extends React.Component {
         eventId,
       } = this.state;
       const tasks = [...this.state.tasks];
+      const selectedTask = { ...this.state.selectedTask };
       const { currentUser } = this.props;
 
       const adminViewForThePage = () => {
@@ -120,6 +128,8 @@ class MyEvent extends React.Component {
                   isCreating = {isCreating}
                   eventId = {eventId}
                   deleteTask = {this.deleteTask}
+                  // getSingleTask = {this.getSingleTask}
+                  selectedTask = {selectedTask}
                 />
             </div>
           );

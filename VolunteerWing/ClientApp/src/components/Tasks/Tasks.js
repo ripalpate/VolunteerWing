@@ -28,6 +28,8 @@ class Tasks extends React.Component {
         updateTaskSignUpUponDelete,
         eventId,
         deleteTask,
+        selectedTask,
+        // getSingleTask,
       } = this.props;
 
       const singleTaskComponent = tasks.map(task => (
@@ -43,6 +45,8 @@ class Tasks extends React.Component {
              updateTaskSignUpUponDelete = {updateTaskSignUpUponDelete}
              eventId = {eventId}
              deleteTask = {deleteTask}
+             selectedTask = {selectedTask}
+            //  getSingleTask = {getSingleTask}
             />
       ));
 
