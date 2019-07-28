@@ -22,6 +22,7 @@ class SingleTask extends React.Component {
       usersTasks: PropTypes.array,
       deleteUserTask: PropTypes.func,
       eventId: PropTypes.number,
+      deleteTask: PropTypes.func,
     }
 
     signupEvent = () => {
@@ -57,6 +58,13 @@ class SingleTask extends React.Component {
       const userTaskId = singleUserTask[0].id;
       deleteUserTask(userTaskId);
       updateTaskSignUpUponDelete(taskId, task);
+    }
+
+    deleteSingleTask = () => {
+      // e.preventDefault();
+      const { task, deleteTask } = this.props;
+      const taskId = task.id;
+      deleteTask(taskId);
     }
 
     componentDidMount() {
@@ -106,7 +114,7 @@ class SingleTask extends React.Component {
           return (
           <td className="buttons">
             <button className="bttn-pill bttn-warning" id={task.id} onClick={this.toggleTaskModal}><i className="far fa-edit fa-1x"/></button>
-            <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
+            <button className="bttn-pill bttn-danger ml-2" onClick = {this.deleteSingleTask}><i className="fas fa-trash fa-1x"></i></button>
             <TaskFormModal
             taskModal = {taskModal}
             isEditing = {isEditing}

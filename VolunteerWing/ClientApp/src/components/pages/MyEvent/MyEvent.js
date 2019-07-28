@@ -79,6 +79,13 @@ class MyEvent extends React.Component {
       this.props.history.push(`/createdEvent/${eventId}`);
     }
 
+    deleteTask = (taskId) => {
+      taskRequests.deleteTask(taskId)
+        .then(() => {
+          this.getAllTasks();
+        });
+    }
+
     render() {
       const singleEvent = { ...this.state.singleEvent };
       const {
@@ -112,6 +119,7 @@ class MyEvent extends React.Component {
                   currentUser = {currentUser}
                   isCreating = {isCreating}
                   eventId = {eventId}
+                  deleteTask = {this.deleteTask}
                 />
             </div>
           );

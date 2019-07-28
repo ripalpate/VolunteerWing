@@ -27,6 +27,7 @@ class Tasks extends React.Component {
         usersTasks,
         updateTaskSignUpUponDelete,
         eventId,
+        deleteTask,
       } = this.props;
 
       const singleTaskComponent = tasks.map(task => (
@@ -41,6 +42,7 @@ class Tasks extends React.Component {
              usersTasks = {usersTasks}
              updateTaskSignUpUponDelete = {updateTaskSignUpUponDelete}
              eventId = {eventId}
+             deleteTask = {deleteTask}
             />
       ));
 
