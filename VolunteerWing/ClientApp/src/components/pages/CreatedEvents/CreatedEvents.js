@@ -32,7 +32,6 @@ class CreatedEvents extends React.Component {
   deleteUserTask= (userTaskId) => {
     userTaskRequests.deleteUserTask(userTaskId)
       .then(() => {
-        // this.getAllTasks();
       });
   }
 

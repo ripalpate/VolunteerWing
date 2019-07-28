@@ -34,14 +34,12 @@ class Tasks extends React.Component {
              task = {task}
              key = {task.id}
              isCreating = {isCreating}
-             isEditing = {isEditing}
              createUserTask = {createUserTask}
              currentUser = {currentUser}
              updateTaskSignUp = {updateTaskSignUp}
              deleteUserTask = {deleteUserTask}
              usersTasks = {usersTasks}
              updateTaskSignUpUponDelete = {updateTaskSignUpUponDelete}
-             toggleTaskModal = {toggleTaskModal}
             />
       ));
 

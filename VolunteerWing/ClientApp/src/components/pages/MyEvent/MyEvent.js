@@ -18,6 +18,7 @@ class MyEvent extends React.Component {
       invitationModal: false,
       isCreating: true,
       isEditing: false,
+      singleTask: {},
     }
 
     static propTypes = {
@@ -42,8 +43,8 @@ class MyEvent extends React.Component {
     }
 
     toggleTaskModal = () => {
-      const { taskModal, isEditing } = this.state;
-      this.setState({ taskModal: !taskModal, isEditing: !isEditing });
+      const { taskModal } = this.state;
+      this.setState({ taskModal: !taskModal });
     }
 
     componentDidMount() {
@@ -79,7 +80,12 @@ class MyEvent extends React.Component {
 
     render() {
       const singleEvent = { ...this.state.singleEvent };
-      const { taskModal, invitationModal, isCreating, isEditing } = this.state;
+      const {
+        taskModal,
+        invitationModal,
+        isCreating,
+        isEditing,
+      } = this.state;
       const tasks = [...this.state.tasks];
       const { currentUser } = this.props;
 
@@ -103,8 +109,8 @@ class MyEvent extends React.Component {
                   tasks = {tasks}
                   currentUser = {currentUser}
                   isCreating = {isCreating}
-                  isEditing = {isEditing}
-                  toggleTaskModal = {this.toggleTaskModal}
+                  // isEditing = {isEditing}
+                  // toggleTaskModal = {this.toggleTaskModal}
                 />
             </div>
           );

@@ -9,6 +9,8 @@ class SingleTask extends React.Component {
   state = {
     isSignup: false,
     isDeleted: false,
+    isEditing: false,
+    taskModal: false,
   }
 
     static propTypes = {
@@ -17,7 +19,8 @@ class SingleTask extends React.Component {
       currentUser: PropTypes.object,
       updateTaskSignup: PropTypes.func,
       isCreating: PropTypes.bool,
-      userTask: PropTypes.array,
+      usersTasks: PropTypes.array,
+      deleteUserTask: PropTypes.func,
     }
 
     signupEvent = () => {
@@ -78,20 +81,19 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
-    // editEvent = () => {
-    //   const { toggleTaskModal } = this.props;
-    //   // this.setState({ isEditing: !isEditing });
-   
-    //   toggleTaskModal();
-    // }
-    toggleTaskModalForEdit =() => {
-      const { toggleTaskModal } = this.props;
-      toggleTaskModal();
+    toggleTaskModal =(e) => {
+      const { isEditing, taskModal } = this.state;
+      if (isEditing) {
+        this.setState({ taskModal: !taskModal, isEditing: false });
+      }
+      this.setState({ taskModal: !taskModal, isEditing: true });
     }
 
     render() {
-      const { task, isCreating, isEditing, toggleTaskModal } = this.props;
+      const { task, isCreating } = this.props;
+      const { isEditing, taskModal } = this.state;
       const { isSignup, isDeleted } = this.state;
+
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
           return (
@@ -102,8 +104,15 @@ class SingleTask extends React.Component {
         } if (isCreating === true) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-warning" onClick={this.toggleTaskModalForEdit}><i className="far fa-edit fa-1x"/></button>
+            <button className="bttn-pill bttn-warning" id={task.id} onClick={this.toggleTaskModal}><i className="far fa-edit fa-1x"/></button>
             <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
+            <TaskFormModal
+            taskModal = {taskModal}
+            isEditing = {isEditing}
+            task = {task}
+            toggleTaskModal = {this.toggleTaskModal}
+            id = {task.id}
+            />
           </td>
           );
         } if (isCreating === false && task.numberOfPeopleNeed === task.numberOfPeopleSignUp && isSignup === false && isDeleted === false) {
@@ -134,11 +143,12 @@ class SingleTask extends React.Component {
             <td>{task.numberOfPeopleNeed}</td>
             <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} slots filled</td>
             {makeButtons()}
-            <TaskFormModal
+            {/* <TaskFormModal
             toggleTaskModal = {toggleTaskModal}
             isEditing = {isEditing}
-            task = {task}
-            />
+            selectedTask = {selectedTask}
+            id = {task.id}
+            /> */}
         </tr>
       );
     }

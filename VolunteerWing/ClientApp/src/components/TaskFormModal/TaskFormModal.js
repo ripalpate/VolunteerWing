@@ -25,6 +25,7 @@ class TaskFormModal extends React.Component {
       taskModal: PropTypes.bool,
       eventId: PropTypes.number,
       isEditing: PropTypes.bool,
+      task: PropTypes.object,
     }
 
     toggleEvent = () => {
