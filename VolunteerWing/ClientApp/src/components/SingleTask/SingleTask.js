@@ -21,6 +21,7 @@ class SingleTask extends React.Component {
       isCreating: PropTypes.bool,
       usersTasks: PropTypes.array,
       deleteUserTask: PropTypes.func,
+      eventId: PropTypes.number,
     }
 
     signupEvent = () => {
@@ -90,7 +91,7 @@ class SingleTask extends React.Component {
     }
 
     render() {
-      const { task, isCreating } = this.props;
+      const { task, isCreating, eventId } = this.props;
       const { isEditing, taskModal } = this.state;
       const { isSignup, isDeleted } = this.state;
 
@@ -111,7 +112,7 @@ class SingleTask extends React.Component {
             isEditing = {isEditing}
             task = {task}
             toggleTaskModal = {this.toggleTaskModal}
-            id = {task.id}
+            eventId = {eventId}
             />
           </td>
           );

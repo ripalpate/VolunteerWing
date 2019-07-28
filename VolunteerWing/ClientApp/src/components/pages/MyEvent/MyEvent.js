@@ -19,6 +19,7 @@ class MyEvent extends React.Component {
       isCreating: true,
       isEditing: false,
       singleTask: {},
+      eventId: 0,
     }
 
     static propTypes = {
@@ -26,10 +27,10 @@ class MyEvent extends React.Component {
     }
 
     getsingleEvent = () => {
-      const eventId = this.props.match.params.id;
+      const eventId = this.props.match.params.id * 1;
       volunteerEventRequests.getSingleEvent(eventId)
         .then((singleEvent) => {
-          this.setState({ singleEvent });
+          this.setState({ singleEvent, eventId });
         }).catch(err => console.error(err));
     }
 
@@ -85,6 +86,7 @@ class MyEvent extends React.Component {
         invitationModal,
         isCreating,
         isEditing,
+        eventId,
       } = this.state;
       const tasks = [...this.state.tasks];
       const { currentUser } = this.props;
@@ -109,8 +111,7 @@ class MyEvent extends React.Component {
                   tasks = {tasks}
                   currentUser = {currentUser}
                   isCreating = {isCreating}
-                  // isEditing = {isEditing}
-                  // toggleTaskModal = {this.toggleTaskModal}
+                  eventId = {eventId}
                 />
             </div>
           );

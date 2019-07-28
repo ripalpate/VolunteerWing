@@ -13,6 +13,7 @@ class Tasks extends React.Component {
       isCreating: PropTypes.bool,
       deleteUserTask: PropTypes.func,
       isEditing: PropTypes.bool,
+      eventId: PropTypes.number,
     }
 
     render() {
@@ -25,8 +26,7 @@ class Tasks extends React.Component {
         deleteUserTask,
         usersTasks,
         updateTaskSignUpUponDelete,
-        isEditing,
-        toggleTaskModal,
+        eventId,
       } = this.props;
 
       const singleTaskComponent = tasks.map(task => (
@@ -40,6 +40,7 @@ class Tasks extends React.Component {
              deleteUserTask = {deleteUserTask}
              usersTasks = {usersTasks}
              updateTaskSignUpUponDelete = {updateTaskSignUpUponDelete}
+             eventId = {eventId}
             />
       ));
 
