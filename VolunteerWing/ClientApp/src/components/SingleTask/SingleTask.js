@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import userTaskRequests from '../../helpers/data/userTaskRequests';
 import taskShape from '../../helpers/propz/taskShape';
 import './SingleTask.scss';
+import TaskFormModal from '../TaskFormModal/TaskFormModal';
 
 class SingleTask extends React.Component {
   state = {
@@ -77,14 +78,19 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
-    editEvent = () => {
+    // editEvent = () => {
+    //   const { toggleTaskModal } = this.props;
+    //   // this.setState({ isEditing: !isEditing });
+   
+    //   toggleTaskModal();
+    // }
+    toggleTaskModalForEdit =() => {
       const { toggleTaskModal } = this.props;
-      // this.setState({ isEditing: !isEditing });
       toggleTaskModal();
     }
 
     render() {
-      const { task, isCreating } = this.props;
+      const { task, isCreating, isEditing, toggleTaskModal } = this.props;
       const { isSignup, isDeleted } = this.state;
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
@@ -96,7 +102,7 @@ class SingleTask extends React.Component {
         } if (isCreating === true) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-warning" onClick={this.editEvent}><i className="far fa-edit fa-1x"/></button>
+            <button className="bttn-pill bttn-warning" onClick={this.toggleTaskModalForEdit}><i className="far fa-edit fa-1x"/></button>
             <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
           </td>
           );
@@ -128,6 +134,11 @@ class SingleTask extends React.Component {
             <td>{task.numberOfPeopleNeed}</td>
             <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} slots filled</td>
             {makeButtons()}
+            <TaskFormModal
+            toggleTaskModal = {toggleTaskModal}
+            isEditing = {isEditing}
+            task = {task}
+            />
         </tr>
       );
     }

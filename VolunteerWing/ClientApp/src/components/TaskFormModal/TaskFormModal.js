@@ -70,13 +70,12 @@ class TaskFormModal extends React.Component {
       }
     }
 
-    // componentWillReceiveProps(props) {
-    //   const { isEditing } = props;
-    //   // console.log(this.props.task);
-    //   if (isEditing) {
-    //     this.setState({ newTask:});
-    //   }
-    // }
+    componentWillReceiveProps(props) {
+      const { isEditing, task } = props;
+      if (isEditing) {
+        this.setState({ newTask: task });
+      }
+    }
 
     render() {
       const { taskModal } = this.props;
