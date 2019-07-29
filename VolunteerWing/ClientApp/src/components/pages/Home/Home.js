@@ -39,8 +39,6 @@ class Home extends React.Component {
     this.props.history.push('/addEditEvent');
   }
 
-  // passEventToEdit = eventId => this.setState({ isEditingEvent: true, editEventId: eventId });
-
   render() {
     const { currentUser, passEventToEdit } = this.props;
     const { createdEventsModal, viewSignupModal } = this.state;
@@ -92,8 +90,6 @@ class Home extends React.Component {
         eventDetailView = {this.eventDetailView}
         routeToAddEditEvent = {this.routeToAddEditEvent}
         passEventToEdit = {passEventToEdit}
-        // editEventId = {editEventId}
-        // isEditingEvent = {isEditingEvent}
         />
         <SignupModal
         viewSignupModal = {viewSignupModal}

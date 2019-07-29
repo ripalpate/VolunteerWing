@@ -13,7 +13,7 @@ class SingleTask extends React.Component {
     isEditing: false,
     taskModal: false,
     // selectedTask: {},
-    editId: -1,
+    // editId: -1,
   }
 
     static propTypes = {
@@ -26,6 +26,7 @@ class SingleTask extends React.Component {
       deleteUserTask: PropTypes.func,
       eventId: PropTypes.number,
       deleteTask: PropTypes.func,
+      selectedTask: PropTypes.object,
     }
 
     signupEvent = () => {
@@ -103,7 +104,7 @@ class SingleTask extends React.Component {
 
     toggleTaskModal =(e) => {
       const { isEditing, taskModal } = this.state;
-      // const { getSingleTask } = this.props;
+      const { getSingleTask } = this.props;
       const task = { ...this.props.task };
       const taskId = task.id * 1;
       if (isEditing) {
@@ -111,13 +112,13 @@ class SingleTask extends React.Component {
       }
       this.setState({ taskModal: !taskModal, isEditing: true });
       this.setState({ editId: taskId });
-      // getSingleTask(taskId);
+      getSingleTask(taskId);
       // this.setState({ selectedTask: task });
     }
 
     render() {
       const { task, isCreating, eventId } = this.props;
-      const { isEditing, taskModal, editId } = this.state;
+      const { isEditing, taskModal } = this.state;
       const { isSignup, isDeleted } = this.state;
       const { selectedTask } = this.props;
 
@@ -139,7 +140,7 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
-            editId = {editId}
+            // editId = {editId}
             />
           </td>
           );

@@ -26,12 +26,12 @@ class MyEvent extends React.Component {
       currentUser: PropTypes.object,
     }
 
-    // getSingleTask = (taskId) => {
-    //   taskRequests.getSingleTask(taskId)
-    //     .then((singleTask) => {
-    //       this.setState({ selectedTask: singleTask });
-    //     });
-    // }
+    getSingleTask = (taskId) => {
+      taskRequests.getSingleTask(taskId)
+        .then((singleTask) => {
+          this.setState({ selectedTask: singleTask });
+        });
+    }
 
     getsingleEvent = () => {
       const eventId = this.props.match.params.id * 1;
@@ -128,7 +128,7 @@ class MyEvent extends React.Component {
                   isCreating = {isCreating}
                   eventId = {eventId}
                   deleteTask = {this.deleteTask}
-                  // getSingleTask = {this.getSingleTask}
+                  getSingleTask = {this.getSingleTask}
                   selectedTask = {selectedTask}
                 />
             </div>
