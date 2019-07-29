@@ -46,14 +46,14 @@ namespace VolunteerWing.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateVolunteerEvent(int id, VolunteerEvent volunteerEventToUpdate)
+        public ActionResult UpdateVolunteerEvent(int id, CreateVolunteerEventRequest updateRequest)
         {
-            if (id != volunteerEventToUpdate.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != volunteerEventToUpdate.Id)
+            //{
+            //    return BadRequest();
+            //}
 
-            var updateEvent = _repository.UpdateVolunteerEvent(volunteerEventToUpdate);
+            var updateEvent = _repository.UpdateVolunteerEvent(id, updateRequest.EventName, updateRequest.Description, updateRequest.Location, updateRequest.StartDate, updateRequest.StartTime, updateRequest.EndTime, updateRequest.AdminId);
             return Ok(updateEvent);
         }
 
