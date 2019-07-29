@@ -86,7 +86,7 @@ class AddEditEvent extends React.Component {
    } else if (isEditingEvent === true) {
      volunteerEventRequests.updateEvent(myEvent.id, myEvent)
        .then(() => {
-        //  changeIsEditingEventState();
+         changeIsEditingEventState();
          this.props.history.push(`/myEvent/${myEvent.id}`);
        });
    }

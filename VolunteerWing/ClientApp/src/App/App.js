@@ -43,7 +43,7 @@ class App extends React.Component {
 
   passEventToEdit = eventId => this.setState({ isEditingEvent: true, editEventId: eventId });
 
-  // changeIsEditingEventState = () => this.setState({ isEditingEvent: false, editEventId: 0 });
+  changeIsEditingEventState = () => this.setState({ isEditingEvent: false, editEventId: 0 });
 
   getUser = () => {
     const uid = authRequests.getCurrentUid();
