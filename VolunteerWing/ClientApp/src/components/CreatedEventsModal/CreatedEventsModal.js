@@ -45,8 +45,9 @@ class CreatedEventsModal extends React.Component {
       }
     }
 
+
     render() {
-      const { createdEventsModal, eventDetailView } = this.props;
+      const { createdEventsModal, eventDetailView, routeToAddEditEvent, passEventToEdit } = this.props;
       const { events } = this.state;
 
       const singleEventComponent = events.map(event => (
@@ -54,6 +55,8 @@ class CreatedEventsModal extends React.Component {
          event = {event}
          key = {event.id}
          eventDetailView = {eventDetailView}
+         routeToAddEditEvent = {routeToAddEditEvent}
+         passEventToEdit = {passEventToEdit }
         />
       ));
 

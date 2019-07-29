@@ -23,8 +23,11 @@ const getAllEvents = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const updateEvent = (eventId, event) => axios.put(`${apiUrl}/${eventId}`, event);
+
 export default {
   createEvent,
   getSingleEvent,
   getAllEvents,
+  updateEvent,
 };
