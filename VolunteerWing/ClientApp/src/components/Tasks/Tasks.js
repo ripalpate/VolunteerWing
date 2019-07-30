@@ -60,6 +60,9 @@ class Tasks extends React.Component {
           <thead>
             <tr>
               <th scope="col">Task</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">End Time</th>
               <th scope="col">Available Slots</th>
               <th scope="col">Filled slots</th>
               <th></th>

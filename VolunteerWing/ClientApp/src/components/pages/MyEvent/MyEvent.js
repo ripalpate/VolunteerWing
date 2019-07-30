@@ -20,6 +20,9 @@ class MyEvent extends React.Component {
       isEditing: false,
       selectedTask: {},
       eventId: 0,
+      // startDate: new Date(),
+      // startTime: new Date(),
+      // endTime: new Date(),
     }
 
     static propTypes = {
@@ -29,7 +32,14 @@ class MyEvent extends React.Component {
     getSingleTask = (taskId) => {
       taskRequests.getSingleTask(taskId)
         .then((singleTask) => {
-          this.setState({ selectedTask: singleTask });
+          const modifySingleTask = Object.assign({}, singleTask, { startDate: new Date(singleTask.startDate), startTime: new Date(singleTask.startTime), endTime: new Date(singleTask.endTime) });
+          // const modifySingleTask = singleTask.map(({ id, taskName, comment,  dueDate }) => ({ category, amount, dueDate: moment(dueDate).format('MMMM YYYY') }));
+          this.setState({
+            selectedTask: modifySingleTask,
+            // startDate: new Date(singleTask.startDate),
+            // startTime: new Date(singleTask.startTime),
+            // endTime: new Date(singleTask.endTime),
+          });
         });
     }
 
@@ -51,8 +61,8 @@ class MyEvent extends React.Component {
     }
 
     toggleTaskModal = () => {
-      const { taskModal } = this.state;
-      this.setState({ taskModal: !taskModal });
+      const { taskModal, singleEvent } = this.state;
+      this.setState({ taskModal: !taskModal, startDate: singleEvent.startDate });
     }
 
     componentDidMount() {
@@ -114,13 +124,14 @@ class MyEvent extends React.Component {
                 <p>Location: {singleEvent.location}</p>
                 <p>Description: {singleEvent.description}</p>
                 <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-                <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+                <p>Start Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
                 <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}>Add Tasks</button>
                 <TaskFormModal
                   taskModal = {taskModal}
                   toggleTaskModal={this.toggleTaskModal}
                   eventId = {this.props.match.params.id * 1}
                   isEditing = {isEditing}
+                  startDate = {new Date(singleEvent.startDate)}
                 />
                 <Tasks
                   tasks = {tasks}

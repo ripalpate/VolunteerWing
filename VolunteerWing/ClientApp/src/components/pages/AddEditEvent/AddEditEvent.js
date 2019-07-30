@@ -108,20 +108,6 @@ class AddEditEvent extends React.Component {
    }
  }
 
- //  componentDidUpdate(prevProps) {
- //    const { isEditingEvent, editEventId } = this.props;
- //    console.log(isEditingEvent);
- //    console.log(editEventId);
- //    if (prevProps !== this.props && isEditingEvent) {
- //      volunteerEventRequests.getSingleEvent(editEventId)
- //        .then((singleEvent) => {
- //          this.setState({ newEvent: singleEvent });
- //          console.log(singleEvent);
- //        })
- //        .catch(err => console.error(err));
- //    }
- //  }
-
  render() {
    const { newEvent } = this.state;
    return (
@@ -173,6 +159,7 @@ class AddEditEvent extends React.Component {
               selectsStart
               selected={this.state.startDate}
               onChange={this.handleStartDateChange}
+              minDate = {new Date()}
             />
           </div>
         </div>
@@ -184,7 +171,7 @@ class AddEditEvent extends React.Component {
               onChange={this.handleStartTimeChange}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={15}
+              timeIntervals={30}
               dateFormat="h:mm aa"
               timeCaption="Time"
             />
@@ -198,7 +185,7 @@ class AddEditEvent extends React.Component {
               onChange={this.handleEndTimeChange}
               showTimeSelect
               showTimeSelectOnly
-              timeIntervals={15}
+              timeIntervals={30}
               dateFormat="h:mm aa"
               timeCaption="Time"
             />
