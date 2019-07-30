@@ -96,7 +96,7 @@ class App extends React.Component {
           <MyNavbar isAuthed={ authed } currentUser={currentUser} logoutClickEvent={logoutClickEvent}/>
           <Switch>
             <PublicRoute path='/auth' component={Auth} authed={ authed }/>
-            <PrivateRoute exact path='/' component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute exact path='/' component={props => <Home {...props} passEventToEdit={this.passEventToEdit} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/register' exact component={props => <Register getUser={this.getUser} isRegistered={isRegistered} {...props} currentUser={currentUser}/>} authed={authed}/>
             <PrivateRoute path='/home' exact component={props => <Home {...props} passEventToEdit={this.passEventToEdit} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser} getUser={this.getUser}/>} authed={authed} />

@@ -93,15 +93,6 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
-    // getSingleTask = () => {
-    //   const taskId = this.props.task.id * 1;
-    //   // this.setState({ taskId });
-    //   taskRequests.getSingleTask(taskId)
-    //   .then((singleTask) => {
-    //     this.setState({ selectedTask: singleTask });
-    //  });
-    // }
-
     toggleTaskModal =(e) => {
       const { isEditing, taskModal } = this.state;
       const { getSingleTask } = this.props;
@@ -113,7 +104,6 @@ class SingleTask extends React.Component {
       this.setState({ taskModal: !taskModal, isEditing: true });
       this.setState({ editId: taskId });
       getSingleTask(taskId);
-      // this.setState({ selectedTask: task });
     }
 
     render() {
@@ -140,7 +130,6 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
-            // editId = {editId}
             />
           </td>
           );
