@@ -26,7 +26,7 @@ namespace VolunteerWing.Controllers
                 return BadRequest(new { error = "please enter all fields" });
             }
 
-            var newTask = _repository.AddTask(createRequest.TaskName, createRequest.Comment, createRequest.NumberOfPeopleNeed, createRequest.NumberOfPeopleSignUp, createRequest.EventId);
+            var newTask = _repository.AddTask(createRequest.TaskName, createRequest.Comment, createRequest.StartDate, createRequest.StartTime, createRequest.EndTime, createRequest.NumberOfPeopleNeed, createRequest.NumberOfPeopleSignUp, createRequest.EventId);
 
             return Created($"api/task/{newTask.Id}", newTask);
         }

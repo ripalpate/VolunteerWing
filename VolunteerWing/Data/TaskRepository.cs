@@ -17,14 +17,18 @@ namespace VolunteerWing.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public Task AddTask(string taskName, string comment, int numberOfPeopleNeed, int numberOfPeopleSignUp, int eventId)
+        public Task AddTask(string taskName, string comment, DateTime start_date, DateTime start_time, DateTime end_time, int numberOfPeopleNeed, int numberOfPeopleSignUp, int eventId)
         {
+            DateTime startTime = start_time.ToLocalTime();
+            DateTime endTime = end_time.ToLocalTime();
+            DateTime startDate = start_date.ToLocalTime();
+
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @"insert into tasks (taskName, comment, numberOfPeopleNeed, numberOfPeopleSignUp, eventId)
+                var sqlQuery = @"insert into tasks (taskName, comment, startDate, startTime, endTime, numberOfPeopleNeed, numberOfPeopleSignUp, eventId)
                                 output inserted.*
-                                values (@taskName, @comment, @numberOfPeopleNeed, @numberOfPeopleSignUp, @eventId)";
-                var parameter = new { taskName, comment, numberOfPeopleNeed, numberOfPeopleSignUp, eventId };
+                                values (@taskName, @comment, @startDate, @startTime, @endTime, @numberOfPeopleNeed, @numberOfPeopleSignUp, @eventId)";
+                var parameter = new { taskName, comment, startDate, startTime, endTime, numberOfPeopleNeed, numberOfPeopleSignUp, eventId };
                 var newTask = db.QueryFirstOrDefault<Task>(sqlQuery, parameter);
 
                 if (newTask != null)

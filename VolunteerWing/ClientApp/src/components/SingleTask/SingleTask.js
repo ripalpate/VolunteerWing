@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import userTaskRequests from '../../helpers/data/userTaskRequests';
-import taskRequests from '../../helpers/data/taskRequests';
+import formateDateTime from '../../helpers/formatDateTime';
 import taskShape from '../../helpers/propz/taskShape';
 import './SingleTask.scss';
 import TaskFormModal from '../TaskFormModal/TaskFormModal';
@@ -160,6 +160,9 @@ class SingleTask extends React.Component {
       return (
         <tr id={task.id}>
             <td>{task.taskName}</td>
+            <td>{formateDateTime.formatMDYDate(task.startDate)}</td>
+            <td>{formateDateTime.formatTime(task.startTime)}</td>
+            <td>{formateDateTime.formatTime(task.endTime)}</td>
             <td>{task.numberOfPeopleNeed}</td>
             <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} slots filled</td>
             {makeButtons()}

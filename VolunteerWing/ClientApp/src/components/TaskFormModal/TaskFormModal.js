@@ -5,7 +5,9 @@ import {
   ModalHeader,
   ModalBody,
 } from 'reactstrap';
+import DatePicker from 'react-datepicker';
 import taskRequests from '../../helpers/data/taskRequests';
+import 'react-datepicker/dist/react-datepicker.css';
 import './TaskFormModal.scss';
 
 const defaultTask = {
@@ -13,11 +15,17 @@ const defaultTask = {
   comment: '',
   numberOfPeopleNeed: 0,
   eventId: 0,
+  startDate: new Date(),
+  startTime: new Date(),
+  endTime: new Date(),
 };
 
 class TaskFormModal extends React.Component {
     state = {
       newTask: defaultTask,
+      startDate: new Date(),
+      startTime: new Date(),
+      endTime: new Date(),
     }
 
     static propTypes = {
@@ -53,6 +61,25 @@ class TaskFormModal extends React.Component {
 
     numberOFPeopleNeedChange = e => this.formFieldNumberState('numberOfPeopleNeed', e);
 
+    handleStartDateChange = (date) => {
+      const { newTask } = this.state;
+      const newDate = new Date(date);
+      this.setState({ startDate: newDate, startTime: newDate, endTime: newDate });
+      newTask.startDate = newDate;
+    }
+  
+   handleStartTimeChange = (time) => {
+     const { newTask } = this.state;
+     this.setState({ startTime: time });
+     newTask.startTime = time;
+   }
+  
+   handleEndTimeChange = (time) => {
+     const { newTask } = this.state;
+     this.setState({ endTime: time });
+     newTask.endTime = time;
+   }
+
     formSubmit = (e) => {
       const { eventId, toggleTaskModal, isEditing } = this.props;
       e.preventDefault();
@@ -66,7 +93,13 @@ class TaskFormModal extends React.Component {
       } else {
         taskRequests.createTask(myTask)
           .then(() => {
-            this.setState({ newTask: defaultTask }, toggleTaskModal());
+            this.setState({
+              newTask: defaultTask,
+              startDate: new Date(),
+              startTime: new Date(),
+              endTime: new Date() },
+
+            toggleTaskModal());
           }).catch(err => console.error(err));
       }
     }
@@ -112,6 +145,44 @@ class TaskFormModal extends React.Component {
                                 onChange= {this.commentChange}
                                 />
                             </div>
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Start Date</label>
+                          <div className="col-sm-10">
+                            <DatePicker
+                              selectsStart
+                              selected={this.state.startDate}
+                              onChange={this.handleStartDateChange}
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Start Time</label>
+                          <div className="col-sm-10">
+                            <DatePicker
+                              selected={this.state.startTime}
+                              onChange={this.handleStartTimeChange}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              timeIntervals={30}
+                              dateFormat="h:mm aa"
+                              timeCaption="Time"
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">End Time</label>
+                          <div className="col-sm-10">
+                            <DatePicker
+                              selected={this.state.endTime}
+                              onChange={this.handleEndTimeChange}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              timeIntervals={30}
+                              dateFormat="h:mm aa"
+                              timeCaption="Time"
+                            />
+                          </div>
                         </div>
                         <div className="form-group row">
                             <label htmlFor="peopleNeed" className="col-sm-2 col-form-label">Number of People Need</label>
