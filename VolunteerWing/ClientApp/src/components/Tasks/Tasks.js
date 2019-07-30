@@ -14,6 +14,11 @@ class Tasks extends React.Component {
       deleteUserTask: PropTypes.func,
       isEditing: PropTypes.bool,
       eventId: PropTypes.number,
+      usersTasks: PropTypes.array,
+      updateTaskSignUpUponDelete: PropTypes.func,
+      deleteTask: PropTypes.func,
+      selectedTask: PropTypes.object,
+      getSingleTask: PropTypes.func,
     }
 
     render() {

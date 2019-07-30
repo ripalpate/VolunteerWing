@@ -25,7 +25,7 @@ class TaskFormModal extends React.Component {
       taskModal: PropTypes.bool,
       eventId: PropTypes.number,
       isEditing: PropTypes.bool,
-      task: PropTypes.object,
+      selectedTask: PropTypes.object,
     }
 
     toggleEvent = () => {
@@ -70,20 +70,6 @@ class TaskFormModal extends React.Component {
           }).catch(err => console.error(err));
       }
     }
-
-    // componentDidUpdate(prevProps) {
-    //   const { isEditing, editId } = this.props;
-    //   if (prevProps !== this.props && isEditing) {
-    //   // if (isEditing) {
-    //     taskRequests.getSingleTask(editId)
-    //       .then((singleTask) => {
-    //         this.setState({ newTask: singleTask });
-    //       })
-    //       .catch(err => console.error(err));
-    //     // this.setState({ newTask: selectedTask });
-    //   }
-    //   // }
-    // }
 
     componentWillReceiveProps(newProps) {
       const { isEditing, selectedTask } = newProps;

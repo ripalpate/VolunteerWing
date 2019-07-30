@@ -27,6 +27,8 @@ class SingleTask extends React.Component {
       eventId: PropTypes.number,
       deleteTask: PropTypes.func,
       selectedTask: PropTypes.object,
+      getSingleTask: PropTypes.func,
+      updateTaskSignUpUponDelete: PropTypes.func,
     }
 
     signupEvent = () => {
@@ -161,12 +163,6 @@ class SingleTask extends React.Component {
             <td>{task.numberOfPeopleNeed}</td>
             <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} slots filled</td>
             {makeButtons()}
-            {/* <TaskFormModal
-            toggleTaskModal = {toggleTaskModal}
-            isEditing = {isEditing}
-            selectedTask = {selectedTask}
-            id = {task.id}
-            /> */}
         </tr>
       );
     }
