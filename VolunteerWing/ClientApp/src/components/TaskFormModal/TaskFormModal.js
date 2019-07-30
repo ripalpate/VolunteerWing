@@ -23,7 +23,7 @@ const defaultTask = {
 class TaskFormModal extends React.Component {
     state = {
       newTask: defaultTask,
-      startDate: new Date(),
+      startDate: this.props.startDate,
       startTime: new Date(),
       endTime: new Date(),
     }
@@ -85,6 +85,9 @@ class TaskFormModal extends React.Component {
       e.preventDefault();
       const myTask = { ...this.state.newTask };
       myTask.eventId = eventId;
+      myTask.startDate = this.state.startDate;
+      myTask.startTime = this.state.startTime;
+      myTask.endTime = this.state.endTime;
       if (isEditing) {
         taskRequests.updateTask(myTask.id, myTask)
           .then(() => {

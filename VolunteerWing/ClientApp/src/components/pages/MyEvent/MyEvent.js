@@ -59,8 +59,8 @@ class MyEvent extends React.Component {
     }
 
     toggleTaskModal = () => {
-      const { taskModal } = this.state;
-      this.setState({ taskModal: !taskModal });
+      const { taskModal, singleEvent } = this.state;
+      this.setState({ taskModal: !taskModal, startDate: singleEvent.startDate });
     }
 
     componentDidMount() {
@@ -132,6 +132,7 @@ class MyEvent extends React.Component {
                   toggleTaskModal={this.toggleTaskModal}
                   eventId = {this.props.match.params.id * 1}
                   isEditing = {isEditing}
+                  startDate = {new Date(singleEvent.startDate)}
                 />
                 <Tasks
                   tasks = {tasks}
