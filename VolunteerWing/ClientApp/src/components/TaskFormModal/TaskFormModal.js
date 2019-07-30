@@ -23,7 +23,7 @@ const defaultTask = {
 class TaskFormModal extends React.Component {
     state = {
       newTask: defaultTask,
-      startDate: this.props.startDate,
+      startDate: new Date(),
       startTime: new Date(),
       endTime: new Date(),
     }

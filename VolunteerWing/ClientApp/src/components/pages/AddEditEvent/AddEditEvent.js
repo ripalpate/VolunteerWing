@@ -159,6 +159,7 @@ class AddEditEvent extends React.Component {
               selectsStart
               selected={this.state.startDate}
               onChange={this.handleStartDateChange}
+              minDate = {new Date()}
             />
           </div>
         </div>
