@@ -23,9 +23,6 @@ const defaultTask = {
 class TaskFormModal extends React.Component {
     state = {
       newTask: defaultTask,
-      // startDate: new Date(),
-      // startTime: new Date(),
-      // endTime: new Date(),
     }
 
     static propTypes = {
@@ -64,19 +61,16 @@ class TaskFormModal extends React.Component {
     handleStartDateChange = (date) => {
       const { newTask } = this.state;
       const newDate = new Date(date);
-      // this.setState({ startDate: newDate, startTime: newDate, endTime: newDate });
       newTask.startDate = newDate;
     }
   
    handleStartTimeChange = (time) => {
      const { newTask } = this.state;
-    //  this.setState({ startTime: time });
      newTask.startTime = time;
    }
   
    handleEndTimeChange = (time) => {
      const { newTask } = this.state;
-    //  this.setState({ endTime: time });
      newTask.endTime = time;
    }
 
@@ -85,9 +79,6 @@ class TaskFormModal extends React.Component {
       e.preventDefault();
       const myTask = { ...this.state.newTask };
       myTask.eventId = eventId;
-      // myTask.startDate = this.state.startDate;
-      // myTask.startTime = this.state.startTime;
-      // myTask.endTime = this.state.endTime;
       if (isEditing) {
         taskRequests.updateTask(myTask.id, myTask)
           .then(() => {
@@ -98,9 +89,6 @@ class TaskFormModal extends React.Component {
           .then(() => {
             this.setState({
               newTask: defaultTask,
-              // startDate: new Date(),
-              // startTime: new Date(),
-              // endTime: new Date() 
             },
 
             toggleTaskModal());

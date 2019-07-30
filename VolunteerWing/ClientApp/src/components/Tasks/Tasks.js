@@ -35,9 +35,6 @@ class Tasks extends React.Component {
         deleteTask,
         selectedTask,
         getSingleTask,
-        // startDate,
-        // startTime,
-        // endTime,
       } = this.props;
 
       const singleTaskComponent = tasks.map(task => (
@@ -55,9 +52,6 @@ class Tasks extends React.Component {
              deleteTask = {deleteTask}
              selectedTask = {selectedTask}
              getSingleTask = {getSingleTask}
-            //  startDate= {startDate}
-            //  startTime = {startTime}
-            //  endTime = {endTime}
             />
       ));
 
@@ -66,6 +60,9 @@ class Tasks extends React.Component {
           <thead>
             <tr>
               <th scope="col">Task</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">End Time</th>
               <th scope="col">Available Slots</th>
               <th scope="col">Filled slots</th>
               <th></th>

@@ -111,9 +111,6 @@ class MyEvent extends React.Component {
         isCreating,
         isEditing,
         eventId,
-        startDate,
-        startTime,
-        endTime,
       } = this.state;
       const tasks = [...this.state.tasks];
       const selectedTask = { ...this.state.selectedTask };
@@ -127,7 +124,7 @@ class MyEvent extends React.Component {
                 <p>Location: {singleEvent.location}</p>
                 <p>Description: {singleEvent.description}</p>
                 <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-                <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+                <p>Start Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
                 <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}>Add Tasks</button>
                 <TaskFormModal
                   taskModal = {taskModal}
@@ -144,9 +141,6 @@ class MyEvent extends React.Component {
                   deleteTask = {this.deleteTask}
                   getSingleTask = {this.getSingleTask}
                   selectedTask = {selectedTask}
-                  // startDate= {startDate}
-                  // startTime = {startTime}
-                  // endTime = {endTime}
                 />
             </div>
           );
