@@ -46,13 +46,9 @@ namespace VolunteerWing.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateTask(int id, Task taskToUpdate)
+        public ActionResult UpdateTask(int id, CreateTaskRequest updateRequest)
         {
-            if (id != taskToUpdate.Id)
-            {
-                return BadRequest();
-            }
-            var updateTask = _repository.UpdateTask(taskToUpdate);
+            var updateTask = _repository.UpdateTask(id, updateRequest.TaskName, updateRequest.Comment, updateRequest.StartDate, updateRequest.StartTime, updateRequest.EndTime, updateRequest.NumberOfPeopleNeed, updateRequest.NumberOfPeopleSignUp, updateRequest.EventId);
             return Ok(updateTask);
         }
 

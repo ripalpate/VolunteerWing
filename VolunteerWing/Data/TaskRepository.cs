@@ -69,8 +69,12 @@ namespace VolunteerWing.Data
                 throw new Exception("Something went wrong. Could not get all tasks");
             }
         }
-        public Task UpdateTask(Task taskToUpdate)
+        public bool UpdateTask(int id, string taskName, string comment, DateTime start_date, DateTime start_time, DateTime end_time, int numberOfPeopleNeed, int numberOfPeopleSignUp, int eventId)
         {
+            DateTime startTime = start_time.ToLocalTime();
+            DateTime endTime = end_time.ToLocalTime();
+            DateTime startDate = start_date.ToLocalTime();
+
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery =
@@ -79,14 +83,17 @@ namespace VolunteerWing.Data
                           comment = @comment,
                           numberOfPeopleNeed = @numberOfPeopleNeed,
 	                      numberOfPeopleSignUp= @numberOfPeopleSignUp,
+                          startDate = @startDate,
+	                      startTime= @startTime,
+	                      endTime= @endTime, 
                           eventId = @eventId
                      Where Id = @id";
-
-                var rowsAffected = db.Execute(sqlQuery, taskToUpdate);
+                var parameters = new { id, taskName, comment, numberOfPeopleNeed, numberOfPeopleSignUp, startDate, startTime, endTime, eventId };
+                var rowsAffected = db.Execute(sqlQuery, parameters);
 
                 if (rowsAffected == 1)
                 {
-                    return taskToUpdate;
+                    return true;
                 }
                 throw new Exception("Could not update task");
             }

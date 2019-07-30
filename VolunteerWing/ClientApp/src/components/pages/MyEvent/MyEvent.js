@@ -20,6 +20,9 @@ class MyEvent extends React.Component {
       isEditing: false,
       selectedTask: {},
       eventId: 0,
+      startDate: new Date(),
+      startTime: new Date(),
+      endTime: new Date(),
     }
 
     static propTypes = {
@@ -29,7 +32,12 @@ class MyEvent extends React.Component {
     getSingleTask = (taskId) => {
       taskRequests.getSingleTask(taskId)
         .then((singleTask) => {
-          this.setState({ selectedTask: singleTask });
+          this.setState({
+            selectedTask: singleTask,
+            startDate: new Date(singleTask.startDate),
+            startTime: new Date(singleTask.startTime),
+            endTime: new Date(singleTask.endTime),
+          });
         });
     }
 
@@ -101,6 +109,9 @@ class MyEvent extends React.Component {
         isCreating,
         isEditing,
         eventId,
+        startDate,
+        startTime,
+        endTime,
       } = this.state;
       const tasks = [...this.state.tasks];
       const selectedTask = { ...this.state.selectedTask };
@@ -130,6 +141,9 @@ class MyEvent extends React.Component {
                   deleteTask = {this.deleteTask}
                   getSingleTask = {this.getSingleTask}
                   selectedTask = {selectedTask}
+                  startDate= {startDate}
+                  startTime = {startTime}
+                  endTime = {endTime}
                 />
             </div>
           );

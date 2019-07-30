@@ -112,7 +112,12 @@ class SingleTask extends React.Component {
       const { task, isCreating, eventId } = this.props;
       const { isEditing, taskModal } = this.state;
       const { isSignup, isDeleted } = this.state;
-      const { selectedTask } = this.props;
+      const {
+        selectedTask,
+        startDate,
+        startTime,
+        endTime,
+      } = this.props;
 
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
@@ -132,6 +137,9 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
+            startDate= {startDate}
+            startTime = {startTime}
+            endTime = {endTime}
             />
           </td>
           );
