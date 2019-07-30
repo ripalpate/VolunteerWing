@@ -23,9 +23,9 @@ const defaultTask = {
 class TaskFormModal extends React.Component {
     state = {
       newTask: defaultTask,
-      startDate: new Date(),
-      startTime: new Date(),
-      endTime: new Date(),
+      // startDate: new Date(),
+      // startTime: new Date(),
+      // endTime: new Date(),
     }
 
     static propTypes = {
@@ -64,19 +64,19 @@ class TaskFormModal extends React.Component {
     handleStartDateChange = (date) => {
       const { newTask } = this.state;
       const newDate = new Date(date);
-      this.setState({ startDate: newDate, startTime: newDate, endTime: newDate });
+      // this.setState({ startDate: newDate, startTime: newDate, endTime: newDate });
       newTask.startDate = newDate;
     }
   
    handleStartTimeChange = (time) => {
      const { newTask } = this.state;
-     this.setState({ startTime: time });
+    //  this.setState({ startTime: time });
      newTask.startTime = time;
    }
   
    handleEndTimeChange = (time) => {
      const { newTask } = this.state;
-     this.setState({ endTime: time });
+    //  this.setState({ endTime: time });
      newTask.endTime = time;
    }
 
@@ -85,9 +85,9 @@ class TaskFormModal extends React.Component {
       e.preventDefault();
       const myTask = { ...this.state.newTask };
       myTask.eventId = eventId;
-      myTask.startDate = this.state.startDate;
-      myTask.startTime = this.state.startTime;
-      myTask.endTime = this.state.endTime;
+      // myTask.startDate = this.state.startDate;
+      // myTask.startTime = this.state.startTime;
+      // myTask.endTime = this.state.endTime;
       if (isEditing) {
         taskRequests.updateTask(myTask.id, myTask)
           .then(() => {
@@ -98,9 +98,10 @@ class TaskFormModal extends React.Component {
           .then(() => {
             this.setState({
               newTask: defaultTask,
-              startDate: new Date(),
-              startTime: new Date(),
-              endTime: new Date() },
+              // startDate: new Date(),
+              // startTime: new Date(),
+              // endTime: new Date() 
+            },
 
             toggleTaskModal());
           }).catch(err => console.error(err));
@@ -108,9 +109,9 @@ class TaskFormModal extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-      const { isEditing, selectedTask, startDate, startTime, endTime } = newProps;
+      const { isEditing, selectedTask } = newProps;
       if (isEditing && this.props.selectedTask.id !== selectedTask.id) {
-        this.setState({ newTask: selectedTask, startDate, startTime, endTime });
+        this.setState({ newTask: selectedTask });
       }
     }
 
@@ -154,7 +155,7 @@ class TaskFormModal extends React.Component {
                           <div className="col-sm-10">
                             <DatePicker
                               selectsStart
-                              selected={this.state.startDate}
+                              selected={newTask.startDate}
                               onChange={this.handleStartDateChange}
                             />
                           </div>
@@ -163,7 +164,7 @@ class TaskFormModal extends React.Component {
                           <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Start Time</label>
                           <div className="col-sm-10">
                             <DatePicker
-                              selected={this.state.startTime}
+                              selected={newTask.startTime}
                               onChange={this.handleStartTimeChange}
                               showTimeSelect
                               showTimeSelectOnly
@@ -177,7 +178,7 @@ class TaskFormModal extends React.Component {
                           <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">End Time</label>
                           <div className="col-sm-10">
                             <DatePicker
-                              selected={this.state.endTime}
+                              selected={newTask.endTime}
                               onChange={this.handleEndTimeChange}
                               showTimeSelect
                               showTimeSelectOnly

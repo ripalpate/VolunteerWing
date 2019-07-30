@@ -114,9 +114,9 @@ class SingleTask extends React.Component {
       const { isSignup, isDeleted } = this.state;
       const {
         selectedTask,
-        startDate,
-        startTime,
-        endTime,
+        // startDate,
+        // startTime,
+        // endTime,
       } = this.props;
 
       const makeButtons = () => {
@@ -137,9 +137,9 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
-            startDate= {startDate}
-            startTime = {startTime}
-            endTime = {endTime}
+            // startDate= {startDate}
+            // startTime = {startTime}
+            // endTime = {endTime}
             />
           </td>
           );

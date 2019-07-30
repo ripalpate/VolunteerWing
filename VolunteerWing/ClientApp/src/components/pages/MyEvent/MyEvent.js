@@ -20,9 +20,9 @@ class MyEvent extends React.Component {
       isEditing: false,
       selectedTask: {},
       eventId: 0,
-      startDate: new Date(),
-      startTime: new Date(),
-      endTime: new Date(),
+      // startDate: new Date(),
+      // startTime: new Date(),
+      // endTime: new Date(),
     }
 
     static propTypes = {
@@ -32,11 +32,13 @@ class MyEvent extends React.Component {
     getSingleTask = (taskId) => {
       taskRequests.getSingleTask(taskId)
         .then((singleTask) => {
+          const modifySingleTask = Object.assign({}, singleTask, { startDate: new Date(singleTask.startDate), startTime: new Date(singleTask.startTime), endTime: new Date(singleTask.endTime) });
+          // const modifySingleTask = singleTask.map(({ id, taskName, comment,  dueDate }) => ({ category, amount, dueDate: moment(dueDate).format('MMMM YYYY') }));
           this.setState({
-            selectedTask: singleTask,
-            startDate: new Date(singleTask.startDate),
-            startTime: new Date(singleTask.startTime),
-            endTime: new Date(singleTask.endTime),
+            selectedTask: modifySingleTask,
+            // startDate: new Date(singleTask.startDate),
+            // startTime: new Date(singleTask.startTime),
+            // endTime: new Date(singleTask.endTime),
           });
         });
     }
@@ -142,9 +144,9 @@ class MyEvent extends React.Component {
                   deleteTask = {this.deleteTask}
                   getSingleTask = {this.getSingleTask}
                   selectedTask = {selectedTask}
-                  startDate= {startDate}
-                  startTime = {startTime}
-                  endTime = {endTime}
+                  // startDate= {startDate}
+                  // startTime = {startTime}
+                  // endTime = {endTime}
                 />
             </div>
           );
