@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import userTaskRequests from '../../helpers/data/userTaskRequests';
+import taskRequests from '../../helpers/data/taskRequests';
 import taskShape from '../../helpers/propz/taskShape';
 import './SingleTask.scss';
+import TaskFormModal from '../TaskFormModal/TaskFormModal';
 
 class SingleTask extends React.Component {
   state = {
     isSignup: false,
     isDeleted: false,
+    isEditing: false,
+    taskModal: false,
+    // selectedTask: {},
+    // editId: -1,
   }
 
     static propTypes = {
@@ -16,7 +22,13 @@ class SingleTask extends React.Component {
       currentUser: PropTypes.object,
       updateTaskSignup: PropTypes.func,
       isCreating: PropTypes.bool,
-      userTask: PropTypes.array,
+      usersTasks: PropTypes.array,
+      deleteUserTask: PropTypes.func,
+      eventId: PropTypes.number,
+      deleteTask: PropTypes.func,
+      selectedTask: PropTypes.object,
+      getSingleTask: PropTypes.func,
+      updateTaskSignUpUponDelete: PropTypes.func,
     }
 
     signupEvent = () => {
@@ -54,6 +66,12 @@ class SingleTask extends React.Component {
       updateTaskSignUpUponDelete(taskId, task);
     }
 
+    deleteSingleTask = () => {
+      const { task, deleteTask } = this.props;
+      const taskId = task.id;
+      deleteTask(taskId);
+    }
+
     componentDidMount() {
       this.checkExistingUserInTask();
     }
@@ -77,9 +95,25 @@ class SingleTask extends React.Component {
       this.setState({ isDeleted: !isDeleted });
     }
 
+    toggleTaskModal =(e) => {
+      const { isEditing, taskModal } = this.state;
+      const { getSingleTask } = this.props;
+      const task = { ...this.props.task };
+      const taskId = task.id * 1;
+      if (isEditing) {
+        this.setState({ taskModal: !taskModal, isEditing: false });
+      }
+      this.setState({ taskModal: !taskModal, isEditing: true });
+      this.setState({ editId: taskId });
+      getSingleTask(taskId);
+    }
+
     render() {
-      const { task, isCreating } = this.props;
+      const { task, isCreating, eventId } = this.props;
+      const { isEditing, taskModal } = this.state;
       const { isSignup, isDeleted } = this.state;
+      const { selectedTask } = this.props;
+
       const makeButtons = () => {
         if (isCreating === false && task.numberOfPeopleNeed !== task.numberOfPeopleSignUp && isSignup === false) {
           return (
@@ -90,8 +124,15 @@ class SingleTask extends React.Component {
         } if (isCreating === true) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-warning"><i className="far fa-edit fa-1x"/></button>
-            <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
+            <button className="bttn-pill bttn-warning" id={task.id} onClick={this.toggleTaskModal}><i className="far fa-edit fa-1x"/></button>
+            <button className="bttn-pill bttn-danger ml-2" onClick = {this.deleteSingleTask}><i className="fas fa-trash fa-1x"></i></button>
+            <TaskFormModal
+            taskModal = {taskModal}
+            isEditing = {isEditing}
+            selectedTask = {selectedTask}
+            toggleTaskModal = {this.toggleTaskModal}
+            eventId = {eventId}
+            />
           </td>
           );
         } if (isCreating === false && task.numberOfPeopleNeed === task.numberOfPeopleSignUp && isSignup === false && isDeleted === false) {

@@ -21,6 +21,7 @@ class SignupModal extends React.Component {
 
   state = {
     events: [],
+    isSignupView: true,
   }
 
   getEventsThatUserSignup = () => {
@@ -61,13 +62,14 @@ class SignupModal extends React.Component {
 
   render() {
     const { viewSignupModal, eventDetailView } = this.props;
-    const { events } = this.state;
+    const { events, isSignupView } = this.state;
 
     const singleEventComponent = events.map(event => (
       <SingleCreatedEvent
        event = {event}
        key = {event.userTaskid}
        eventDetailView = {eventDetailView}
+       isSignupView = {isSignupView}
       />
     ));
     return (

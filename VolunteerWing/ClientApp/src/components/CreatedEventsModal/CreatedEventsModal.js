@@ -14,6 +14,7 @@ class CreatedEventsModal extends React.Component {
 
     state = {
       events: [],
+      isSignupView: false,
     }
 
     static propTypes = {
@@ -45,15 +46,26 @@ class CreatedEventsModal extends React.Component {
       }
     }
 
+
     render() {
-      const { createdEventsModal, eventDetailView } = this.props;
-      const { events } = this.state;
+      const {
+        createdEventsModal,
+        eventDetailView,
+        routeToAddEditEvent,
+        passEventToEdit,
+        currentUser,
+      } = this.props;
+      const { events, isSignupView } = this.state;
 
       const singleEventComponent = events.map(event => (
         <SingleCreatedEvent
          event = {event}
          key = {event.id}
          eventDetailView = {eventDetailView}
+         routeToAddEditEvent = {routeToAddEditEvent}
+         passEventToEdit = {passEventToEdit }
+         currentUser = {currentUser}
+         isSignupView = {isSignupView}
         />
       ));
 

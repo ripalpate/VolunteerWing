@@ -10,6 +10,9 @@ const defaultEvent = {
   location: '',
   description: '',
   adminId: 0,
+  startDate: new Date(),
+  startTime: new Date(),
+  endTime: new Date(),
 };
 
 class AddEditEvent extends React.Component {
@@ -38,16 +41,22 @@ class AddEditEvent extends React.Component {
   descriptionChange = e => this.formFieldStringState('description', e);
 
   handleStartDateChange = (date) => {
+    const { newEvent } = this.state;
     const newDate = new Date(date);
     this.setState({ startDate: newDate, startTime: newDate, endTime: newDate });
+    newEvent.startDate = newDate;
   }
 
  handleStartTimeChange = (time) => {
+   const { newEvent } = this.state;
    this.setState({ startTime: time });
+   newEvent.startTime = time;
  }
 
  handleEndTimeChange = (time) => {
+   const { newEvent } = this.state;
    this.setState({ endTime: time });
+   newEvent.endTime = time;
  }
 
  createEvent = (myEvent) => {
@@ -64,6 +73,7 @@ class AddEditEvent extends React.Component {
  }
 
  formSubmit = (e) => {
+   const { isEditingEvent, changeIsEditingEventState } = this.props;
    const currentUser = { ...this.props.currentUser };
    e.preventDefault();
    const myEvent = { ...this.state.newEvent };
@@ -71,8 +81,46 @@ class AddEditEvent extends React.Component {
    myEvent.startTime = this.state.startTime;
    myEvent.endTime = this.state.endTime;
    myEvent.adminId = currentUser.id;
-   this.createEvent(myEvent);
+   if (isEditingEvent === false) {
+     this.createEvent(myEvent);
+   } else if (isEditingEvent === true) {
+     volunteerEventRequests.updateEvent(myEvent.id, myEvent)
+       .then(() => {
+         changeIsEditingEventState();
+         this.props.history.push(`/myEvent/${myEvent.id}`);
+       });
+   }
  }
+
+ componentDidMount() {
+   const { isEditingEvent, editEventId } = this.props;
+   if (isEditingEvent) {
+     volunteerEventRequests.getSingleEvent(editEventId)
+       .then((singleEvent) => {
+         this.setState({
+           newEvent: singleEvent,
+           startDate: new Date(singleEvent.startDate),
+           startTime: new Date(singleEvent.startTime),
+           endTime: new Date(singleEvent.endTime),
+         });
+       })
+       .catch(err => console.error(err));
+   }
+ }
+
+ //  componentDidUpdate(prevProps) {
+ //    const { isEditingEvent, editEventId } = this.props;
+ //    console.log(isEditingEvent);
+ //    console.log(editEventId);
+ //    if (prevProps !== this.props && isEditingEvent) {
+ //      volunteerEventRequests.getSingleEvent(editEventId)
+ //        .then((singleEvent) => {
+ //          this.setState({ newEvent: singleEvent });
+ //          console.log(singleEvent);
+ //        })
+ //        .catch(err => console.error(err));
+ //    }
+ //  }
 
  render() {
    const { newEvent } = this.state;

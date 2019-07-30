@@ -8,6 +8,8 @@ class Home extends React.Component {
   state = {
     createdEventsModal: false,
     viewSignupModal: false,
+    // editEventId: 0,
+    // isEditingEvent: false,
   }
 
   static = {
@@ -33,8 +35,12 @@ class Home extends React.Component {
     this.props.history.push(`/createdEvent/${eventId}`);
   }
 
+  routeToAddEditEvent = () => {
+    this.props.history.push('/addEditEvent');
+  }
+
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, passEventToEdit } = this.props;
     const { createdEventsModal, viewSignupModal } = this.state;
     const adminCards = () => {
       if (currentUser.isAdmin) {
@@ -82,6 +88,8 @@ class Home extends React.Component {
         toggleCreatedEventsModal = {this.toggleCreatedEventsModal}
         currentUser = {currentUser}
         eventDetailView = {this.eventDetailView}
+        routeToAddEditEvent = {this.routeToAddEditEvent}
+        passEventToEdit = {passEventToEdit}
         />
         <SignupModal
         viewSignupModal = {viewSignupModal}

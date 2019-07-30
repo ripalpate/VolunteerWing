@@ -78,8 +78,12 @@ namespace VolunteerWing.Data
             }
         }
 
-        public VolunteerEvent UpdateVolunteerEvent(VolunteerEvent volunteerEventToUpdate)
+        public bool UpdateVolunteerEvent(int id, string eventName, string description, string location, DateTime start_date, DateTime start_time, DateTime end_time, int adminId)
         {
+            DateTime startTime = start_time.ToLocalTime();
+            DateTime endTime = end_time.ToLocalTime();
+            DateTime startDate = start_date.ToLocalTime();
+
             using (var db = new SqlConnection(_connectionString))
             {
                 var sqlQuery =
@@ -92,12 +96,12 @@ namespace VolunteerWing.Data
 	                      endTime= @endTime, 
 	                      adminId= @adminId
                      Where Id = @id";
-
-                var rowsAffected = db.Execute(sqlQuery, volunteerEventToUpdate);
+                var parameter = new { id, eventName, description, location, startDate, startTime, endTime, adminId };
+                var rowsAffected = db.Execute(sqlQuery, parameter);
 
                 if (rowsAffected == 1)
                 {
-                    return volunteerEventToUpdate;
+                    return true;
                 }
                 throw new Exception("Could not update volunteerEvent");
             }

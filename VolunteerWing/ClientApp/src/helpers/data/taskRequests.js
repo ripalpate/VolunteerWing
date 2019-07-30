@@ -27,10 +27,16 @@ const updatePeopleSignup = (taskId, taskObject) => axios.put(`${apiUrl}/signUp/$
 
 const updatePeopleSignupAfterRemoval = (taskId, task) => axios.put(`${apiUrl}/removeSignUp/${taskId}`, task);
 
+const updateTask = (taskId, task) => axios.put(`${apiUrl}/${taskId}`, task);
+
+const deleteTask = taskId => axios.delete(`${apiUrl}/${taskId}`);
+
 export default {
   createTask,
   getAllTasks,
   updatePeopleSignup,
   getSingleTask,
   updatePeopleSignupAfterRemoval,
+  updateTask,
+  deleteTask,
 };

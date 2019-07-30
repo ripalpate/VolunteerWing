@@ -17,17 +17,27 @@ class MyEvent extends React.Component {
       tasks: [],
       invitationModal: false,
       isCreating: true,
+      isEditing: false,
+      selectedTask: {},
+      eventId: 0,
     }
 
     static propTypes = {
       currentUser: PropTypes.object,
     }
 
+    getSingleTask = (taskId) => {
+      taskRequests.getSingleTask(taskId)
+        .then((singleTask) => {
+          this.setState({ selectedTask: singleTask });
+        });
+    }
+
     getsingleEvent = () => {
-      const eventId = this.props.match.params.id;
+      const eventId = this.props.match.params.id * 1;
       volunteerEventRequests.getSingleEvent(eventId)
         .then((singleEvent) => {
-          this.setState({ singleEvent });
+          this.setState({ singleEvent, eventId });
         }).catch(err => console.error(err));
     }
 
@@ -76,10 +86,24 @@ class MyEvent extends React.Component {
       this.props.history.push(`/createdEvent/${eventId}`);
     }
 
+    deleteTask = (taskId) => {
+      taskRequests.deleteTask(taskId)
+        .then(() => {
+          this.getAllTasks();
+        });
+    }
+
     render() {
       const singleEvent = { ...this.state.singleEvent };
-      const { taskModal, invitationModal, isCreating } = this.state;
+      const {
+        taskModal,
+        invitationModal,
+        isCreating,
+        isEditing,
+        eventId,
+      } = this.state;
       const tasks = [...this.state.tasks];
+      const selectedTask = { ...this.state.selectedTask };
       const { currentUser } = this.props;
 
       const adminViewForThePage = () => {
@@ -96,11 +120,16 @@ class MyEvent extends React.Component {
                   taskModal = {taskModal}
                   toggleTaskModal={this.toggleTaskModal}
                   eventId = {this.props.match.params.id * 1}
+                  isEditing = {isEditing}
                 />
                 <Tasks
                   tasks = {tasks}
                   currentUser = {currentUser}
                   isCreating = {isCreating}
+                  eventId = {eventId}
+                  deleteTask = {this.deleteTask}
+                  getSingleTask = {this.getSingleTask}
+                  selectedTask = {selectedTask}
                 />
             </div>
           );

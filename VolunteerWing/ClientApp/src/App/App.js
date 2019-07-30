@@ -37,7 +37,13 @@ class App extends React.Component {
     pendingUser: true,
     currentUser: {},
     isRegistered: false,
+    editEventId: 0,
+    isEditingEvent: false,
   }
+
+  passEventToEdit = eventId => this.setState({ isEditingEvent: true, editEventId: eventId });
+
+  changeIsEditingEventState = () => this.setState({ isEditingEvent: false, editEventId: 0 });
 
   getUser = () => {
     const uid = authRequests.getCurrentUid();
@@ -72,7 +78,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { authed, pendingUser, isRegistered } = this.state;
+    const { authed, pendingUser, isRegistered, isEditingEvent, editEventId } = this.state;
     const currentUser = { ...this.state.currentUser };
     const logoutClickEvent = () => {
       authRequests.logoutUser();
@@ -90,11 +96,11 @@ class App extends React.Component {
           <MyNavbar isAuthed={ authed } currentUser={currentUser} logoutClickEvent={logoutClickEvent}/>
           <Switch>
             <PublicRoute path='/auth' component={Auth} authed={ authed }/>
-            <PrivateRoute exact path='/' component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute exact path='/' component={props => <Home {...props} passEventToEdit={this.passEventToEdit} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/register' exact component={props => <Register getUser={this.getUser} isRegistered={isRegistered} {...props} currentUser={currentUser}/>} authed={authed}/>
-            <PrivateRoute path='/home' exact component={props => <Home {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute path='/home' exact component={props => <Home {...props} passEventToEdit={this.passEventToEdit} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute path='/profile' component={props => <Profile {...props} currentUser={currentUser} getUser={this.getUser}/>} authed={authed} />
-            <PrivateRoute path='/addEditEvent' component={props => <AddEditEvent {...props} currentUser={currentUser}/>} authed={authed} />
+            <PrivateRoute path='/addEditEvent' component={props => <AddEditEvent {...props} currentUser={currentUser} isEditingEvent={isEditingEvent} editEventId={editEventId} changeIsEditingEventState ={this.changeIsEditingEventState}/>} authed={authed} />
             <PrivateRoute exact path='/createdEvent/:id' component={props => <CreatedEvents {...props} currentUser={currentUser}/>} authed={authed} />
             <PrivateRoute exact path='/myEvent/:id' component={props => <MyEvent {...props} currentUser={currentUser}/>} authed={authed}/>
           </Switch>

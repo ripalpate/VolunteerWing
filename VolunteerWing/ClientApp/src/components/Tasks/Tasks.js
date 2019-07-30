@@ -12,6 +12,13 @@ class Tasks extends React.Component {
       updateTaskSignup: PropTypes.func,
       isCreating: PropTypes.bool,
       deleteUserTask: PropTypes.func,
+      isEditing: PropTypes.bool,
+      eventId: PropTypes.number,
+      usersTasks: PropTypes.array,
+      updateTaskSignUpUponDelete: PropTypes.func,
+      deleteTask: PropTypes.func,
+      selectedTask: PropTypes.object,
+      getSingleTask: PropTypes.func,
     }
 
     render() {
@@ -24,6 +31,10 @@ class Tasks extends React.Component {
         deleteUserTask,
         usersTasks,
         updateTaskSignUpUponDelete,
+        eventId,
+        deleteTask,
+        selectedTask,
+        getSingleTask,
       } = this.props;
 
       const singleTaskComponent = tasks.map(task => (
@@ -37,6 +48,10 @@ class Tasks extends React.Component {
              deleteUserTask = {deleteUserTask}
              usersTasks = {usersTasks}
              updateTaskSignUpUponDelete = {updateTaskSignUpUponDelete}
+             eventId = {eventId}
+             deleteTask = {deleteTask}
+             selectedTask = {selectedTask}
+             getSingleTask = {getSingleTask}
             />
       ));
 
