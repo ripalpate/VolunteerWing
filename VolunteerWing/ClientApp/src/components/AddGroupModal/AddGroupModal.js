@@ -7,7 +7,16 @@ import {
 } from 'reactstrap';
 import './AddGroupModal.scss';
 
+const defaultGroup = {
+  groupName: '',
+  adminId: 0,
+};
+
 class AddGroupModal extends React.Component {
+    state = {
+      newGroup: defaultGroup,
+    }
+
     static propTypes = {
       addGroupModal: PropTypes.bool,
       toggleGroupModal: PropTypes.func,
@@ -19,8 +28,18 @@ class AddGroupModal extends React.Component {
       toggleGroupModal();
     }
 
+    formFieldStringState = (name, e) => {
+      e.preventDefault();
+      const tempGroup = { ...this.state.newGroup };
+      tempGroup[name] = e.target.value;
+      this.setState({ newGroup: tempGroup });
+    }
+
+    nameChange = e => this.formFieldStringState('groupName', e);
+
     render() {
       const { addGroupModal } = this.props;
+      const newGroup = { ...this.state.newGroup };
       return (
         <Modal isOpen={addGroupModal} toggle={this.toggleEvent} className="modal-lg">
           <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Add Group</ModalHeader>
@@ -34,9 +53,12 @@ class AddGroupModal extends React.Component {
                     className="form-control"
                     id="name"
                     placeholder="Group name"
-                    // value= {newGroup.groupName}
-                    // onChange= {this.nameChange}
+                    value= {newGroup.groupName}
+                    onChange= {this.nameChange}
                     />
+                  </div>
+                  <div>
+                    <button className="bttn-pill bttn-success">Add</button>
                   </div>
                 </div>
               </form>
