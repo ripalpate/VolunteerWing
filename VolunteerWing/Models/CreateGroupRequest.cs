@@ -8,5 +8,6 @@ namespace VolunteerWing.Models
     public class CreateGroupRequest
     {
         public string GroupName { get; set; }
+        public int AdminId { get; set; }
     }
 }

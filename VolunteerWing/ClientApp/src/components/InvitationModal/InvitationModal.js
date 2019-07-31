@@ -130,7 +130,7 @@ ${currentUser.name}`;
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
                 <ModalBody className="modal-body">
-                    <form className= "task-modal-form" onSubmit={this.formSubmit}>
+                    <div className= "task-modal-form">
                         <div className="form-group row">
                             <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
                             <div className="col-sm-10">
@@ -149,6 +149,7 @@ ${currentUser.name}`;
                          currentUser = {currentUser}
                          toggleGroupModal = {this.toggleGroupModal}
                          addGroupModal = {addGroupModal}
+                         getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
                         />
                         </div>
                         <div className="form-group row">
@@ -184,9 +185,9 @@ ${currentUser.name}`;
                             </div>
                         </div>
                         <div>
-                            <button className="bttn-pill bttn-primary">Send</button>
+                            <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
                         </div>
-                       </form>
+                       </div>
 
                 </ModalBody>
             </Modal>

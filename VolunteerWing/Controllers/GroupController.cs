@@ -31,7 +31,7 @@ namespace VolunteerWing.Controllers
                 return BadRequest(new { error = "please enter all fields" });
             }
 
-            var newGroup = _repository.AddGroup(createRequest.GroupName);
+            var newGroup = _repository.AddGroup(createRequest.GroupName, createRequest.AdminId);
 
             return Created($"api/group/{newGroup.Id}", newGroup);
         }

@@ -18,15 +18,15 @@ namespace VolunteerWing.Data
             _connectionString = dbConfig.Value.ConnectionString;
         }
 
-        public Group AddGroup(string groupName)
+        public Group AddGroup(string groupName, int adminId)
         {
 
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @"insert into groups (groupName)
+                var sqlQuery = @"insert into groups (groupName, adminId)
                                 output inserted.*
-                                values (@groupName)";
-                var parameter = new { groupName };
+                                values (@groupName, @adminId)";
+                var parameter = new { groupName, adminId };
                 var newGroup = db.QueryFirstOrDefault<Group>(sqlQuery, parameter);
 
                 if (newGroup != null)

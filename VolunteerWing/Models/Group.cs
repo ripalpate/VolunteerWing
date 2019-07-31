@@ -9,5 +9,6 @@ namespace VolunteerWing.Models
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
+        public int AdminId { get; set; }
     }
 }
