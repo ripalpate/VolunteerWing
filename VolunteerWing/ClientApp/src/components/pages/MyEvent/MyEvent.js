@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './MyEvent.scss';
 import volunteerEventRequests from '../../../helpers/data/volunteerEventRequests';
-import groupRequests from '../../../helpers/data/groupRequests';
 import formateDateTime from '../../../helpers/formatDateTime';
 import TaskFormModal from '../../TaskFormModal/TaskFormModal';
 import taskRequests from '../../../helpers/data/taskRequests';
@@ -21,7 +20,6 @@ class MyEvent extends React.Component {
       isEditing: false,
       selectedTask: {},
       eventId: 0,
-      groups: [],
     }
 
     static propTypes = {
@@ -52,13 +50,6 @@ class MyEvent extends React.Component {
         .then((tasks) => {
           const eventRelatedTasks = tasks.filter(task => task.eventId === eventId);
           this.setState({ tasks: eventRelatedTasks });
-        });
-    }
-
-    getAllGroups = () => {
-      groupRequests.getAllGroups()
-        .then((groups) => {
-          this.setState({ groups });
         });
     }
 

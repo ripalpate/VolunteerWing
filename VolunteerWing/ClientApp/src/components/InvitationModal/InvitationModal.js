@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import invitationRequests from '../../helpers/data/invitationRequests';
 import formateDateTime from '../../helpers/formatDateTime';
+import groupRequests from '../../helpers/data/groupRequests';
 import './InvitationModal.scss';
 
 const defaultInvitation = {
@@ -16,8 +17,11 @@ const defaultInvitation = {
 };
 
 class InvitationModal extends React.Component {
+  invitationMounted = false;
+
     state = {
       newInvitation: defaultInvitation,
+      groups: [],
     }
 
     static propTypes = {
@@ -25,6 +29,25 @@ class InvitationModal extends React.Component {
       invitationModal: PropTypes.bool,
       currentUser: PropTypes.object,
       routeToCreatedEvents: PropTypes.func,
+    }
+
+    getAllGroups = () => {
+      groupRequests.getAllGroups()
+        .then((groups) => {
+          this.setState({ groups });
+        });
+    }
+
+    componentDidMount() {
+      const { currentUser } = this.props;
+      this.invitationMounted = !!currentUser.id;
+      if (this.invitationMounted) {
+        this.getAllGroups();
+      }
+    }
+
+    componentWillUnmount() {
+      this.invitationMounted = false;
     }
 
     toggleEvent = () => {
@@ -76,7 +99,7 @@ class InvitationModal extends React.Component {
     render() {
       const { invitationModal, currentUser, singleEvent } = this.props;
       const { newInvitation } = this.state;
-
+      const groups = [...this.state.groups];
       const message = `Hello Friends, 
   Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}.
 Below is the link to sign up for the event.
@@ -85,6 +108,16 @@ http://localhost:64575/createdEvent/${singleEvent.id}
 
 Thank you, 
 ${currentUser.name}`;
+
+      const makeGroupDropDown = () => (
+          <select id="group" className="custom-select mb-2 ml-3">
+            <option defaultValue>Select Group</option>
+              {
+              groups.map((group, i) => (<option value={group.id} key={i}>{group.groupName}</option>))
+              }
+          </select>
+      );
+
       return (
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
@@ -95,6 +128,15 @@ ${currentUser.name}`;
                             <div className="col-sm-10">
                                 <p className="col-sm-2 col-form-label">{currentUser.email}</p>
                             </div>
+                        </div>
+                        <div className="form-inline">
+                        <div className="form-group">
+                          <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Select Group</label>
+                          <div className="col-sm-10">
+                            {makeGroupDropDown()}
+                          </div>
+                        </div>
+                        <button className="bttn-pill"><i className="fas fa-plus-circle"></i></button>
                         </div>
                         <div className="form-group row">
                             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
