@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './MyEvent.scss';
 import volunteerEventRequests from '../../../helpers/data/volunteerEventRequests';
+import groupRequests from '../../../helpers/data/groupRequests';
 import formateDateTime from '../../../helpers/formatDateTime';
 import TaskFormModal from '../../TaskFormModal/TaskFormModal';
 import taskRequests from '../../../helpers/data/taskRequests';
@@ -20,9 +21,7 @@ class MyEvent extends React.Component {
       isEditing: false,
       selectedTask: {},
       eventId: 0,
-      // startDate: new Date(),
-      // startTime: new Date(),
-      // endTime: new Date(),
+      groups: [],
     }
 
     static propTypes = {
@@ -33,12 +32,8 @@ class MyEvent extends React.Component {
       taskRequests.getSingleTask(taskId)
         .then((singleTask) => {
           const modifySingleTask = Object.assign({}, singleTask, { startDate: new Date(singleTask.startDate), startTime: new Date(singleTask.startTime), endTime: new Date(singleTask.endTime) });
-          // const modifySingleTask = singleTask.map(({ id, taskName, comment,  dueDate }) => ({ category, amount, dueDate: moment(dueDate).format('MMMM YYYY') }));
           this.setState({
             selectedTask: modifySingleTask,
-            // startDate: new Date(singleTask.startDate),
-            // startTime: new Date(singleTask.startTime),
-            // endTime: new Date(singleTask.endTime),
           });
         });
     }
@@ -57,6 +52,13 @@ class MyEvent extends React.Component {
         .then((tasks) => {
           const eventRelatedTasks = tasks.filter(task => task.eventId === eventId);
           this.setState({ tasks: eventRelatedTasks });
+        });
+    }
+
+    getAllGroups = () => {
+      groupRequests.getAllGroups()
+        .then((groups) => {
+          this.setState({ groups });
         });
     }
 
