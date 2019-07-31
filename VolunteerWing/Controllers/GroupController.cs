@@ -50,6 +50,13 @@ namespace VolunteerWing.Controllers
             return Ok(getSingleGroup);
         }
 
+        [HttpGet("groups/{id}")]
+        public ActionResult GetAllGroupsByAdminId(int id)
+        {
+            var getAllGroupsByAdminId = _repository.GetAllGroupsByAdminId(id);
+            return Ok(getAllGroupsByAdminId);
+        }
+
         [HttpPut("{id}")]
         public ActionResult UpdateGroup(int id, Group groupToUpdate)
         {

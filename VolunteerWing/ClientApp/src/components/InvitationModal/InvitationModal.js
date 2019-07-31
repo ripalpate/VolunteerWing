@@ -8,6 +8,7 @@ import {
 import invitationRequests from '../../helpers/data/invitationRequests';
 import formateDateTime from '../../helpers/formatDateTime';
 import groupRequests from '../../helpers/data/groupRequests';
+import AddGroupModal from '../AddGroupModal/AddGroupModal';
 import './InvitationModal.scss';
 
 const defaultInvitation = {
@@ -22,6 +23,7 @@ class InvitationModal extends React.Component {
     state = {
       newInvitation: defaultInvitation,
       groups: [],
+      addGroupModal: false,
     }
 
     static propTypes = {
@@ -31,8 +33,9 @@ class InvitationModal extends React.Component {
       routeToCreatedEvents: PropTypes.func,
     }
 
-    getAllGroups = () => {
-      groupRequests.getAllGroups()
+    getAllGroupsByAdminId = () => {
+      const { currentUser } = this.props;
+      groupRequests.getAllGroupsByAdminId(currentUser.id)
         .then((groups) => {
           this.setState({ groups });
         });
@@ -42,12 +45,17 @@ class InvitationModal extends React.Component {
       const { currentUser } = this.props;
       this.invitationMounted = !!currentUser.id;
       if (this.invitationMounted) {
-        this.getAllGroups();
+        this.getAllGroupsByAdminId();
       }
     }
 
     componentWillUnmount() {
       this.invitationMounted = false;
+    }
+
+    toggleGroupModal = () => {
+      const { addGroupModal } = this.state;
+      this.setState({ addGroupModal: !addGroupModal });
     }
 
     toggleEvent = () => {
@@ -98,7 +106,7 @@ class InvitationModal extends React.Component {
 
     render() {
       const { invitationModal, currentUser, singleEvent } = this.props;
-      const { newInvitation } = this.state;
+      const { newInvitation, addGroupModal } = this.state;
       const groups = [...this.state.groups];
       const message = `Hello Friends, 
   Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}.
@@ -113,7 +121,7 @@ ${currentUser.name}`;
           <select id="group" className="custom-select mb-2 ml-3">
             <option defaultValue>Select Group</option>
               {
-              groups.map((group, i) => (<option value={group.id} key={i}>{group.groupName}</option>))
+              groups.map((group, i) => (<option value={group.id} key={i}>{group.GroupName}</option>))
               }
           </select>
       );
@@ -136,7 +144,12 @@ ${currentUser.name}`;
                             {makeGroupDropDown()}
                           </div>
                         </div>
-                        <button className="bttn-pill"><i className="fas fa-plus-circle"></i></button>
+                        <button className="bttn-pill" onClick={this.toggleGroupModal}><i className="fas fa-plus-circle"></i></button>
+                        <AddGroupModal
+                         currentUser = {currentUser}
+                         toggleGroupModal = {this.toggleGroupModal}
+                         addGroupModal = {addGroupModal}
+                        />
                         </div>
                         <div className="form-group row">
                             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
@@ -154,7 +167,7 @@ ${currentUser.name}`;
                         <div className="form-group row">
                             <label htmlFor="subject" className="col-sm-2 col-form-label">Subject:</label>
                             <div className="col-sm-10">
-                                <textarea
+                                <input
                                 type="text"
                                 className="form-control"
                                 id="subject"
@@ -174,6 +187,7 @@ ${currentUser.name}`;
                             <button className="bttn-pill bttn-primary">Send</button>
                         </div>
                        </form>
+
                 </ModalBody>
             </Modal>
       );

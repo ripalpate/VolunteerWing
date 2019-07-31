@@ -69,6 +69,23 @@ namespace VolunteerWing.Data
             }
         }
 
+        public IEnumerable<Object> GetAllGroupsByAdminId(int adminId)
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @" select * 
+                                  from groups
+                                  where adminId =@adminId";
+                var parameter = new { adminId };
+                var allGroups = db.Query<Object>(sqlQuery,parameter).ToList();
+                if (allGroups != null)
+                {
+                    return allGroups;
+                }
+                throw new Exception("Something went wrong. Could not get all groups");
+            }
+        }
+
         public Group UpdateGroup(Group groupToUpdate)
         {
             using (var db = new SqlConnection(_connectionString))
