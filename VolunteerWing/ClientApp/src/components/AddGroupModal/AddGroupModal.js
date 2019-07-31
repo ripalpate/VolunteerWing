@@ -49,7 +49,6 @@ class AddGroupModal extends React.Component {
     }
 
     formSubmit = (e) => {
-    //   const { isEditingEvent, changeIsEditingEventState } = this.props;
       const currentUser = { ...this.props.currentUser };
       e.preventDefault();
       const myGroup = { ...this.state.newGroup };

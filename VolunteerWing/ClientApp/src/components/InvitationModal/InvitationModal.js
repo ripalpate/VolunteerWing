@@ -10,6 +10,7 @@ import formateDateTime from '../../helpers/formatDateTime';
 import groupRequests from '../../helpers/data/groupRequests';
 import AddGroupModal from '../AddGroupModal/AddGroupModal';
 import './InvitationModal.scss';
+import userGroupRequests from '../../helpers/data/userGroupRequests';
 
 const defaultInvitation = {
   to: '',
@@ -24,6 +25,7 @@ class InvitationModal extends React.Component {
       newInvitation: defaultInvitation,
       groups: [],
       addGroupModal: false,
+      selectedGroupId: 0,
     }
 
     static propTypes = {
@@ -53,6 +55,11 @@ class InvitationModal extends React.Component {
       this.invitationMounted = false;
     }
 
+    dropdownGroupSelect = (e) => {
+      const selectedGroupId = e.target.value * 1;
+      this.setState({ selectedGroupId });
+    }
+
     toggleGroupModal = () => {
       const { addGroupModal } = this.state;
       this.setState({ addGroupModal: !addGroupModal });
@@ -70,25 +77,40 @@ class InvitationModal extends React.Component {
       this.setState({ newInvitation: tempInvitation });
     }
 
+    createUserGroup = () => {
+      const newInvitation = { ...this.state.newInvitation };
+      const { selectedGroupId } = this.state;
+      const emailsArray = newInvitation.to;
+      const groupId = selectedGroupId;
+      emailsArray.forEach((email) => {
+        const userGroup = {};
+        userGroup.groupId = groupId;
+        userGroup.userEmail = email;
+        userGroupRequests.createUserGroup(userGroup)
+          .then(() => {});
+      });
+    }
+
     formSubmit = (e) => {
       e.preventDefault();
-      const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
-      const currentUser = { ...this.props.currentUser };
-      const myInvitation = { ...this.state.newInvitation };
-      const message = `Hello Friends, 
-        Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}. Below is the link to sign up for the event.
+      // const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
+      // const currentUser = { ...this.props.currentUser };
+      // const myInvitation = { ...this.state.newInvitation };
+      // const message = `Hello Friends, 
+      //   Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}. Below is the link to sign up for the event.
 
-      http://localhost:64575/createdEvent/${singleEvent.id}
+      // http://localhost:64575/createdEvent/${singleEvent.id}
 
-      Thank you, 
-      ${currentUser.name}`;
-      myInvitation.from = currentUser.email;
-      myInvitation.body = message;
-      invitationRequests.createInvitation(myInvitation)
-        .then(() => {
-          this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
-          routeToCreatedEvents();
-        });
+      // Thank you, 
+      // ${currentUser.name}`;
+      // myInvitation.from = currentUser.email;
+      // myInvitation.body = message;
+      // invitationRequests.createInvitation(myInvitation)
+      //   .then(() => {
+      //     this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
+      //     routeToCreatedEvents();
+      //   });
+      this.createUserGroup();
     }
 
     formFieldArrayState = (name, e) => {
@@ -118,10 +140,10 @@ Thank you,
 ${currentUser.name}`;
 
       const makeGroupDropDown = () => (
-          <select id="group" className="custom-select mb-2 ml-3">
+          <select id="group" className="custom-select mb-2 ml-3" onChange={this.dropdownGroupSelect}>
             <option defaultValue>Select Group</option>
               {
-              groups.map((group, i) => (<option value={group.id} key={i}>{group.GroupName}</option>))
+              groups.map((group, i) => (<option value={group.Id} key={i}>{group.GroupName}</option>))
               }
           </select>
       );
