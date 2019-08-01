@@ -6,6 +6,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 import groupRequests from '../../helpers/data/groupRequests';
+import userGroupRequests from '../../helpers/data/userGroupRequests';
 import SingleGroup from '../SingleGroup/SingleGroup';
 import './ViewGroupsModal.scss';
 
@@ -20,6 +21,8 @@ class ViewGroupsModal extends React.Component {
 
   state = {
     groups: [],
+    memberModal: false,
+    userGroupsData: [],
   }
 
   getGroupsByAdminId = () => {
@@ -36,6 +39,11 @@ class ViewGroupsModal extends React.Component {
     toggleViewGroupModal();
   }
 
+  toggleMemberModal = () => {
+    const { memberModal } = this.state;
+    this.setState({ memberModal: !memberModal });
+  }
+
   componentDidMount() {
     const { currentUser } = this.props;
     this.viewGroupModalMounted = !!currentUser.id;
@@ -44,14 +52,27 @@ class ViewGroupsModal extends React.Component {
     }
   }
 
+  getAllUserGroupsByGroupId = (groupId) => {
+    userGroupRequests.getAllUserEmailsByGroupId(groupId)
+      .then((userGroups) => {
+        const userGroupsData = userGroups.data;
+        this.setState({ userGroupsData });
+      });
+  }
+
   render() {
-    const { viewGroupModal } = this.props;
-    const { groups } = this.state;
+    const { viewGroupModal, currentUser } = this.props;
+    const { groups, memberModal, userGroupsData } = this.state;
 
     const singleGroupComponent = groups.map(group => (
       <SingleGroup
        group = {group}
        key = {group.id}
+       toggleMemberModal= {this.toggleMemberModal}
+       memberModal = {memberModal}
+       currentUser = {currentUser}
+       getAllUserGroupsByGroupId= {this.getAllUserGroupsByGroupId}
+       userGroupsData = {userGroupsData}
       />
     ));
 
@@ -64,7 +85,6 @@ class ViewGroupsModal extends React.Component {
               <thead>
                 <tr>
                 <th scope="col">Group Name</th>
-                <th scope="col">Members</th>
                 <th scope="col"></th>
                 </tr>
               </thead>
