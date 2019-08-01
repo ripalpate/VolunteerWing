@@ -5,11 +5,11 @@ import {
   ModalHeader,
   ModalBody,
 } from 'reactstrap';
-import groupRequests from '../../helpers/data/userTaskRequests';
+import groupRequests from '../../helpers/data/groupRequests';
 import SingleGroup from '../SingleGroup/SingleGroup';
 import './ViewGroupsModal.scss';
 
-class SignupModal extends React.Component {
+class ViewGroupsModal extends React.Component {
   viewGroupModalMounted = false;
 
   static propTypes = {
@@ -22,14 +22,14 @@ class SignupModal extends React.Component {
     groups: [],
   }
 
-  // getGroupsByAdminId = () => {
-  //   const { currentUser } = this.props;
-  //   const adminId = currentUser.id;
-  //   groupRequests.getAllGroupsByAdminId(adminId)
-  //     .then((groups) => {
-  //       this.setState({ groups });
-  //     });
-  // }
+  getGroupsByAdminId = () => {
+    const { currentUser } = this.props;
+    const adminId = currentUser.id;
+    groupRequests.getAllGroupsByAdminId(adminId)
+      .then((groups) => {
+        this.setState({ groups });
+      });
+  }
 
   toggleEvent = () => {
     const { toggleViewGroupModal } = this.props;
@@ -40,13 +40,20 @@ class SignupModal extends React.Component {
     const { currentUser } = this.props;
     this.viewGroupModalMounted = !!currentUser.id;
     if (this.viewGroupModalMounted) {
-      // this.getGroupsByAdminId();
+      this.getGroupsByAdminId();
     }
   }
 
   render() {
     const { viewGroupModal } = this.props;
     const { groups } = this.state;
+
+    const singleGroupComponent = groups.map(group => (
+      <SingleGroup
+       group = {group}
+       key = {group.id}
+      />
+    ));
 
     return (
         <Modal isOpen={viewGroupModal} toggle={this.toggleEvent} className="modal-lg">
@@ -62,7 +69,7 @@ class SignupModal extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {/* {singleEventComponent} */}
+                {singleGroupComponent}
               </tbody>
             </table>
           </div>
@@ -72,4 +79,4 @@ class SignupModal extends React.Component {
   }
 }
 
-export default SignupModal;
+export default ViewGroupsModal;
