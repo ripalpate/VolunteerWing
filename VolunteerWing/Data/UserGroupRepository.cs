@@ -54,18 +54,33 @@ namespace VolunteerWing.Data
             throw new Exception("couldn't get single user group");
         }
 
-        public IEnumerable<Object> GetAllUserEmailsByGroup(int groupId)
+        public IEnumerable<UserGroup> GetAllUserEmailsByGroup(int groupId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @" select userEmail 
+                var sqlQuery = @" select * 
                                   from userGroups
                                   where groupId = @groupId";
                 var parameters = new { groupId };
-                var allEmailsByGroupId = db.Query<Object>(sqlQuery, parameters).ToList();
+                var allEmailsByGroupId = db.Query<UserGroup>(sqlQuery, parameters).ToList();
                 if (allEmailsByGroupId != null)
                 {
                     return allEmailsByGroupId;
+                }
+                throw new Exception("Something went wrong. Could not get all emails");
+            }
+        }
+
+        public IEnumerable<UserGroup> GetAllUsersGroups()
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @" select * 
+                                  from userGroups";
+                var allUsersGroups = db.Query<UserGroup>(sqlQuery).ToList();
+                if (allUsersGroups != null)
+                {
+                    return allUsersGroups;
                 }
                 throw new Exception("Something went wrong. Could not get all emails");
             }

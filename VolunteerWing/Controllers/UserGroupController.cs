@@ -35,6 +35,13 @@ namespace VolunteerWing.Controllers
             return Ok(getAllEmails);
         }
 
+        [HttpGet]
+        public ActionResult GetAllUsersGroups()
+        {
+            var getAllUsersGroups = _repository.GetAllUsersGroups();
+            return Ok(getAllUsersGroups);
+        }
+
         [HttpGet("{id}")]
         public ActionResult GetSingleUserGroup(int id)
         {
