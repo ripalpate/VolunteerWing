@@ -7,7 +7,10 @@ import {
 } from 'reactstrap';
 import invitationRequests from '../../helpers/data/invitationRequests';
 import formateDateTime from '../../helpers/formatDateTime';
+import groupRequests from '../../helpers/data/groupRequests';
+import AddGroupModal from '../AddGroupModal/AddGroupModal';
 import './InvitationModal.scss';
+import userGroupRequests from '../../helpers/data/userGroupRequests';
 
 const defaultInvitation = {
   to: '',
@@ -16,8 +19,14 @@ const defaultInvitation = {
 };
 
 class InvitationModal extends React.Component {
+  invitationMounted = false;
+
     state = {
       newInvitation: defaultInvitation,
+      groups: [],
+      addGroupModal: false,
+      selectedGroupId: 0,
+      userGroups: [],
     }
 
     static propTypes = {
@@ -25,6 +34,36 @@ class InvitationModal extends React.Component {
       invitationModal: PropTypes.bool,
       currentUser: PropTypes.object,
       routeToCreatedEvents: PropTypes.func,
+    }
+
+    getAllGroupsByAdminId = () => {
+      const { currentUser } = this.props;
+      groupRequests.getAllGroupsByAdminId(currentUser.id)
+        .then((groups) => {
+          this.setState({ groups });
+        });
+    }
+
+    componentDidMount() {
+      const { currentUser } = this.props;
+      this.invitationMounted = !!currentUser.id;
+      if (this.invitationMounted) {
+        this.getAllGroupsByAdminId();
+      }
+    }
+
+    componentWillUnmount() {
+      this.invitationMounted = false;
+    }
+
+    dropdownGroupSelect = (e) => {
+      const selectedGroupId = e.target.value * 1;
+      this.setState({ selectedGroupId });
+    }
+
+    toggleGroupModal = () => {
+      const { addGroupModal } = this.state;
+      this.setState({ addGroupModal: !addGroupModal });
     }
 
     toggleEvent = () => {
@@ -39,20 +78,57 @@ class InvitationModal extends React.Component {
       this.setState({ newInvitation: tempInvitation });
     }
 
+    getAllUsergroups = () => {
+
+    }
+
+    createUserGroup = () => {
+      const newInvitation = { ...this.state.newInvitation };
+      const userGroups = [...this.state.userGroups];
+      const { selectedGroupId } = this.state;
+      const emailsArray = newInvitation.to;
+      const groupId = selectedGroupId;
+      emailsArray.forEach((email) => {
+        const userGroup = {};
+        userGroup.groupId = groupId;
+        userGroup.userEmail = email;
+        const checkIfuserEmailExist = userGroups.filter(x => x.groupId === groupId && x.userEmail === email);
+        if (checkIfuserEmailExist.length === 0) {
+          userGroupRequests.createUserGroup(userGroup)
+            .then(() => {});
+        }
+      });
+    }
+
+    getAndSetAllEmailsForTheGroup = () => {
+      const newInvitation = { ...this.state.newInvitation };
+      const { selectedGroupId } = this.state;
+      const groupId = selectedGroupId;
+      userGroupRequests.getAllUserEmailsByGroupId(groupId)
+        .then((emails) => {
+          const userGroupEmailsArray = emails.data;
+          const arrayOfEmails = userGroupEmailsArray.map(userGroup => userGroup.userEmail);
+          newInvitation.to = arrayOfEmails;
+          this.setState({ newInvitation });
+          this.setState({ userGroups: userGroupEmailsArray });
+        });
+    }
+
     formSubmit = (e) => {
       e.preventDefault();
       const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
       const currentUser = { ...this.props.currentUser };
       const myInvitation = { ...this.state.newInvitation };
-      const message = `Hello Friends, 
+      const message = `Hello Friends,
         Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}. Below is the link to sign up for the event.
 
       http://localhost:64575/createdEvent/${singleEvent.id}
 
-      Thank you, 
+      Thank you,
       ${currentUser.name}`;
       myInvitation.from = currentUser.email;
       myInvitation.body = message;
+      this.createUserGroup();
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
@@ -75,8 +151,9 @@ class InvitationModal extends React.Component {
 
     render() {
       const { invitationModal, currentUser, singleEvent } = this.props;
-      const { newInvitation } = this.state;
-
+      const { addGroupModal } = this.state;
+      const newInvitation = { ...this.state.newInvitation };
+      const groups = [...this.state.groups];
       const message = `Hello Friends, 
   Please take a minute to signup for a volunteer spot to help with ${singleEvent.eventName} on ${formateDateTime.formatMDYDate(singleEvent.startDate)}.
 Below is the link to sign up for the event.
@@ -85,16 +162,41 @@ http://localhost:64575/createdEvent/${singleEvent.id}
 
 Thank you, 
 ${currentUser.name}`;
+
+      const makeGroupDropDown = () => (
+          <select id="group" className="custom-select mb-2 ml-3" onChange={this.dropdownGroupSelect} onClick={this.getAndSetAllEmailsForTheGroup}>
+            <option defaultValue>Select Group</option>
+              {
+              groups.map((group, i) => (<option value={group.Id} key={i}>{group.GroupName}</option>))
+              }
+          </select>
+      );
+
       return (
             <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
                 <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
                 <ModalBody className="modal-body">
-                    <form className= "task-modal-form" onSubmit={this.formSubmit}>
+                    <div className= "task-modal-form">
                         <div className="form-group row">
                             <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
                             <div className="col-sm-10">
                                 <p className="col-sm-2 col-form-label">{currentUser.email}</p>
                             </div>
+                        </div>
+                        <div className="form-inline">
+                        <div className="form-group">
+                          <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Select Group</label>
+                          <div className="col-sm-10">
+                            {makeGroupDropDown()}
+                          </div>
+                        </div>
+                        <button className="bttn-pill" onClick={this.toggleGroupModal}><i className="fas fa-plus-circle"></i></button>
+                        <AddGroupModal
+                         currentUser = {currentUser}
+                         toggleGroupModal = {this.toggleGroupModal}
+                         addGroupModal = {addGroupModal}
+                         getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
+                        />
                         </div>
                         <div className="form-group row">
                             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
@@ -112,7 +214,7 @@ ${currentUser.name}`;
                         <div className="form-group row">
                             <label htmlFor="subject" className="col-sm-2 col-form-label">Subject:</label>
                             <div className="col-sm-10">
-                                <textarea
+                                <input
                                 type="text"
                                 className="form-control"
                                 id="subject"
@@ -129,9 +231,10 @@ ${currentUser.name}`;
                             </div>
                         </div>
                         <div>
-                            <button className="bttn-pill bttn-primary">Send</button>
+                            <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
                         </div>
-                       </form>
+                       </div>
+
                 </ModalBody>
             </Modal>
       );
