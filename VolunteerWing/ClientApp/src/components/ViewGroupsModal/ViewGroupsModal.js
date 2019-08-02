@@ -60,6 +60,13 @@ class ViewGroupsModal extends React.Component {
       });
   }
 
+  deleteEmail = (userGroupId, groupId) => {
+    userGroupRequests.deleteUserGroup(userGroupId)
+      .then(() => {
+        this.getAllUserGroupsByGroupId(groupId);
+      });
+  }
+
   render() {
     const { viewGroupModal, currentUser } = this.props;
     const { groups, memberModal, userGroupsData } = this.state;
@@ -73,6 +80,7 @@ class ViewGroupsModal extends React.Component {
        currentUser = {currentUser}
        getAllUserGroupsByGroupId= {this.getAllUserGroupsByGroupId}
        userGroupsData = {userGroupsData}
+       deleteEmail = {this.deleteEmail}
       />
     ));
 

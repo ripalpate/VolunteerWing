@@ -9,6 +9,7 @@ class SingleGroup extends React.Component {
     toggleMemberModal: PropTypes.func,
     memberModal: PropTypes.bool,
     userGroupsData: PropTypes.array,
+    deleteEmail: PropTypes.func,
   }
 
   getAllUserEmails = () => {
@@ -28,16 +29,19 @@ class SingleGroup extends React.Component {
       toggleMemberModal,
       memberModal,
       userGroupsData,
+      deleteEmail,
     } = this.props;
 
     return (
     <tr className="createdGroup">
       <td className="group-name"onClick = {() => { this.toggleEvent(); this.getAllUserEmails(); }}>{group.groupName}</td>
       <td><button className="bttn-pill bttn-warning"><i className="far fa-edit fa-1x"/></button></td>
+      <td><button className="bttn-pill bttn-success"><i className="fas fa-user-plus"></i></button></td>
       <MemberModal
       toggleMemberModal= {toggleMemberModal}
       memberModal = {memberModal}
       userGroupsData = {userGroupsData}
+      deleteEmail = {deleteEmail}
       />
     </tr>
     );

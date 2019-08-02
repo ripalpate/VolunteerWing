@@ -12,6 +12,7 @@ class MemberModal extends React.Component {
       toggleMemberModal: PropTypes.func,
       memberModal: PropTypes.bool,
       userGroups: PropTypes.array,
+      deleteEmail: PropTypes.func,
     }
 
     toggleEvent1 = () => {
@@ -22,18 +23,31 @@ class MemberModal extends React.Component {
 
     render() {
       const { userGroupsData } = this.props;
-      const { memberModal } = this.props;
+      const { memberModal, deleteEmail } = this.props;
       const singleUserGroupComponent = userGroupsData.map(userGroup => (
         <SingleUserGroup
             userGroup = {userGroup}
             key = {userGroup.id}
+            deleteEmail = {deleteEmail}
         />
       ));
       return (
       <Modal isOpen={memberModal} toggle={this.toggleEvent1} className="modal-lg">
         <ModalHeader className="modal-header text-center" toggle={this.toggleEvent1}> Members</ModalHeader>
         <ModalBody className="modal-body">
-          <div>{singleUserGroupComponent}</div>
+        <div>
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                <th scope="col"> Email</th>
+                <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {singleUserGroupComponent}
+              </tbody>
+            </table>
+          </div>
         </ModalBody>
       </Modal>
       );
