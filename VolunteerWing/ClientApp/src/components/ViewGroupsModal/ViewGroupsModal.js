@@ -89,6 +89,7 @@ class ViewGroupsModal extends React.Component {
        getAllUserGroupsByGroupId= {this.getAllUserGroupsByGroupId}
        userGroupsData = {userGroupsData}
        deleteEmail = {this.deleteEmail}
+       getGroupsByAdminId = {this.getGroupsByAdminId}
       />
     ));
 

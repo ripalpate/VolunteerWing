@@ -24,8 +24,11 @@ const getAllGroupsByAdminId = userId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const updateGroup = (groupId, group) => axios.put(`${apiUrl}/${groupId}`, group);
+
 export default {
   createGroup,
   getAllGroups,
   getAllGroupsByAdminId,
+  updateGroup,
 };
