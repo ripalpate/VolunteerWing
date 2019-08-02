@@ -6,23 +6,25 @@ import {
   ModalBody,
 } from 'reactstrap';
 import groupRequests from '../../helpers/data/groupRequests';
-import './AddGroupModal.scss';
+import './AddEditGroupModal.scss';
 
 const defaultGroup = {
   groupName: '',
   adminId: 0,
 };
 
-class AddGroupModal extends React.Component {
+class AddEditGroupModal extends React.Component {
     state = {
       newGroup: defaultGroup,
     }
 
     static propTypes = {
-      addGroupModal: PropTypes.bool,
+      addEditGroupModal: PropTypes.bool,
       toggleGroupModal: PropTypes.func,
       currentUser: PropTypes.object,
       getAllGroupsByAdminId: PropTypes.func,
+      isEditing: PropTypes.bool,
+      getGroupsByAdminId: PropTypes.func,
     }
 
     toggleEvent = () => {
@@ -50,18 +52,64 @@ class AddGroupModal extends React.Component {
 
     formSubmit = (e) => {
       const currentUser = { ...this.props.currentUser };
+      const { isEditing, toggleGroupModal, getGroupsByAdminId } = this.props;
       e.preventDefault();
       const myGroup = { ...this.state.newGroup };
       myGroup.adminId = currentUser.id;
-      this.createEvent(myGroup);
+      if (isEditing) {
+        groupRequests.updateGroup(myGroup.id, myGroup)
+          .then(() => {
+            this.setState({ newGroup: defaultGroup }, toggleGroupModal());
+            getGroupsByAdminId();
+          });
+      } else {
+        this.createEvent(myGroup);
+      }
+    }
+
+    componentWillReceiveProps(newProps) {
+      const { isEditing, group } = newProps;
+      if (isEditing) {
+        this.setState({ newGroup: group });
+      }
     }
 
     render() {
-      const { addGroupModal } = this.props;
+      const { addEditGroupModal, isEditing } = this.props;
       const newGroup = { ...this.state.newGroup };
+
+      const makeHeader = () => {
+        if (isEditing) {
+          return (
+            <div>Edit My Group</div>
+          );
+        }
+        return (
+          <div>Add Group</div>
+        );
+      };
+
+      const makeButton = () => {
+        if (isEditing) {
+          return (
+            <div className="mx-auto">
+              <button className="bttn-pill user-add-btn my-auto mx-auto" title="Save Changes">
+                <i className="fas fa-check-circle edit" />
+              </button>
+            </div>
+          );
+        } return (
+          <div className="mx-auto">
+            <button className="bttn-pill user-add-btn my-auto mx-auto" title="Add Group">
+              <i className="fas fa-plus-circle" />
+            </button>
+          </div>
+        );
+      };
+
       return (
-        <Modal isOpen={addGroupModal} toggle={this.toggleEvent} className="modal-lg">
-          <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Add Group</ModalHeader>
+        <Modal isOpen={addEditGroupModal} toggle={this.toggleEvent} className="modal-lg">
+          <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>{makeHeader()}</ModalHeader>
           <ModalBody className="modal-body">
               <div>
                 <div className="form-group row">
@@ -76,8 +124,8 @@ class AddGroupModal extends React.Component {
                     onChange= {this.nameChange}
                     />
                   </div>
-                  <div className ="text-center" onClick={this.formSubmit}>
-                    <button className="bttn-pill bttn-success">Add</button>
+                  <div className ="mx-auto mt-2" onClick={this.formSubmit}>
+                    {makeButton()}
                   </div>
                 </div>
               </div>
@@ -87,4 +135,4 @@ class AddGroupModal extends React.Component {
     }
 }
 
-export default AddGroupModal;
+export default AddEditGroupModal;

@@ -8,7 +8,7 @@ import {
 import invitationRequests from '../../helpers/data/invitationRequests';
 import formateDateTime from '../../helpers/formatDateTime';
 import groupRequests from '../../helpers/data/groupRequests';
-import AddGroupModal from '../AddGroupModal/AddGroupModal';
+import AddEditGroupModal from '../AddEditGroupModal/AddEditGroupModal';
 import './InvitationModal.scss';
 import userGroupRequests from '../../helpers/data/userGroupRequests';
 
@@ -24,7 +24,7 @@ class InvitationModal extends React.Component {
     state = {
       newInvitation: defaultInvitation,
       groups: [],
-      addGroupModal: false,
+      addEditGroupModal: false,
       selectedGroupId: 0,
       userGroups: [],
     }
@@ -62,8 +62,8 @@ class InvitationModal extends React.Component {
     }
 
     toggleGroupModal = () => {
-      const { addGroupModal } = this.state;
-      this.setState({ addGroupModal: !addGroupModal });
+      const { addEditGroupModal } = this.state;
+      this.setState({ addEditGroupModal: !addEditGroupModal });
     }
 
     toggleEvent = () => {
@@ -151,7 +151,7 @@ class InvitationModal extends React.Component {
 
     render() {
       const { invitationModal, currentUser, singleEvent } = this.props;
-      const { addGroupModal } = this.state;
+      const { addEditGroupModal } = this.state;
       const newInvitation = { ...this.state.newInvitation };
       const groups = [...this.state.groups];
       const message = `Hello Friends, 
@@ -191,10 +191,10 @@ ${currentUser.name}`;
                           </div>
                         </div>
                         <button className="bttn-pill" onClick={this.toggleGroupModal}><i className="fas fa-plus-circle"></i></button>
-                        <AddGroupModal
+                        <AddEditGroupModal
                          currentUser = {currentUser}
                          toggleGroupModal = {this.toggleGroupModal}
-                         addGroupModal = {addGroupModal}
+                         addEditGroupModal = {addEditGroupModal}
                          getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
                         />
                         </div>

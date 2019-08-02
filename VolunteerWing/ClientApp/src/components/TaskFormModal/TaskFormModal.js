@@ -104,12 +104,41 @@ class TaskFormModal extends React.Component {
     }
 
     render() {
-      const { taskModal } = this.props;
+      const { taskModal, isEditing } = this.props;
       const newTask = { ...this.state.newTask };
+      const makeHeader = () => {
+        if (isEditing) {
+          return (
+            <div>Edit Task</div>
+          );
+        }
+        return (
+          <div>Add Task</div>
+        );
+      };
+
+      const makeButton = () => {
+        if (isEditing) {
+          return (
+            <div className="mx-auto">
+              <button className="bttn-pill my-auto mx-auto" title="Save Changes">
+                <i className="fas fa-check-circle edit" />
+              </button>
+            </div>
+          );
+        }
+        return (
+          <div className="mx-auto">
+            <button className="bttn-pill my-auto mx-auto" title="Add Task">
+              <i className="fas fa-plus-circle" />
+            </button>
+          </div>
+        );
+      };
       return (
         <div>
             <Modal isOpen={taskModal} toggle={this.toggleEvent} className="modal-lg">
-                <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Add Task</ModalHeader>
+                <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>{makeHeader()}</ModalHeader>
                 <ModalBody className="modal-body">
                     <form className= "task-modal-form" onSubmit={this.formSubmit}>
                         <div className="form-group row">
@@ -190,7 +219,7 @@ class TaskFormModal extends React.Component {
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-10 text-center">
-                                <button type="submit" className="bttn-pill bttn-success">Save</button>
+                                {makeButton()}
                             </div>
                         </div>
                     </form>
