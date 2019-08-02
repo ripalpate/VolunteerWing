@@ -23,6 +23,7 @@ class ViewGroupsModal extends React.Component {
     groups: [],
     memberModal: false,
     userGroupsData: [],
+    addMemberModal: false,
   }
 
   getGroupsByAdminId = () => {
@@ -42,6 +43,11 @@ class ViewGroupsModal extends React.Component {
   toggleMemberModal = () => {
     const { memberModal } = this.state;
     this.setState({ memberModal: !memberModal });
+  }
+
+  toggleAddMemberModal = () => {
+    const { addMemberModal } = this.state;
+    this.setState({ addMemberModal: !addMemberModal });
   }
 
   componentDidMount() {
@@ -69,7 +75,7 @@ class ViewGroupsModal extends React.Component {
 
   render() {
     const { viewGroupModal, currentUser } = this.props;
-    const { groups, memberModal, userGroupsData } = this.state;
+    const { groups, memberModal, userGroupsData, addMemberModal } = this.state;
 
     const singleGroupComponent = groups.map(group => (
       <SingleGroup
@@ -77,6 +83,8 @@ class ViewGroupsModal extends React.Component {
        key = {group.id}
        toggleMemberModal= {this.toggleMemberModal}
        memberModal = {memberModal}
+       addMemberModal = {addMemberModal}
+       toggleAddMemberModal = {this.toggleAddMemberModal}
        currentUser = {currentUser}
        getAllUserGroupsByGroupId= {this.getAllUserGroupsByGroupId}
        userGroupsData = {userGroupsData}
