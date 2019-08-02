@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace VolunteerWing.Models
 {
-    public class Invitation
+    public class CreateInvitationRequest
     {
-        public int Id { get; set; }
         public string UserEmail { get; set; }
         public int EventId { get; set; }
         public string Link { get; set; }

@@ -47,6 +47,7 @@ namespace VolunteerWing
             services.AddTransient<GroupRepository>();
             services.AddTransient<UserGroupRepository>();
             services.AddTransient<EmailService>();
+            services.AddTransient<InvitationRepository>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
