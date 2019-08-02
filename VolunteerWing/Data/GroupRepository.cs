@@ -69,7 +69,7 @@ namespace VolunteerWing.Data
             }
         }
 
-        public IEnumerable<Object> GetAllGroupsByAdminId(int adminId)
+        public IEnumerable<Group> GetAllGroupsByAdminId(int adminId)
         {
             using (var db = new SqlConnection(_connectionString))
             {
@@ -77,7 +77,7 @@ namespace VolunteerWing.Data
                                   from groups
                                   where adminId =@adminId";
                 var parameter = new { adminId };
-                var allGroups = db.Query<Object>(sqlQuery,parameter).ToList();
+                var allGroups = db.Query<Group>(sqlQuery,parameter).ToList();
                 if (allGroups != null)
                 {
                     return allGroups;

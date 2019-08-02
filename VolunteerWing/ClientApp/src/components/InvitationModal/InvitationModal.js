@@ -167,7 +167,7 @@ ${currentUser.name}`;
           <select id="group" className="custom-select mb-2 ml-3" onChange={this.dropdownGroupSelect} onClick={this.getAndSetAllEmailsForTheGroup}>
             <option defaultValue>Select Group</option>
               {
-              groups.map((group, i) => (<option value={group.Id} key={i}>{group.GroupName}</option>))
+              groups.map((group, i) => (<option value={group.id} key={i}>{group.groupName}</option>))
               }
           </select>
       );

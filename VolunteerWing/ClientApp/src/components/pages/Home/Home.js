@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CreatedEventsModal from '../../CreatedEventsModal/CreatedEventsModal';
 import SignupModal from '../../SignupModal/SignupModal';
+import ViewGroupsModal from '../../ViewGroupsModal/ViewGroupsModal'
 import './Home.scss';
 
 class Home extends React.Component {
   state = {
     createdEventsModal: false,
     viewSignupModal: false,
-    // editEventId: 0,
-    // isEditingEvent: false,
+    viewGroupModal: false,
   }
 
   static = {
@@ -31,6 +31,11 @@ class Home extends React.Component {
     this.setState({ viewSignupModal: !viewSignupModal });
   }
 
+  toggleViewGroupModal = () => {
+    const { viewGroupModal } = this.state;
+    this.setState({ viewGroupModal: !viewGroupModal });
+  }
+
   eventDetailView = (eventId) => {
     this.props.history.push(`/createdEvent/${eventId}`);
   }
@@ -41,7 +46,7 @@ class Home extends React.Component {
 
   render() {
     const { currentUser, passEventToEdit } = this.props;
-    const { createdEventsModal, viewSignupModal } = this.state;
+    const { createdEventsModal, viewSignupModal, viewGroupModal } = this.state;
     const adminCards = () => {
       if (currentUser.isAdmin) {
         return (
@@ -51,6 +56,13 @@ class Home extends React.Component {
               <h4 className="card-title"><i className="fas fa-calendar-alt fa-6x"></i></h4>
               <h5 className="card-subtitle mb-2 text-muted">View created Events</h5>
               <p className="card-text">View the events that I have created </p>
+            </div>
+          </div>
+          <div className="card mt-3 border-dark animated zoomIn" id="createdGroups" onClick={this.toggleViewGroupModal}>
+            <div className="card-body home text-center">
+              <h4 className="card-title"><i className="fas fa-address-book fa-6x"></i></h4>
+              <h5 className="card-subtitle mb-2 text-muted">View created Groups</h5>
+              <p className="card-text">View the groups that I have created </p>
             </div>
           </div>
         </div>
@@ -96,6 +108,11 @@ class Home extends React.Component {
         toggleViewSignupModal = {this.toggleViewSignupModal}
         currentUser = {currentUser}
         eventDetailView = {this.eventDetailView}
+        />
+        <ViewGroupsModal
+        viewGroupModal = {viewGroupModal}
+        toggleViewGroupModal = {this.toggleViewGroupModal}
+        currentUser = {currentUser}
         />
       </div>
     );
