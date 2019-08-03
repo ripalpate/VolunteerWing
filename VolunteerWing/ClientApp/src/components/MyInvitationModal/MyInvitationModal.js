@@ -69,25 +69,36 @@ class MyInvitationModal extends React.Component {
          eventDetailView = {eventDetailView}
         />
       ));
+      const checkLength = () => {
+        if (invitedEvents.length === 0) {
+          return (
+            <div className="w-75 mx-auto">
+              <div>Sorry, currently, you are not invited to any event. Please check back later</div>
+            </div>
+          );
+        } return (
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Start Time</th>
+                  <th scope="col">End Time</th>
+                  <th scope="col">Location</th>
+                </tr>
+              </thead>
+            <tbody>
+            {singleInvitedEventComponent}
+            </tbody>
+            </table>
+        );
+      };
       return (
           <Modal isOpen={myInvitationModal} toggle={this.toggleEvent} className="modal-lg">
             <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>My Invitations</ModalHeader>
             <ModalBody className="modal-body">
               <div>
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">Event</th>
-                      <th scope="col">Start Date</th>
-                      <th scope="col">Start Time</th>
-                      <th scope="col">End Time</th>
-                      <th scope="col">Location</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {singleInvitedEventComponent}
-                  </tbody>
-                </table>
+                {checkLength()}
               </div>
             </ModalBody>
           </Modal>

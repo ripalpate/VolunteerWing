@@ -73,25 +73,37 @@ class SignupModal extends React.Component {
        isSignupView = {isSignupView}
       />
     ));
-    return (
-        <Modal isOpen={viewSignupModal} toggle={this.toggleEvent} className="modal-lg">
-        <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> Sign up Events</ModalHeader>
-        <ModalBody className="modal-body">
-          <div>
-            <table className="table table-hover">
-              <thead>
-                <tr>
+    const checkLength = () => {
+      if (events.length === 0) {
+        return (
+          <div className="w-75 mx-auto">
+            <div>Sorry, currently, you haven't signed up for any event</div>
+          </div>
+        );
+      } return (
+          <table className="table table-hover">
+            <thead>
+              <tr>
                 <th scope="col">Event</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">Start Time</th>
                 <th scope="col">End Time</th>
                 <th scope="col">Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                {singleEventComponent}
-              </tbody>
-            </table>
+              </tr>
+            </thead>
+            <tbody>
+            {singleEventComponent}
+            </tbody>
+          </table>
+      );
+    };
+
+    return (
+        <Modal isOpen={viewSignupModal} toggle={this.toggleEvent} className="modal-lg">
+        <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> Sign up Events</ModalHeader>
+        <ModalBody className="modal-body">
+          <div>
+            {checkLength()}
           </div>
         </ModalBody>
     </Modal>
