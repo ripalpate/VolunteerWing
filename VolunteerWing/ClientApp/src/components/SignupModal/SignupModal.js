@@ -37,6 +37,7 @@ class SignupModal extends React.Component {
               userTaskid: event.UserTaskId,
               eventName: event.EventName,
               startDate: event.StartDate,
+              startTime: event.StartTime,
               endTime: event.EndTime,
               location: event.Location,
               id: event.id,
@@ -82,6 +83,8 @@ class SignupModal extends React.Component {
                 <tr>
                 <th scope="col">Event</th>
                 <th scope="col">Start Date</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
                 <th scope="col">Location</th>
                 </tr>
               </thead>

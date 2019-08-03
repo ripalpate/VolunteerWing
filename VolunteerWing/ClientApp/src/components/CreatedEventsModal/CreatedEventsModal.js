@@ -73,20 +73,22 @@ class CreatedEventsModal extends React.Component {
         <Modal isOpen={createdEventsModal} toggle={this.toggleEvent} className="modal-lg">
             <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> Created Events</ModalHeader>
             <ModalBody className="modal-body">
-                <div>
-                    <table className="table table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Event</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">Location</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {singleEventComponent}
-                        </tbody>
-                    </table>
-                </div>
+              <div>
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Start Time</th>
+                        <th scope="col">End Time</th>
+                        <th scope="col">Location</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {singleEventComponent}
+                    </tbody>
+                  </table>
+              </div>
             </ModalBody>
         </Modal>
       );

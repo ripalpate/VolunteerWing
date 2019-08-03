@@ -42,6 +42,8 @@ class SingleCreatedEvent extends React.Component {
     <tr className="createdEvent">
       <td className="event-name" onClick={this.changeEventToDetailView}>{event.eventName}</td>
       <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatMDYDate(event.startDate)}</td>
+      <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.startTime)}</td>
+      <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.endTime)}</td>
       <td className="event-location" onClick={this.changeEventToDetailView}>{event.location}</td>
       <td>{makeEditButton()}</td>
     </tr>

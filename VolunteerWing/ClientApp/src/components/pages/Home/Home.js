@@ -114,6 +114,8 @@ class Home extends React.Component {
               <MyInvitationModal
                myInvitationModal= {myInvitationModal}
                toggleMyInvitationModal = {this.toggleMyInvitationModal}
+               currentUser = {currentUser}
+               eventDetailView = {this.eventDetailView}
               />
             </div>
             {adminCards()}
