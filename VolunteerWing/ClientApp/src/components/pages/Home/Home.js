@@ -111,12 +111,6 @@ class Home extends React.Component {
                 <h5 className="card-subtitle mb-2 text-muted">My Invitations</h5>
                 <p className="card-text">View the invitation that I have been invited</p>
               </div>
-              <MyInvitationModal
-               myInvitationModal= {myInvitationModal}
-               toggleMyInvitationModal = {this.toggleMyInvitationModal}
-               currentUser = {currentUser}
-               eventDetailView = {this.eventDetailView}
-              />
             </div>
             {adminCards()}
         </div>
@@ -138,6 +132,12 @@ class Home extends React.Component {
         viewGroupModal = {viewGroupModal}
         toggleViewGroupModal = {this.toggleViewGroupModal}
         currentUser = {currentUser}
+        />
+        <MyInvitationModal
+               myInvitationModal= {myInvitationModal}
+               toggleMyInvitationModal = {this.toggleMyInvitationModal}
+               currentUser = {currentUser}
+               eventDetailView = {this.eventDetailView}
         />
       </div>
     );

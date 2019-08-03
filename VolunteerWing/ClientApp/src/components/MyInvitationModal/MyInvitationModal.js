@@ -42,7 +42,7 @@ class MyInvitationModal extends React.Component {
         });
     }
 
-    componentDidMount() {
+    componentWillUpdate() {
       const { currentUser } = this.props;
       this.myInvitationModalMounted = !!currentUser.id;
       if (this.myInvitationModalMounted) {

@@ -80,8 +80,11 @@ class InvitationModal extends React.Component {
       this.setState({ newInvitation: tempInvitation });
     }
 
-    getAllUsergroups = () => {
-
+    formFieldArrayState = (name, e) => {
+      e.preventDefault();
+      const tempInvitation = { ...this.state.newInvitation };
+      tempInvitation[name] = e.target.value.split(',').map(item => item.trim());
+      this.setState({ newInvitation: tempInvitation });
     }
 
     createUserGroup = () => {
@@ -119,6 +122,7 @@ class InvitationModal extends React.Component {
     createDbInvitation = () => {
       const newInvitation = { ...this.state.newInvitation };
       const emailsArray = newInvitation.to;
+      console.log(emailsArray);
       const { singleEvent } = this.props;
       emailsArray.forEach((email) => {
         const invitation = {};
@@ -152,13 +156,6 @@ class InvitationModal extends React.Component {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
           routeToCreatedEvents();
         });
-    }
-
-    formFieldArrayState = (name, e) => {
-      e.preventDefault();
-      const tempInvitation = { ...this.state.newInvitation };
-      tempInvitation[name] = e.target.value.split(',');
-      this.setState({ newInvitation: tempInvitation });
     }
 
     toChange = e => this.formFieldArrayState('to', e);
