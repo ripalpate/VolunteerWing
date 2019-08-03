@@ -11,6 +11,7 @@ import groupRequests from '../../helpers/data/groupRequests';
 import AddEditGroupModal from '../AddEditGroupModal/AddEditGroupModal';
 import './InvitationModal.scss';
 import userGroupRequests from '../../helpers/data/userGroupRequests';
+import dbInvitationRequests from '../../helpers/data/dbInvitationRequests';
 
 const defaultInvitation = {
   to: '',
@@ -34,6 +35,7 @@ class InvitationModal extends React.Component {
       invitationModal: PropTypes.bool,
       currentUser: PropTypes.object,
       routeToCreatedEvents: PropTypes.func,
+      singleEvent: PropTypes.object,
     }
 
     getAllGroupsByAdminId = () => {
@@ -114,6 +116,21 @@ class InvitationModal extends React.Component {
         });
     }
 
+    createDbInvitation = () => {
+      const newInvitation = { ...this.state.newInvitation };
+      const emailsArray = newInvitation.to;
+      const { singleEvent } = this.props;
+      emailsArray.forEach((email) => {
+        const invitation = {};
+        invitation.userEmail = email;
+        invitation.eventId = singleEvent.id;
+        invitation.link = `http://localhost:64575/createdEvent/${singleEvent.id}`;
+        dbInvitationRequests.createDbInvitation(invitation)
+          .then(() => {
+          });
+      });
+    }
+
     formSubmit = (e) => {
       e.preventDefault();
       const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
@@ -129,6 +146,7 @@ class InvitationModal extends React.Component {
       myInvitation.from = currentUser.email;
       myInvitation.body = message;
       this.createUserGroup();
+      this.createDbInvitation();
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
