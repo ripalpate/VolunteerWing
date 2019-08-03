@@ -23,10 +23,12 @@ class MyInvitationModal extends React.Component {
     }
 
     getAllInvitationsWithEventInfo = () => {
+      const { currentUser } = this.props;
       dbInvitationRequests.getAllInvitationsWithEventInfo()
         .then((invitationsWithEvent) => {
+          const getInvitationsForCurrentUser = invitationsWithEvent.filter(x => x.UserEmail === currentUser.email);
           const invitedEvents = [];
-          invitationsWithEvent.forEach((invitation) => {
+          getInvitationsForCurrentUser.forEach((invitation) => {
             invitedEvents.push({
               eventName: invitation.EventName,
               startDate: invitation.StartDate,
