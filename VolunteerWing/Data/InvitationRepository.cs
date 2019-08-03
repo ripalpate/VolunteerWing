@@ -62,5 +62,21 @@ namespace VolunteerWing.Data
             }
         }
 
+        public IEnumerable<Object> GetInvitationWithEventInfo()
+        {
+            using (var db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @"Select *
+                                From Invitation
+                                Join VolunteerEvents as VE
+                                  On VE.Id = Invitation.EventId";
+                var invitationsWithEventInfo = db.Query<Object>(sqlQuery).ToList();
+                if (invitationsWithEventInfo != null)
+                {
+                    return invitationsWithEventInfo;
+                }
+                throw new Exception("Something went wrong. Could not get invitation with event info.");
+            }
+        }
     }
 }

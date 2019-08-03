@@ -41,5 +41,12 @@ namespace VolunteerWing.Controllers
             var getAllInvitations = _repository.GetAllInvitations();
             return Ok(getAllInvitations);
         }
+
+        [HttpGet("eventInfo")]
+        public ActionResult GetInvitationWithEventInfo()
+        {
+            var getInvitationsWithEventInfo = _repository.GetInvitationWithEventInfo();
+            return Ok(getInvitationsWithEventInfo);
+        }
     }
 }
