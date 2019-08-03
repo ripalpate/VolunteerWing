@@ -11,6 +11,7 @@ import groupRequests from '../../helpers/data/groupRequests';
 import AddEditGroupModal from '../AddEditGroupModal/AddEditGroupModal';
 import './InvitationModal.scss';
 import userGroupRequests from '../../helpers/data/userGroupRequests';
+import dbInvitationRequests from '../../helpers/data/dbInvitationRequests';
 
 const defaultInvitation = {
   to: '',
@@ -34,6 +35,7 @@ class InvitationModal extends React.Component {
       invitationModal: PropTypes.bool,
       currentUser: PropTypes.object,
       routeToCreatedEvents: PropTypes.func,
+      singleEvent: PropTypes.object,
     }
 
     getAllGroupsByAdminId = () => {
@@ -114,6 +116,21 @@ class InvitationModal extends React.Component {
         });
     }
 
+    createDbInvitation = () => {
+      const newInvitation = { ...this.state.newInvitation };
+      const emailsArray = newInvitation.to;
+      const { singleEvent } = this.props;
+      emailsArray.forEach((email) => {
+        const invitation = {};
+        invitation.userEmail = email;
+        invitation.eventId = singleEvent.id;
+        invitation.link = `http://localhost:64575/createdEvent/${singleEvent.id}`;
+        dbInvitationRequests.createDbInvitation(invitation)
+          .then(() => {
+          });
+      });
+    }
+
     formSubmit = (e) => {
       e.preventDefault();
       const { toggleInvitationModal, routeToCreatedEvents, singleEvent } = this.props;
@@ -129,6 +146,7 @@ class InvitationModal extends React.Component {
       myInvitation.from = currentUser.email;
       myInvitation.body = message;
       this.createUserGroup();
+      this.createDbInvitation();
       invitationRequests.createInvitation(myInvitation)
         .then(() => {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
@@ -173,70 +191,69 @@ ${currentUser.name}`;
       );
 
       return (
-            <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
-                <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
-                <ModalBody className="modal-body">
-                    <div className= "task-modal-form">
-                        <div className="form-group row">
-                            <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
-                            <div className="col-sm-10">
-                                <p className="col-sm-2 col-form-label">{currentUser.email}</p>
-                            </div>
-                        </div>
-                        <div className="form-inline">
-                        <div className="form-group">
-                          <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Select Group</label>
-                          <div className="col-sm-10">
-                            {makeGroupDropDown()}
-                          </div>
-                        </div>
-                        <button className="bttn-pill" onClick={this.toggleGroupModal}><i className="fas fa-plus-circle"></i></button>
-                        <AddEditGroupModal
-                         currentUser = {currentUser}
-                         toggleGroupModal = {this.toggleGroupModal}
-                         addEditGroupModal = {addEditGroupModal}
-                         getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
+        <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
+          <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
+          <ModalBody className="modal-body">
+            <div className= "task-modal-form">
+                <div className="form-group row">
+                    <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
+                    <div className="col-sm-10">
+                        <p className="col-sm-2 col-form-label">{currentUser.email}</p>
+                    </div>
+                </div>
+                <div className="form-inline">
+                <div className="form-group">
+                  <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Select Group</label>
+                  <div className="col-sm-10">
+                    {makeGroupDropDown()}
+                  </div>
+                </div>
+                <button className="bttn-pill" onClick={this.toggleGroupModal}><i className="fas fa-plus-circle"></i></button>
+                <AddEditGroupModal
+                  currentUser = {currentUser}
+                  toggleGroupModal = {this.toggleGroupModal}
+                  addEditGroupModal = {addEditGroupModal}
+                  getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
+                />
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
+                    <div className="col-sm-10">
+                        <textarea
+                        type="text"
+                        className="form-control"
+                        id="to"
+                        placeholder="test@test.com"
+                        value= {newInvitation.to}
+                        onChange= {this.toChange}
                         />
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
-                            <div className="col-sm-10">
-                                <textarea
-                                type="text"
-                                className="form-control"
-                                id="to"
-                                placeholder="test@test.com"
-                                value= {newInvitation.to}
-                                onChange= {this.toChange}
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="subject" className="col-sm-2 col-form-label">Subject:</label>
-                            <div className="col-sm-10">
-                                <input
-                                type="text"
-                                className="form-control"
-                                id="subject"
-                                placeholder="subject"
-                                value= {newInvitation.subject}
-                                onChange= {this.subjectChange}
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="message" className="col-sm-2 col-form-label">Message</label>
-                            <div className="col-sm-10">
-                              <pre className="col-form-label">{message}</pre>
-                            </div>
-                        </div>
-                        <div>
-                            <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
-                        </div>
-                       </div>
-
-                </ModalBody>
-            </Modal>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="subject" className="col-sm-2 col-form-label">Subject:</label>
+                    <div className="col-sm-10">
+                        <input
+                        type="text"
+                        className="form-control"
+                        id="subject"
+                        placeholder="subject"
+                        value= {newInvitation.subject}
+                        onChange= {this.subjectChange}
+                        />
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="message" className="col-sm-2 col-form-label">Message</label>
+                    <div className="col-sm-10">
+                      <pre className="col-form-label">{message}</pre>
+                    </div>
+                </div>
+                <div>
+                    <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
+                </div>
+            </div>
+          </ModalBody>
+        </Modal>
       );
     }
 }

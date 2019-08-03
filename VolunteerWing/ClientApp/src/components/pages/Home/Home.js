@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CreatedEventsModal from '../../CreatedEventsModal/CreatedEventsModal';
 import SignupModal from '../../SignupModal/SignupModal';
-import ViewGroupsModal from '../../ViewGroupsModal/ViewGroupsModal'
+import ViewGroupsModal from '../../ViewGroupsModal/ViewGroupsModal';
+import MyInvitationModal from '../../MyInvitationModal/MyInvitationModal';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -10,6 +11,7 @@ class Home extends React.Component {
     createdEventsModal: false,
     viewSignupModal: false,
     viewGroupModal: false,
+    myInvitationModal: false,
   }
 
   static = {
@@ -36,6 +38,11 @@ class Home extends React.Component {
     this.setState({ viewGroupModal: !viewGroupModal });
   }
 
+  toggleMyInvitationModal = () => {
+    const { myInvitationModal } = this.state;
+    this.setState({ myInvitationModal: !myInvitationModal });
+  }
+
   eventDetailView = (eventId) => {
     this.props.history.push(`/createdEvent/${eventId}`);
   }
@@ -46,7 +53,12 @@ class Home extends React.Component {
 
   render() {
     const { currentUser, passEventToEdit } = this.props;
-    const { createdEventsModal, viewSignupModal, viewGroupModal } = this.state;
+    const {
+      createdEventsModal,
+      viewSignupModal,
+      viewGroupModal,
+      myInvitationModal,
+    } = this.state;
     const adminCards = () => {
       if (currentUser.isAdmin) {
         return (
@@ -54,14 +66,14 @@ class Home extends React.Component {
           <div className="card mt-3 border-dark animated zoomIn" id="createdEvents" onClick={this.toggleCreatedEventsModal}>
             <div className="card-body home text-center">
               <h4 className="card-title"><i className="fas fa-calendar-alt fa-6x"></i></h4>
-              <h5 className="card-subtitle mb-2 text-muted">View created Events</h5>
+              <h5 className="card-subtitle mb-2 text-muted">View Created Events</h5>
               <p className="card-text">View the events that I have created </p>
             </div>
           </div>
           <div className="card mt-3 border-dark animated zoomIn" id="createdGroups" onClick={this.toggleViewGroupModal}>
             <div className="card-body home text-center">
               <h4 className="card-title"><i className="fas fa-address-book fa-6x"></i></h4>
-              <h5 className="card-subtitle mb-2 text-muted">View created Groups</h5>
+              <h5 className="card-subtitle mb-2 text-muted">View Created Groups</h5>
               <p className="card-text">View the groups that I have created </p>
             </div>
           </div>
@@ -89,9 +101,22 @@ class Home extends React.Component {
             <div className="card mt-3 border-dark animated zoomIn" id="viewSignups" onClick={this.toggleViewSignupModal}>
               <div className="card-body home text-center">
                 <h4 className="card-title"><i className="fas fa-hands-helping fa-6x"></i></h4>
-                <h5 className="card-subtitle mb-2 text-muted">View signups</h5>
+                <h5 className="card-subtitle mb-2 text-muted">My signups</h5>
                 <p className="card-text">View the events that you have sign up </p>
               </div>
+            </div>
+            <div className="card mt-3 border-dark animated zoomIn" id="myInvitations" onClick={this.toggleMyInvitationModal}>
+              <div className="card-body home text-center">
+                <h4 className="card-title"><i className="fas fa-envelope-open-text fa-6x"></i></h4>
+                <h5 className="card-subtitle mb-2 text-muted">My Invitations</h5>
+                <p className="card-text">View the invitation that I have been invited</p>
+              </div>
+              <MyInvitationModal
+               myInvitationModal= {myInvitationModal}
+               toggleMyInvitationModal = {this.toggleMyInvitationModal}
+               currentUser = {currentUser}
+               eventDetailView = {this.eventDetailView}
+              />
             </div>
             {adminCards()}
         </div>
