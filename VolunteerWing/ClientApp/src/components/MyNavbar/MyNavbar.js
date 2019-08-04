@@ -37,13 +37,13 @@ class MyNavbar extends React.Component {
       if (isAuthed && !isUser) {
         return (
         <Nav className="ml-auto" navbar>
-          <NavItem className="nav-item">
+          <NavItem className="nav-item nav">
             <NavLink tag={RRNavLink} to="/home">Home</NavLink>
           </NavItem>
-          <NavItem className="nav-item">
+          <NavItem className="nav-item nav">
             <NavLink tag={RRNavLink} to="/addEditEvent">Create Event</NavLink>
           </NavItem>
-          <NavItem className="nav-item">
+          <NavItem className="nav-item nav">
             <NavLink onClick={logoutClickEvent}>Logout</NavLink>
           </NavItem>
         </Nav>
@@ -52,7 +52,7 @@ class MyNavbar extends React.Component {
       if (isAuthed && isUser) {
         return (
           <Nav className="ml-auto" navbar>
-            <NavItem className="nav-item">
+            <NavItem className="nav-item nav">
               <NavLink onClick={logoutClickEvent}>Logout</NavLink>
             </NavItem>
           </Nav>
@@ -68,21 +68,10 @@ class MyNavbar extends React.Component {
     return (
       <div className="my-navbar mb-5">
        <Navbar color="dark" expand="md" className="fixed-top">
-          <NavbarBrand href="/">Volunteer Wing</NavbarBrand>
+          <NavbarBrand href="/" className="nav">Volunteer Wing</NavbarBrand>
           <NavbarToggler onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
            {buildNavbar()}
-           {/* <Nav className="ml-auto" navbar>
-          <NavItem className="nav-item">
-            <NavLink tag={RRNavLink} to="/home">Home</NavLink>
-          </NavItem>
-          <NavItem className="nav-item">
-            <NavLink tag={RRNavLink} to="/volunteerEvent">Create Volunteer Event</NavLink>
-          </NavItem>
-          <NavItem className="nav-item">
-            <NavLink onClick={logoutClickEvent}>Logout</NavLink>
-          </NavItem>
-        </Nav> */}
           </Collapse>
         </Navbar>
       </div>

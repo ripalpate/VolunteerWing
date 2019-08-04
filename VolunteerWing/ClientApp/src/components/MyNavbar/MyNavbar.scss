@@ -1,3 +1,7 @@
-.my-navbar{
-    color:white !important;
+@import '../../styles/variables';
+
+a, .nav{
+    color:$color4 !important;
+    cursor: pointer;
 }
+
