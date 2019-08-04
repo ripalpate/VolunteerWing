@@ -46,6 +46,9 @@ class CreatedEventsModal extends React.Component {
       }
     }
 
+    componentWillUnmount() {
+      this.createdEventsModalMounted = false;
+    }
 
     render() {
       const {
