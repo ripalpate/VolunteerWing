@@ -112,7 +112,7 @@ class AddEditEvent extends React.Component {
    const { newEvent } = this.state;
    return (
      <div className="form-wrapper">
-        <form onSubmit={this.formSubmit} className= "w-50 mx-auto border border-dark rounded p-4">
+        <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4">
         <div className="form-group row">
           <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
           <div className="col-sm-10">
@@ -192,8 +192,8 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-sm-10">
-            <button type="submit" className="btn btn-primary">Save Event</button>
+          <div className="col-sm-10 text-center">
+            <button type="submit" className="bttn-pill add bttn-success"><i className="fas fa-plus-circle pr-2"></i>Save</button>
           </div>
         </div>
       </form>

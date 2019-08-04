@@ -1,3 +1,13 @@
+@import '../../../styles/variables';
+
 .form-wrapper{
     margin-top: 7rem;
+}
+
+.form {
+    background-color: $color3;
+}
+
+::-webkit-input-placeholder {
+    color: rgb(215, 215, 216) !important;
 }
