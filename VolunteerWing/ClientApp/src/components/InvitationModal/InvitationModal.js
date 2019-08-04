@@ -80,8 +80,11 @@ class InvitationModal extends React.Component {
       this.setState({ newInvitation: tempInvitation });
     }
 
-    getAllUsergroups = () => {
-
+    formFieldArrayState = (name, e) => {
+      e.preventDefault();
+      const tempInvitation = { ...this.state.newInvitation };
+      tempInvitation[name] = e.target.value.split(',');
+      this.setState({ newInvitation: tempInvitation });
     }
 
     createUserGroup = () => {
@@ -93,7 +96,7 @@ class InvitationModal extends React.Component {
       emailsArray.forEach((email) => {
         const userGroup = {};
         userGroup.groupId = groupId;
-        userGroup.userEmail = email;
+        userGroup.userEmail = email.trim();
         const checkIfuserEmailExist = userGroups.filter(x => x.groupId === groupId && x.userEmail === email);
         if (checkIfuserEmailExist.length === 0) {
           userGroupRequests.createUserGroup(userGroup)
@@ -122,7 +125,7 @@ class InvitationModal extends React.Component {
       const { singleEvent } = this.props;
       emailsArray.forEach((email) => {
         const invitation = {};
-        invitation.userEmail = email;
+        invitation.userEmail = email.trim();
         invitation.eventId = singleEvent.id;
         invitation.link = `http://localhost:64575/createdEvent/${singleEvent.id}`;
         dbInvitationRequests.createDbInvitation(invitation)
@@ -152,13 +155,6 @@ class InvitationModal extends React.Component {
           this.setState({ newInvitation: defaultInvitation }, toggleInvitationModal());
           routeToCreatedEvents();
         });
-    }
-
-    formFieldArrayState = (name, e) => {
-      e.preventDefault();
-      const tempInvitation = { ...this.state.newInvitation };
-      tempInvitation[name] = e.target.value.split(',');
-      this.setState({ newInvitation: tempInvitation });
     }
 
     toChange = e => this.formFieldArrayState('to', e);
