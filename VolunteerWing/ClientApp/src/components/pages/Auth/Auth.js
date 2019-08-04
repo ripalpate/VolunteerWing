@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'reactstrap';
 import authRequests from '../../../helpers/data/authRequest';
 import './Auth.scss';
 
@@ -17,11 +16,15 @@ class Auth extends React.Component {
   render() {
     return (
       <div className="Auth mt-5">
-        <h3>Welcome To Volunteer Wing</h3>
-        <div className="btn-container">
-            <Button color="info" className="bttn-pill bttn-lg bttn-danger" onClick={this.googleAuthenticateUser}>
+        <div className="title-container">
+          <h3 className="title text-center heading-EaseOffBills ">Welcome</h3>
+          <h3 className="title text-center heading-EaseOffBills">To</h3>
+          <h3 className=" title text-center">Volunteer Wing</h3>
+        </div>
+        <div className="bttn-container text-center mt-5">
+            <button color="info" className="bttn-pill bttn-lg bttn-danger" onClick={this.googleAuthenticateUser}>
             <i className="fab fa-google"></i> Sign In w/Google
-            </Button>
+            </button>
         </div>
       </div>
     );

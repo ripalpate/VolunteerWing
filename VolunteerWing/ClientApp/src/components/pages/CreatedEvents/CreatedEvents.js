@@ -91,12 +91,11 @@ class CreatedEvents extends React.Component {
     const { currentUser } = this.props;
     const { isCreating } = this.state;
     return (
-      <div className="w-75 mx-auto pt-3">
-        <h4>Event Name:{singleEvent.eventName}</h4>
-        <p>Location: {singleEvent.location}</p>
-        <p>Description: {singleEvent.description}</p>
-        <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-        <p>Strat Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+      <div className="created-event form border border-dark rounded w-75 mx-auto p-4">
+        <h4 className="event-title">{singleEvent.eventName}</h4>
+        <p> {singleEvent.location}</p>
+        <p>{singleEvent.description}</p>
+        <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
         <Tasks
         tasks = {tasks}
         currentUser = {currentUser}

@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.modal-content {
+    background-color: $color7 !important;
+}
+
+.modal-header {
+    font-family: $header-font;
+    border-bottom: 1px solid black;
+}
+.select-group {
+    padding-left: 8px;
+}
+
+.add-group {
+    margin-bottom:5px;
+    padding: 0px 20px;
+}
+
+.from-email{
+ padding-left: 0px;
+}

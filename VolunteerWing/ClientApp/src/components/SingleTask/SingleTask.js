@@ -163,7 +163,7 @@ class SingleTask extends React.Component {
             <td>{formateDateTime.formatMDYDate(task.startDate)}</td>
             <td>{formateDateTime.formatTime(task.startTime)}</td>
             <td>{formateDateTime.formatTime(task.endTime)}</td>
-            <td>{task.numberOfPeopleNeed}</td>
+            <td className="text-center">{task.numberOfPeopleNeed}</td>
             <td>{task.numberOfPeopleSignUp} of {task.numberOfPeopleNeed} slots filled</td>
             {makeButtons()}
         </tr>
