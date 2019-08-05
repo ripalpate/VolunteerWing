@@ -22,7 +22,7 @@ class Auth extends React.Component {
           <h3 className=" title text-center">Volunteer Wing</h3>
         </div>
         <div className="bttn-container text-center mt-5">
-            <button color="info" className="bttn-pill bttn-lg bttn-danger" onClick={this.googleAuthenticateUser}>
+            <button className="bttn-pill bttn-lg bttn-danger" onClick={this.googleAuthenticateUser}>
             <i className="fab fa-google"></i> Sign In w/Google
             </button>
         </div>

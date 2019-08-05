@@ -84,7 +84,7 @@ class Profile extends React.Component {
                         <div className="input-group-text">Email</div>
                         </div>
                         <input
-                        type="text"
+                        type="email"
                         className="form-control"
                         id="email"
                         placeholder="bob@xxx.com"
@@ -228,24 +228,23 @@ class Profile extends React.Component {
         );
       } return (
         <div className="profile-card form border border-dark rounded animated zoomIn mx-auto p-3">
-        <h3 className="text-center profile-header">{currentUser.name}</h3>
-        <div className="ml-1">Email: {currentUser.email}</div>
-        <div className="ml-1">Age: {currentUser.age}</div>
-        <div className="ml-1">Street: {currentUser.street}</div>
-        <div className="ml-1">City: {currentUser.city}</div>
-        <div className="ml-1">State: {currentUser.state}</div>
-        <div className="ml-1">Zipcode: {currentUser.zipCode}</div>
-        <div className="ml-1">Phone Number: {currentUser.phoneNumber}</div>
-        <div className="text-center">
-          <button className="bttn-pill bttn-warning" onClick={this.editProfile}><i className="far fa-edit fa-1x"/></button>
-          <button className="bttn-pill bttn-danger ml-2"><i className="fas fa-trash fa-1x"></i></button>
+        <h3 className="text-center header">{currentUser.name}</h3>
+        <div className="ml-1 p-2">Email: {currentUser.email}</div>
+        <div className="ml-1 p-2">Age: {currentUser.age}</div>
+        <div className="ml-1 p-2">Street: {currentUser.street}</div>
+        <div className="ml-1 p-2">City: {currentUser.city}</div>
+        <div className="ml-1 p-2">State: {currentUser.state}</div>
+        <div className="ml-1 p-2">Zipcode: {currentUser.zipCode}</div>
+        <div className="ml-1 p-2">Phone Number: {currentUser.phoneNumber}</div>
+        <div className="text-center p-2">
+          <button className="bttn-pill bttn-warning" onClick={this.editProfile}><i className="far fa-edit fa-1x pr-2"/>Edit</button>
         </div>
         </div>
       );
     };
 
     return (
-      <div className="">
+      <div className="profile">
         {makeEditProfileCard()}
       </div>
     );

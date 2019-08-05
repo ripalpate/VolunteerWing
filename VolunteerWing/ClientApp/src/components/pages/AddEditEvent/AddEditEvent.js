@@ -113,6 +113,7 @@ class AddEditEvent extends React.Component {
    return (
      <div className="form-wrapper">
         <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4">
+          <h4 className="header text-center pb-3">Let's Get Started</h4>
         <div className="form-group row">
           <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
           <div className="col-sm-10">
@@ -160,6 +161,7 @@ class AddEditEvent extends React.Component {
               selected={this.state.startDate}
               onChange={this.handleStartDateChange}
               minDate = {new Date()}
+              className="form-control"
             />
           </div>
         </div>
@@ -174,6 +176,7 @@ class AddEditEvent extends React.Component {
               timeIntervals={30}
               dateFormat="h:mm aa"
               timeCaption="Time"
+              className="form-control"
             />
           </div>
         </div>
@@ -188,6 +191,7 @@ class AddEditEvent extends React.Component {
               timeIntervals={30}
               dateFormat="h:mm aa"
               timeCaption="Time"
+              className="form-control"
             />
           </div>
         </div>

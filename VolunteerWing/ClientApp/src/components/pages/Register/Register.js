@@ -100,7 +100,7 @@ class Register extends React.Component {
                     <div className="input-group-text">Email</div>
                     </div>
                     <input
-                    type="text"
+                    type="email"
                     className="form-control"
                     id="email"
                     placeholder="bob@xxx.com"

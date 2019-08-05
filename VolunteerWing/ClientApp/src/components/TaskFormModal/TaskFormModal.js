@@ -109,11 +109,11 @@ class TaskFormModal extends React.Component {
       const makeHeader = () => {
         if (isEditing) {
           return (
-            <div>Edit Task</div>
+            <div className="header">Edit Task</div>
           );
         }
         return (
-          <div>Add Task</div>
+          <div className="header">Add Task</div>
         );
       };
 
@@ -121,16 +121,16 @@ class TaskFormModal extends React.Component {
         if (isEditing) {
           return (
             <div className="mx-auto">
-              <button className="bttn-pill my-auto mx-auto" title="Save Changes">
-                <i className="fas fa-check-circle edit" />
+              <button className="bttn-pill my-auto mx-auto bttn-success" title="Save Changes">
+                <i className="fas fa-check-circle edit pr-2" /> Save
               </button>
             </div>
           );
         }
         return (
           <div className="mx-auto">
-            <button className="bttn-pill my-auto mx-auto" title="Add Task">
-              <i className="fas fa-plus-circle" />
+            <button className="bttn-pill my-auto mx-auto bttn-success" title="Add Task">
+              <i className="fas fa-plus-circle pr-2"/> Add
             </button>
           </div>
         );
@@ -142,7 +142,7 @@ class TaskFormModal extends React.Component {
                 <ModalBody className="modal-body">
                     <form className= "task-modal-form" onSubmit={this.formSubmit}>
                         <div className="form-group row">
-                            <label htmlFor="taskName" className="col-sm-2 col-form-label">Task Name:</label>
+                            <label htmlFor="taskName" className="col-sm-2 col-form-label">Name:</label>
                             <div className="col-sm-10">
                                 <input
                                 type="text"
@@ -174,6 +174,7 @@ class TaskFormModal extends React.Component {
                               selectsStart
                               selected={newTask.startDate}
                               onChange={this.handleStartDateChange}
+                              className="form-control"
                             />
                           </div>
                         </div>
@@ -188,6 +189,7 @@ class TaskFormModal extends React.Component {
                               timeIntervals={30}
                               dateFormat="h:mm aa"
                               timeCaption="Time"
+                              className="form-control"
                             />
                           </div>
                         </div>
@@ -202,6 +204,7 @@ class TaskFormModal extends React.Component {
                               timeIntervals={30}
                               dateFormat="h:mm aa"
                               timeCaption="Time"
+                              className="form-control"
                             />
                           </div>
                         </div>

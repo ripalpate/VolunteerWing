@@ -188,7 +188,7 @@ ${currentUser.name}`;
 
       return (
         <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
-          <ModalHeader className="modal-header" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
+          <ModalHeader className="modal-header header" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
           <ModalBody className="modal-body">
             <div className= "task-modal-form">
                 <div className="form-group row">
