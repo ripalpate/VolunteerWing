@@ -68,33 +68,37 @@ class Profile extends React.Component {
     this.setState({ editedUser: currentUser });
   }
 
+  backButton = () => {
+    this.props.history.push('/home');
+  }
+
   render() {
     const { currentUser } = this.props;
     const { isEditing, editedUser } = this.state;
     const makeEditProfileCard = () => {
       if (isEditing) {
         return (
-              <form className="row edit-form-container w-50 mx-auto border border-dark rounded animated zoomIn" onSubmit={this.formSubmit}>
-                <h3 className="mx-auto edit-profile-title">Edit Profile</h3>
+              <form className="form row edit-form-container w-50 mx-auto border border-dark rounded animated zoomIn" onSubmit={this.formSubmit}>
+                <h3 className="mx-auto header p-2">Edit Profile</h3>
                 <div className="form col-11 mt-2">
-                  <div className="col-auto form-lines p-0">
+                  <div className="col-auto form-lines">
                     <label htmlFor="link" className="sr-only profile-form-label">Email</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
-                        <div className="input-group-text">Email</div>
+                          <div className="input-group-text">Email</div>
                         </div>
                         <input
                         type="email"
                         className="form-control"
                         id="email"
-                        placeholder="bob@xxx.com"
+                        placeholder="test@test.com"
                         value={editedUser.email}
                         onChange={this.emailChange}
                         required
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
+                  <div className="col-auto form-lines">
                     <label htmlFor="name" className="sr-only profile-form-label">Name</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
@@ -111,7 +115,7 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
+                  <div className="col-auto form-lines">
                     <label htmlFor="age" className="sr-only profile-form-label">Age</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
@@ -128,8 +132,8 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
-                    <label htmlFor="link" className="sr-only profile-form-label">Street</label>
+                  <div className="col-auto form-lines">
+                    <label htmlFor="street" className="sr-only profile-form-label">Street</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
                         <div className="input-group-text">Street</div>
@@ -145,8 +149,8 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
-                    <label htmlFor="link" className="sr-only profile-form-label">City</label>
+                  <div className="col-auto form-lines">
+                    <label htmlFor="city" className="sr-only profile-form-label">City</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
                         <div className="input-group-text">City</div>
@@ -162,8 +166,8 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
-                    <label htmlFor="link" className="sr-only profile-form-label">State</label>
+                  <div className="col-auto form-lines">
+                    <label htmlFor="state" className="sr-only profile-form-label">State</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
                         <div className="input-group-text">State</div>
@@ -179,8 +183,8 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
-                    <label htmlFor="link" className="sr-only profile-form-label">Zip Code</label>
+                  <div className="col-auto form-lines">
+                    <label htmlFor="zipcode" className="sr-only profile-form-label">Zip Code</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
                         <div className="input-group-text">Zip Code</div>
@@ -197,8 +201,8 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="col-auto form-lines p-0">
-                    <label htmlFor="link" className="sr-only profile-form-label">Phone Number</label>
+                  <div className="col-auto form-lines">
+                    <label htmlFor="phone" className="sr-only profile-form-label">Phone Number</label>
                     <div className="input-group mb-2">
                         <div className="input-group-prepend">
                         <div className="input-group-text">Phone Number</div>
@@ -215,12 +219,12 @@ class Profile extends React.Component {
                         />
                     </div>
                   </div>
-                  <div className="text-center">
-                    <button type="submit" className="bttn-pill user-add-btn m-2" title="Submit">
-                      <i className="user-add-btn far fa-check-square fa-1x"/>
+                  <div className="text-center mb-2">
+                    <button type="submit" className="bttn-pill user-add-btn m-2 bttn-warning" title="Submit">
+                      <i className="far fa-check-square fa-1x pr-2"/> Edit
                     </button>
-                    <button id='cancel' type="button" className="bttn-pill back-btn m-2" onClick={this.cancel} title="Cancel">
-                      <i className="back-btn far fa-window-close fa-1x"/>
+                    <button id='cancel' type="button" className="bttn-pill bttn-danger m-2" onClick={this.cancel} title="Cancel">
+                      <i className="back-btn far fa-window-close fa-1x pr-2"/>Cancel
                     </button>
                   </div>
                 </div>
@@ -245,6 +249,7 @@ class Profile extends React.Component {
 
     return (
       <div className="profile">
+        <button className = "bttn-pill bttn-warning mt-5 ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
         {makeEditProfileCard()}
       </div>
     );

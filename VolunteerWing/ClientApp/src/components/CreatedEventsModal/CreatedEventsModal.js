@@ -77,7 +77,7 @@ class CreatedEventsModal extends React.Component {
             <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> Created Events</ModalHeader>
             <ModalBody className="modal-body">
               <div>
-                  <table className="table table-hover">
+                  <table className="table borderless table-hover">
                     <thead>
                       <tr>
                         <th scope="col">Event</th>
@@ -85,6 +85,7 @@ class CreatedEventsModal extends React.Component {
                         <th scope="col">Start Time</th>
                         <th scope="col">End Time</th>
                         <th scope="col">Location</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>

@@ -58,14 +58,14 @@ class Tasks extends React.Component {
       const checkLength = () => {
         if (tasks.length !== 0) {
           return (
-          <table className="table table-hover mt-4">
+          <table className="table borderless table-hover mt-4">
             <thead>
               <tr>
                 <th scope="col">Task</th>
                 <th scope="col">Start Date</th>
                 <th scope="col">Start Time</th>
                 <th scope="col">End Time</th>
-                <th scope="col">Available Slots</th>
+                <th scope="col">Need Volunteers</th>
                 <th scope="col">Filled slots</th>
                 <th></th>
               </tr>

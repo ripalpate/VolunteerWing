@@ -178,7 +178,7 @@ Thank you,
 ${currentUser.name}`;
 
       const makeGroupDropDown = () => (
-          <select id="group" className="custom-select mb-2 ml-5" onChange={this.dropdownGroupSelect} onClick={this.getAndSetAllEmailsForTheGroup}>
+          <select id="group" required className="custom-select mb-2 ml-5" onChange={this.dropdownGroupSelect} onClick={this.getAndSetAllEmailsForTheGroup}>
             <option defaultValue>Select Group</option>
               {
               groups.map((group, i) => (<option value={group.id} key={i}>{group.groupName}</option>))
@@ -204,9 +204,11 @@ ${currentUser.name}`;
                       {makeGroupDropDown()}
                     </div>
                   </div>
-                  <button className="bttn-pill add-group bttn-success" onClick={this.toggleGroupModal}>
-                    <i className="fas fa-plus-circle"></i>
-                  </button>
+                  <div className="form-inline">
+                    <button className="bttn-pill add-group bttn-success" onClick={this.toggleGroupModal}>
+                      <i className="fas fa-plus-circle"></i>Add Group
+                    </button>
+                  </div>
                   <AddEditGroupModal
                     currentUser = {currentUser}
                     toggleGroupModal = {this.toggleGroupModal}
@@ -237,6 +239,7 @@ ${currentUser.name}`;
                         placeholder="subject"
                         value= {newInvitation.subject}
                         onChange= {this.subjectChange}
+                        required
                         />
                     </div>
                 </div>

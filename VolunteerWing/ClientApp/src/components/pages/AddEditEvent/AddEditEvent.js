@@ -92,6 +92,10 @@ class AddEditEvent extends React.Component {
    }
  }
 
+ backButton = () => {
+   this.props.history.push('/home');
+ }
+
  componentDidMount() {
    const { isEditingEvent, editEventId } = this.props;
    if (isEditingEvent) {
@@ -112,7 +116,8 @@ class AddEditEvent extends React.Component {
    const { newEvent } = this.state;
    return (
      <div className="form-wrapper">
-        <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4">
+       <button className = "bttn-pill bttn-warning ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
+        <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4 mt-3">
           <h4 className="header text-center pb-3">Let's Get Started</h4>
         <div className="form-group row">
           <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
@@ -197,7 +202,7 @@ class AddEditEvent extends React.Component {
         </div>
         <div className="form-group row">
           <div className="col-sm-10 text-center">
-            <button type="submit" className="bttn-pill add bttn-success"><i className="fas fa-plus-circle pr-2"></i>Save</button>
+            <button type="submit" className="bttn-pill add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
           </div>
         </div>
       </form>
