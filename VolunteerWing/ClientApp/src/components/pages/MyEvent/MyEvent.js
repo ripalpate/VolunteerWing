@@ -109,43 +109,43 @@ class MyEvent extends React.Component {
       const selectedTask = { ...this.state.selectedTask };
       const { currentUser } = this.props;
 
-      // const adminViewForThePage = () => {
-      //   if (currentUser.isAdmin) {
-      //     return (
-      //       <div className="form border border-dark rounded p-4">
-      //           <h4>Event Name:{singleEvent.eventName}</h4>
-      //           <p>Location: {singleEvent.location}</p>
-      //           <p>Description: {singleEvent.description}</p>
-      //           <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-      //           <p>Start Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
-      //           <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
-      //           <TaskFormModal
-      //             taskModal = {taskModal}
-      //             toggleTaskModal={this.toggleTaskModal}
-      //             eventId = {this.props.match.params.id * 1}
-      //             isEditing = {isEditing}
-      //             startDate = {new Date(singleEvent.startDate)}
-      //           />
-      //           <Tasks
-      //             tasks = {tasks}
-      //             currentUser = {currentUser}
-      //             isCreating = {isCreating}
-      //             eventId = {eventId}
-      //             deleteTask = {this.deleteTask}
-      //             getSingleTask = {this.getSingleTask}
-      //             selectedTask = {selectedTask}
-      //           />
-      //           {checkLength()}
-      //       </div>
-      //     );
-      //   } return (
-      //       <div className="text-center">
-      //         <h4>404</h4>
-      //         <h6>Oopsss!!! This isn't good</h6>
-      //         <p>Seems like you got lost</p>
-      //       </div>
-      //   );
-      // };
+      const adminViewForThePage = () => {
+        if (currentUser.isAdmin) {
+          return (
+            <div className="form border border-dark rounded p-4">
+                <h4>Event Name:{singleEvent.eventName}</h4>
+                <p>Location: {singleEvent.location}</p>
+                <p>Description: {singleEvent.description}</p>
+                <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+                <p>Start Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+                <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
+                <TaskFormModal
+                  taskModal = {taskModal}
+                  toggleTaskModal={this.toggleTaskModal}
+                  eventId = {this.props.match.params.id * 1}
+                  isEditing = {isEditing}
+                  startDate = {new Date(singleEvent.startDate)}
+                />
+                <Tasks
+                  tasks = {tasks}
+                  currentUser = {currentUser}
+                  isCreating = {isCreating}
+                  eventId = {eventId}
+                  deleteTask = {this.deleteTask}
+                  getSingleTask = {this.getSingleTask}
+                  selectedTask = {selectedTask}
+                />
+                {checkLength()}
+            </div>
+          );
+        } return (
+            <div className="text-center">
+              <h4>404</h4>
+              <h6>Oopsss!!! This isn't good</h6>
+              <p>Seems like you got lost</p>
+            </div>
+        );
+      };
 
       const checkLength = () => {
         if (tasks.length !== 0) {
@@ -163,8 +163,8 @@ class MyEvent extends React.Component {
 
       return (
        <div className="w-75 mx-auto pt-5">
-           {/* {adminViewForThePage()} */}
-           <div className="form border border-dark rounded p-4">
+           {adminViewForThePage()}
+           {/* <div className="form border border-dark rounded p-4">
               <h4 className="event-title header">{singleEvent.eventName}</h4>
               <p>{singleEvent.location}</p>
               <p>{singleEvent.description}</p>
@@ -188,7 +188,7 @@ class MyEvent extends React.Component {
                 selectedTask = {selectedTask}
               />
               {checkLength()}
-            </div>
+            </div> */}
            <InvitationModal
             invitationModal = {invitationModal}
             currentUser = {currentUser}

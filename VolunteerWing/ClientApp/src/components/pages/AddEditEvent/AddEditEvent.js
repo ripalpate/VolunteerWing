@@ -60,6 +60,7 @@ class AddEditEvent extends React.Component {
  }
 
  createEvent = (myEvent) => {
+   const { getUser } = this.props;
    volunteerEventRequests.createEvent(myEvent)
      .then((event) => {
        this.setState({
@@ -68,6 +69,7 @@ class AddEditEvent extends React.Component {
          startTime: new Date(),
          endTime: new Date(),
        });
+       getUser();
        this.props.history.push(`/myEvent/${event.data.id}`);
      });
  }
