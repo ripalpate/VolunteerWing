@@ -1,7 +1,10 @@
 @import '../../styles/variables';
 
-a, .nav{
-    color:$color4 !important;
+a, .nav {
+    color:$color9 !important;
     cursor: pointer;
 }
 
+.navbar {
+    background-color: $color10;
+}

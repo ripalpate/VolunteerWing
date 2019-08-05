@@ -67,7 +67,7 @@ class MyNavbar extends React.Component {
 
     return (
       <div className="my-navbar mb-5">
-       <Navbar color="dark" expand="md" className="fixed-top">
+       <Navbar expand="md" className="fixed-top navbar">
           <NavbarBrand href="/" className="nav">Volunteer Wing</NavbarBrand>
           <NavbarToggler onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>

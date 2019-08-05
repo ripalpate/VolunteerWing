@@ -227,7 +227,7 @@ class Profile extends React.Component {
               </form>
         );
       } return (
-        <div className="profile-card border border-dark rounded animated zoomIn mx-auto p-3">
+        <div className="profile-card form border border-dark rounded animated zoomIn mx-auto p-3">
         <h3 className="text-center profile-header">{currentUser.name}</h3>
         <div className="ml-1">Email: {currentUser.email}</div>
         <div className="ml-1">Age: {currentUser.age}</div>

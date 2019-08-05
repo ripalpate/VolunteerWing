@@ -91,9 +91,9 @@ class Register extends React.Component {
 
     return (
         <div className="reg-container d-flex">
-            <form className="row form-container border border-dark rounded mt-5 mx-auto" onSubmit={this.formSubmit}>
-            <h3 className="reg-title mx-auto">Please Register:</h3>
-            <div className="form col-11 mt-2">
+            <form className="row form-container form border border-dark rounded mt-5 mx-auto" onSubmit={this.formSubmit}>
+            <h3 className="reg-title mx-auto p-3">Please Register</h3>
+            <div className="form col-11 mx-auto">
                 <div className="col-auto form-lines p-0">
                 <div className="input-group mb-2">
                     <div className="input-group-prepend">
@@ -226,7 +226,7 @@ class Register extends React.Component {
                 </div>
                 <div className="text-center">
                 <button className="bttn-pill bttn-success add-btn mx-auto mb-2" title="Submit">
-                    <i className="fas fa-plus-circle" />
+                    <i className="fas fa-plus-circle pr-2"></i>Register 
                 </button>
                 </div>
             </div>
