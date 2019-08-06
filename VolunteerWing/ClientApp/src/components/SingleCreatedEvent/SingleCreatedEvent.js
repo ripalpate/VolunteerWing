@@ -39,7 +39,7 @@ class SingleCreatedEvent extends React.Component {
       );
     };
     return (
-    <tr className="createdEvent">
+    <tr className="createdEvent table-row">
       <td className="event-name" onClick={this.changeEventToDetailView}>{event.eventName}</td>
       <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatMDYDate(event.startDate)}</td>
       <td className="event-startTime" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.startTime)}</td>

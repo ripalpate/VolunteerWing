@@ -3,6 +3,7 @@
 .card {
     margin: 10px;
     width: 18rem;
+    cursor:pointer;
 }
 
 .card:nth-child(odd){
@@ -10,7 +11,7 @@
 }
 
 .card:nth-child(even){
-    background-color: $color5;
+    background-color: $color15;
 }
 
 
