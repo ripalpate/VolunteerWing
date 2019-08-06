@@ -14,7 +14,6 @@ const defaultUser = {
   state: '',
   zipCode: '',
   phoneNumber: '',
-  age: '',
 };
 
 class Register extends React.Component {
@@ -57,8 +56,6 @@ class Register extends React.Component {
 
   phoneNumberChange = e => this.formFieldStringState('phoneNumber', e);
 
-  ageChange = e => this.formFieldNumberState('age', e);
-
   formSubmit = (e) => {
     const { getUser } = this.props;
     e.preventDefault();
@@ -92,7 +89,7 @@ class Register extends React.Component {
     return (
         <div className="reg-container d-flex">
             <form className="row form-container form border border-dark rounded mt-5 mx-auto" onSubmit={this.formSubmit}>
-            <h3 className="reg-title mx-auto p-3">Please Register</h3>
+            <h3 className="reg-title mx-auto p-3">Your Information</h3>
             <div className="form col-11 mx-auto">
                 <div className="col-auto form-lines p-0">
                 <div className="input-group mb-2">
@@ -122,22 +119,6 @@ class Register extends React.Component {
                     placeholder="First Last"
                     value={newUser.name}
                     onChange={this.nameChange}
-                    required
-                    />
-                </div>
-                </div>
-                <div className="col-auto form-lines p-0">
-                <div className="input-group mb-2">
-                    <div className="input-group-prepend">
-                    <div className="input-group-text">Age</div>
-                    </div>
-                    <input
-                    type="text"
-                    className="form-control"
-                    id="age"
-                    placeholder="24"
-                    value={newUser.age}
-                    onChange={this.ageChange}
                     required
                     />
                 </div>
@@ -225,8 +206,8 @@ class Register extends React.Component {
                 </div>
                 </div>
                 <div className="text-center">
-                <button className="bttn-pill bttn-success add-btn mx-auto mb-2" title="Submit">
-                    <i className="fas fa-plus-circle pr-2"></i>Register 
+                <button className="bttn-pill bttn-success add-btn mb-3 mt-3" title="Submit">
+                    <i className="fas fa-plus-circle pr-2"></i>Let's roll
                 </button>
                 </div>
             </div>

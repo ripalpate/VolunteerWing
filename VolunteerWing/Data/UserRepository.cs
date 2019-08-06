@@ -18,15 +18,15 @@ namespace VolunteerWing.Data
         }
 
         public User AddUser(string email, string firebaseId, string name, string street, string city,
-                            string state, string zipcode, string phoneNumber, int age, bool isAdmin)
+                            string state, string zipcode, string phoneNumber, bool isAdmin)
         {
             using (var db = new SqlConnection(_connectionString))
             {
                 var newUser = db.QueryFirstOrDefault<User>(@"
-                    insert into users (email, firebaseId, name, street, city, state, zipcode, phoneNumber, age, isAdmin)
+                    insert into users (email, firebaseId, name, street, city, state, zipcode, phoneNumber, isAdmin)
                     output inserted.*
-                    values (@email, @firebaseId, @name, @street, @city, @state, @zipcode, @phoneNumber, @age, @isAdmin)",
-                    new { email, firebaseId, name, street, city, state, zipcode, phoneNumber, age, isAdmin });
+                    values (@email, @firebaseId, @name, @street, @city, @state, @zipcode, @phoneNumber, @isAdmin)",
+                    new { email, firebaseId, name, street, city, state, zipcode, phoneNumber, isAdmin });
 
                 if (newUser != null)
                 {
@@ -76,7 +76,6 @@ namespace VolunteerWing.Data
                           state = @state,
                           zipcode = @zipcode,
                           phoneNumber = @phoneNumber,
-                          age = @age,
                           isAdmin = @isAdmin,
                           isActive = 1
                           Where id = @id";

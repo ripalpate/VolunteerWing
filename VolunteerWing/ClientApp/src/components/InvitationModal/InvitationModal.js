@@ -206,7 +206,7 @@ ${currentUser.name}`;
                   </div>
                   <div className="form-inline">
                     <button className="bttn-pill add-group bttn-success" onClick={this.toggleGroupModal}>
-                      <i className="fas fa-plus-circle"></i>Add Group
+                      <i className="fas fa-plus-circle pr-2"></i>Add Group
                     </button>
                   </div>
                   <AddEditGroupModal

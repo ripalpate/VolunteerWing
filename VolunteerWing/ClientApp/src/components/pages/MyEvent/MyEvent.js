@@ -113,11 +113,11 @@ class MyEvent extends React.Component {
         if (currentUser.isAdmin) {
           return (
             <div className="form border border-dark rounded p-4">
-                <h4>Event Name:{singleEvent.eventName}</h4>
-                <p>Location: {singleEvent.location}</p>
-                <p>Description: {singleEvent.description}</p>
-                <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-                <p>Start Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
+                <h4>{singleEvent.eventName}</h4>
+                <p>{singleEvent.location}</p>
+                <p>{singleEvent.description}</p>
+                <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+                <p>{formateDateTime.formatTime(singleEvent.startTime)}</p>
                 <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
                 <TaskFormModal
                   taskModal = {taskModal}
@@ -164,31 +164,6 @@ class MyEvent extends React.Component {
       return (
        <div className="w-75 mx-auto pt-5">
            {adminViewForThePage()}
-           {/* <div className="form border border-dark rounded p-4">
-              <h4 className="event-title header">{singleEvent.eventName}</h4>
-              <p>{singleEvent.location}</p>
-              <p>{singleEvent.description}</p>
-              <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-              <p>{formateDateTime.formatTime(singleEvent.startTime)}</p>
-              <button className="bttn-pill bttn-success mt-2 mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
-              <TaskFormModal
-                taskModal = {taskModal}
-                toggleTaskModal={this.toggleTaskModal}
-                eventId = {this.props.match.params.id * 1}
-                isEditing = {isEditing}
-                startDate = {new Date(singleEvent.startDate)}
-              />
-              <Tasks
-                tasks = {tasks}
-                currentUser = {currentUser}
-                isCreating = {isCreating}
-                eventId = {eventId}
-                deleteTask = {this.deleteTask}
-                getSingleTask = {this.getSingleTask}
-                selectedTask = {selectedTask}
-              />
-              {checkLength()}
-            </div> */}
            <InvitationModal
             invitationModal = {invitationModal}
             currentUser = {currentUser}

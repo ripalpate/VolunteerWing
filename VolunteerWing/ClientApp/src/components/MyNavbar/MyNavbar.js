@@ -37,10 +37,10 @@ class MyNavbar extends React.Component {
       if (isAuthed && !isUser) {
         return (
         <Nav className="ml-auto" navbar>
-          <NavItem className="nav-item nav">
+          <NavItem className="nav-item nav mr-4">
             <NavLink tag={RRNavLink} to="/home">Home</NavLink>
           </NavItem>
-          <NavItem className="nav-item nav">
+          <NavItem className="nav-item nav mr-4">
             <NavLink tag={RRNavLink} to="/addEditEvent">Create event</NavLink>
           </NavItem>
           <NavItem className="nav-item nav">
@@ -68,7 +68,7 @@ class MyNavbar extends React.Component {
     return (
       <div className="my-navbar mb-5">
        <Navbar expand="md" className="fixed-top navbar">
-          <NavbarBrand href="/" className="nav">Volunteer Wing</NavbarBrand>
+          <NavbarBrand href="/" className="nav">VolunteerWing</NavbarBrand>
           <NavbarToggler onClick={e => this.toggle(e)} />
           <Collapse isOpen={this.state.isOpen} navbar>
            {buildNavbar()}
