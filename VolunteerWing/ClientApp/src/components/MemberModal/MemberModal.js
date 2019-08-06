@@ -33,10 +33,10 @@ class MemberModal extends React.Component {
       ));
       return (
       <Modal isOpen={memberModal} toggle={this.toggleEvent1} className="modal-lg">
-        <ModalHeader className="modal-header text-center" toggle={this.toggleEvent1}> Members</ModalHeader>
+        <ModalHeader className="modal-header header text-center" toggle={this.toggleEvent1}> Members</ModalHeader>
         <ModalBody className="modal-body">
         <div>
-            <table className="table table-hover">
+            <table className="table borderless table-hover">
               <thead>
                 <tr>
                 <th scope="col"> Email</th>

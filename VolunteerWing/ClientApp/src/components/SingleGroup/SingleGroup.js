@@ -59,7 +59,8 @@ class SingleGroup extends React.Component {
     return (
     <tr className="createdGroup table-row">
       <td className="group-name"onClick = {() => { this.toggleEvent(); this.getAllUserEmails(); }}>{group.groupName}</td>
-      <td><button className="bttn-pill bttn-warning" onClick={this.toggleGroupModal}><i className="far fa-edit fa-1x"/></button>
+      <td><button className="bttn-pill bttn-warning mr-3" title="Edit" onClick={this.toggleGroupModal}><i className="far fa-edit fa-1x"/></button>
+      <button className="bttn-pill bttn-success" title="Add Member" onClick={this.toggleAddMemberModalEvent}><i className="fas fa-user-plus"></i></button>
         <AddEditGroupModal
         isEditing = {isEditing}
         group = {group}
@@ -68,7 +69,7 @@ class SingleGroup extends React.Component {
         getGroupsByAdminId = {getGroupsByAdminId}
         />
       </td>
-      <td><button className="bttn-pill bttn-success" onClick={this.toggleAddMemberModalEvent}><i className="fas fa-user-plus"></i></button></td>
+      {/* <td><button className="bttn-pill bttn-success" onClick={this.toggleAddMemberModalEvent}><i className="fas fa-user-plus"></i></button></td> */}
       <MemberModal
       toggleMemberModal= {toggleMemberModal}
       memberModal = {memberModal}

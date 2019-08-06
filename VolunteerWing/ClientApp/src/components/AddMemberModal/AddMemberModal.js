@@ -6,6 +6,7 @@ import {
   ModalBody,
 } from 'reactstrap';
 import userGroupRequests from '../../helpers/data/userGroupRequests';
+import './AddMemberModal.scss';
 
 const defaultMember = {
   userEmail: '',
@@ -58,10 +59,10 @@ class AddMemberModal extends React.Component {
         const { addMemberModal } = this.props;
         return (
       <Modal isOpen={addMemberModal} toggle={this.toggleEvent} className="modal-lg">
-        <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Add Member</ModalHeader>
+        <ModalHeader className="modal-header text-center header" toggle={this.toggleEvent}>Add Member</ModalHeader>
         <ModalBody className="modal-body">
           <div>
-            <div className="form-group row">
+            <div className="form-group member row">
               <label htmlFor="email" className="col-sm-2 col-form-label">Email:</label>
               <div className="col-sm-10">
                 <input
@@ -73,8 +74,8 @@ class AddMemberModal extends React.Component {
                 onChange= {this.emailChange}
                 />
               </div>
-              <div className ="text-center">
-                <button className="bttn-pill bttn-success" onClick={this.formSubmit}><i className="fas fa-check-circle"></i></button>
+              <div className ="mx-auto">
+                <button className="bttn-pill bttn-success mt-3" onClick={this.formSubmit}><i className="fas fa-plus-circle pr-2"></i>Add Me!</button>
               </div>
             </div>
           </div>

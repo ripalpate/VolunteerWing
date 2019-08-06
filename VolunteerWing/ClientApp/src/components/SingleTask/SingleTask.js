@@ -124,8 +124,8 @@ class SingleTask extends React.Component {
         } if (isCreating === true) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-warning" id={task.id} onClick={this.toggleTaskModal}><i className="far fa-edit fa-1x"/></button>
-            <button className="bttn-pill bttn-danger ml-2" onClick = {this.deleteSingleTask}><i className="fas fa-trash fa-1x"></i></button>
+            <button className="bttn-pill bttn-warning" id={task.id} onClick={this.toggleTaskModal} title="Edit"><i className="far fa-edit fa-1x"/></button>
+            <button className="bttn-pill bttn-danger ml-2" onClick = {this.deleteSingleTask} title="Delete"><i className="fas fa-trash fa-1x"></i></button>
             <TaskFormModal
             taskModal = {taskModal}
             isEditing = {isEditing}
@@ -144,14 +144,14 @@ class SingleTask extends React.Component {
         } if (isCreating === false && isSignup === true) {
           return (
             <td className="buttons">
-              <button disabled className="bttn-pill bttn-success" title="signed up"><i className="fas fa-user-check"></i></button>
-              <button className="bttn-pill bttn-danger ml-2" title="unassign" onClick={() => { this.removeSignupEvent(); this.changeIsDeletedState(); }}><i className="fas fa-trash fa-1x"></i></button>
+              <button disabled className="bttn-pill bttn-success" title="Signed up"><i className="fas fa-user-check"></i></button>
+              <button className="bttn-pill bttn-danger ml-2" title="Unassign" onClick={() => { this.removeSignupEvent(); this.changeIsDeletedState(); }}><i className="far fa-times-circle"></i></button>
             </td>
           );
         } if (isCreating === false && isDeleted === true) {
           return (
           <td className="buttons">
-            <button className="bttn-pill bttn-success" title="signup" onClick={this.signupEvent}><i className="fas fa-file-contract fa-1x"></i></button>
+            <button className="bttn-pill bttn-success" title="Signup" onClick={this.signupEvent}><i className="fas fa-file-contract fa-1x"></i></button>
           </td>
           );
         }
