@@ -25,6 +25,7 @@ class AddEditEvent extends React.Component {
 
   static propTypes = {
     currentUser: PropTypes.object,
+    getUser: PropTypes.func,
   }
 
   formFieldStringState = (name, e) => {

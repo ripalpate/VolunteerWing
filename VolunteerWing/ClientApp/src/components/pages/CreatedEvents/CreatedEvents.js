@@ -8,13 +8,14 @@ import './CreatedEvents.scss';
 import userTaskRequests from '../../../helpers/data/userTaskRequests';
 
 class CreatedEvents extends React.Component {
-  createdEventMounted = false;
+  // createdEventMounted = false;
 
   state = {
     singleEvent: {},
     tasks: [],
     isCreating: false,
     usersTasks: [],
+    createdEventMounted: false,
   }
 
   static propTypes = {
@@ -32,6 +33,7 @@ class CreatedEvents extends React.Component {
   deleteUserTask= (userTaskId) => {
     userTaskRequests.deleteUserTask(userTaskId)
       .then(() => {
+        // this.getAllUsersTasks();
       });
   }
 
@@ -67,12 +69,15 @@ class CreatedEvents extends React.Component {
 
   componentDidMount() {
     const { currentUser } = this.props;
-    this.createdEventMounted = !!currentUser.id;
-    if (this.createdEventMounted) {
+    if (currentUser.id !== undefined) {
       this.getsingleEvent();
       this.getAllTasks();
     }
   }
+
+  // componentWillUnmount() {
+  //   this.createdEventMounted = false;
+  // }
 
   componentWillUpdate() {
     this.getAllUsersTasks();
