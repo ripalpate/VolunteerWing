@@ -41,10 +41,12 @@ class SingleTask extends React.Component {
         userId: currentUser.id,
         taskId: task.id,
       };
-      createUserTask(myTask);
-      const taskId = task.id;
-      updateTaskSignUp(taskId, task);
-      this.checkExistingUserInTask();
+      createUserTask(myTask)
+        .then(() => {
+          const taskId = task.id;
+          updateTaskSignUp(taskId, task);
+        })
+        .then(this.checkExistingUserInTask);
     }
 
     removeSignupEvent = () => {
