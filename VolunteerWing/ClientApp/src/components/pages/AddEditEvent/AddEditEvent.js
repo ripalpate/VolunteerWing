@@ -204,7 +204,7 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-sm-10 text-center">
+          <div className="col-sm-12 text-center">
             <button type="submit" className="bttn-jelly add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
           </div>
         </div>

@@ -17,7 +17,7 @@ class CreatedEvents extends React.Component {
     isCreating: false,
     usersTasks: [],
     createdEventMounted: false,
-    admin: {},
+    admin: [],
   }
 
   static propTypes = {
@@ -28,8 +28,8 @@ class CreatedEvents extends React.Component {
     const { singleEvent } = this.state;
     userRequests.getAllUsers()
       .then((usrs) => {
-        const admin = usrs.filter(user => user.id === singleEvent.adminId);
-        this.setState({ admin });
+        const getAdmin = usrs.find(user => user.id === singleEvent.adminId);
+        this.setState({ admin: getAdmin });
       });
   }
 
@@ -97,15 +97,15 @@ class CreatedEvents extends React.Component {
     const tasks = [...this.state.tasks];
     const usersTasks = [...this.state.usersTasks];
     const { currentUser } = this.props;
-    const { isCreating, admin } = this.state;
+    const { isCreating } = this.state;
     return (
       <div className="created-event form border border-dark rounded w-75 mx-auto p-4">
         <h4 className="event-title">{singleEvent.eventName}</h4>
         <p> {singleEvent.location}</p>
         <p>{singleEvent.description}</p>
         <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-        <p>Orgnizer: {admin.name}</p>
-        <p>Email: {admin.email}</p>
+        <p>Organizer: {this.state.admin.name}</p>
+        <p>Email: {this.state.admin.email}</p>
         <Tasks
         tasks = {tasks}
         currentUser = {currentUser}

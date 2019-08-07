@@ -19,7 +19,8 @@ class SingleUserGroup extends React.Component {
     return (
     <tr className="createdGroup">
         <td>{userGroup.userEmail}</td>
-        <td><button className="bttn-jelly bttn-danger" onClick={this.deleteSingleMemberEmail}><i className="fas fa-times-circle pr-2"></i>Remove</button></td>
+        <td>{userGroup.length}</td>
+        <td className="text-right"><button className="bttn-jelly bttn-danger" onClick={this.deleteSingleMemberEmail}><i className="fas fa-times-circle pr-2"></i>Remove</button></td>
     </tr>
     );
   }
