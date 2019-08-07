@@ -97,15 +97,21 @@ class CreatedEvents extends React.Component {
     const tasks = [...this.state.tasks];
     const usersTasks = [...this.state.usersTasks];
     const { currentUser } = this.props;
-    const { isCreating } = this.state;
+    const { isCreating, admin } = this.state;
     return (
-      <div className="created-event form border border-dark rounded w-75 mx-auto p-4">
-        <h4 className="event-title">{singleEvent.eventName}</h4>
-        <p> {singleEvent.location}</p>
-        <p>{singleEvent.description}</p>
-        <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-        <p>Organizer: {this.state.admin.name}</p>
-        <p>Email: {this.state.admin.email}</p>
+      <div className="row created-event form border border-dark rounded w-75 mx-auto p-4">
+        <div className="col-7">
+          <h4 className="event-title">{singleEvent.eventName}</h4>
+          <p> {singleEvent.location}</p>
+          <p>{singleEvent.description}</p>
+          <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+        </div>
+        <div className="col-5">
+          <h4 className="event-title">Organizer Information</h4>
+          <p>Name: {admin.name}</p>
+          <p>Email:<a href={"mailto:" + admin.email} className="organizer"> {admin.email}</a></p>
+        </div>
+        <div className="col-12">
         <Tasks
         tasks = {tasks}
         currentUser = {currentUser}
@@ -116,6 +122,7 @@ class CreatedEvents extends React.Component {
         usersTasks = {usersTasks}
         updateTaskSignUpUponDelete = {this.updateTaskSignUpUponDelete}
         />
+        </div>
       </div>
     );
   }
