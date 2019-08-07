@@ -161,7 +161,10 @@ class SingleTask extends React.Component {
 
       return (
         <tr id={task.id}>
-            <td>{task.taskName}</td>
+            <td>
+            <p className="name">{task.taskName}</p>
+            <small>Comment: {task.comment}</small>
+            </td>
             <td>{formateDateTime.formatMDYDate(task.startDate)}</td>
             <td>{formateDateTime.formatTime(task.startTime)}</td>
             <td>{formateDateTime.formatTime(task.endTime)}</td>
