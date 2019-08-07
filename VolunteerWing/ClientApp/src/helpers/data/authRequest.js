@@ -31,6 +31,8 @@ const getCurrentUid = () => firebase.auth().currentUser.uid;
 
 const getCurrentUser = () => firebase.auth().currentUser;
 
+const getUserEmail = () => firebase.auth().currentUser.email;
+
 const getCurrentUserJwt = () => firebase
   .auth()
   .currentUser.getIdToken()
@@ -42,4 +44,5 @@ export default {
   getCurrentUser,
   getCurrentUid,
   getCurrentUserJwt,
+  getUserEmail,
 };
