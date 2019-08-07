@@ -95,14 +95,15 @@ class ViewGroupsModal extends React.Component {
 
     return (
         <Modal isOpen={viewGroupModal} toggle={this.toggleEvent} className="modal-lg">
-        <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> My Groups</ModalHeader>
+        <ModalHeader className="modal-header text-center header" toggle={this.toggleEvent}> My Groups</ModalHeader>
         <ModalBody className="modal-body">
           <div>
-            <table className="table table-hover">
+            <table className="table borderless table-hover">
               <thead>
                 <tr>
-                <th scope="col">Group Name</th>
-                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th></th>
+                <th></th>
                 </tr>
               </thead>
               <tbody>

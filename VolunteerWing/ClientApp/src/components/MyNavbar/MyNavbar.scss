@@ -1,3 +1,12 @@
-.my-navbar{
-    color:white !important;
+@import '../../styles/variables';
+
+a, .nav {
+    color:$color12 !important;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.navbar {
+    background-color: $color14;
 }

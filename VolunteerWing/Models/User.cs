@@ -16,7 +16,6 @@ namespace VolunteerWing.Models
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string PhoneNumber { get; set; }
-        public int Age { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
     }

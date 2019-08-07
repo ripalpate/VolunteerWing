@@ -1,5 +1,21 @@
+@import '../../../styles/variables';
 
 .card {
     margin: 10px;
     width: 18rem;
+    cursor:pointer;
 }
+
+.card:nth-child(odd){
+    background-color: $color8;
+}
+
+.card:nth-child(even){
+    background-color: $color7;
+}
+
+
+.card:hover{ 
+    box-shadow: 1px 8px 20px $color9;
+    -webkit-transition:  box-shadow .6s ease-in;
+ }

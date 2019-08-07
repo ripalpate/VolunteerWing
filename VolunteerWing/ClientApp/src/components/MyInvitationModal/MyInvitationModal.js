@@ -77,7 +77,7 @@ class MyInvitationModal extends React.Component {
             </div>
           );
         } return (
-            <table className="table table-hover">
+            <table className="table borderless table-hover">
               <thead>
                 <tr>
                   <th scope="col">Event</th>

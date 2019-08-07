@@ -1,0 +1,21 @@
+@import '../../../styles/variables';
+.title {
+    font-size: 3em;
+    color: $color4;
+  }
+  
+.title-container{
+    margin-top: 10%;
+}
+
+.bttn-pill:focus {
+  outline: none;
+}
+
+.logo {
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.desc {
+  color:white;
+}

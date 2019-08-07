@@ -112,13 +112,13 @@ class MyEvent extends React.Component {
       const adminViewForThePage = () => {
         if (currentUser.isAdmin) {
           return (
-            <div className="w-75 mx-auto pt-3">
-                <h4>Event Name:{singleEvent.eventName}</h4>
-                <p>Location: {singleEvent.location}</p>
-                <p>Description: {singleEvent.description}</p>
-                <p>Start Date: {formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
-                <p>Start Time: {formateDateTime.formatTime(singleEvent.startTime)}</p>
-                <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}>Add Tasks</button>
+            <div className="form border border-dark rounded p-4">
+                <h4>{singleEvent.eventName}</h4>
+                <p>{singleEvent.location}</p>
+                <p>{singleEvent.description}</p>
+                <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+                <p>{formateDateTime.formatTime(singleEvent.startTime)}</p>
+                <button className="bttn-jelly bttn-success mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
                 <TaskFormModal
                   taskModal = {taskModal}
                   toggleTaskModal={this.toggleTaskModal}
@@ -135,6 +135,7 @@ class MyEvent extends React.Component {
                   getSingleTask = {this.getSingleTask}
                   selectedTask = {selectedTask}
                 />
+                {checkLength()}
             </div>
           );
         } return (
@@ -149,8 +150,9 @@ class MyEvent extends React.Component {
       const checkLength = () => {
         if (tasks.length !== 0) {
           return (
-            <div className="w-75 mx-auto">
-              <button className="bttn-pill bttn-success text-center" onClick={this.toggleInvitationModal}>Send Invitations
+            <div className="mt-5">
+              <button className="bttn-jelly bttn-success text-center" onClick={this.toggleInvitationModal}>
+                <i className="fas fa-paper-plane pr-2"></i>Send Invitations
               </button>
             </div>
           );
@@ -162,7 +164,6 @@ class MyEvent extends React.Component {
       return (
        <div className="w-75 mx-auto pt-5">
            {adminViewForThePage()}
-           {checkLength()}
            <InvitationModal
             invitationModal = {invitationModal}
             currentUser = {currentUser}

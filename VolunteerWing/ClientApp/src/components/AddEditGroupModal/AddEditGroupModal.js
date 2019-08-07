@@ -81,11 +81,11 @@ class AddEditGroupModal extends React.Component {
       const makeHeader = () => {
         if (isEditing) {
           return (
-            <div>Edit My Group</div>
+            <div className="header">Edit My Group</div>
           );
         }
         return (
-          <div>Add Group</div>
+          <div className="header">Add Group</div>
         );
       };
 
@@ -93,15 +93,15 @@ class AddEditGroupModal extends React.Component {
         if (isEditing) {
           return (
             <div className="mx-auto">
-              <button className="bttn-pill user-add-btn my-auto mx-auto" title="Save Changes">
-                <i className="fas fa-check-circle edit" />
+              <button className="bttn-jelly edit mx-auto" title="Save Changes">
+                <i className="fas fa-check-circle pr-2" /> Edit
               </button>
             </div>
           );
         } return (
           <div className="mx-auto">
-            <button className="bttn-pill user-add-btn my-auto mx-auto" title="Add Group">
-              <i className="fas fa-plus-circle" />
+            <button className="bttn-jelly bttn-success mx-auto" title="Add Group">
+              <i className="fas fa-plus-circle pr-2" /> Add
             </button>
           </div>
         );
@@ -111,7 +111,7 @@ class AddEditGroupModal extends React.Component {
         <Modal isOpen={addEditGroupModal} toggle={this.toggleEvent} className="modal-lg">
           <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>{makeHeader()}</ModalHeader>
           <ModalBody className="modal-body">
-              <div>
+              <div className="w-75 mx-auto">
                 <div className="form-group row">
                   <label htmlFor="name" className="col-sm-2 col-form-label">Name:</label>
                   <div className="col-sm-10">

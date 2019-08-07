@@ -1,0 +1,17 @@
+@import '../../styles/variables';
+
+.modal-content {
+    background-color: $color14 !important;
+}
+
+.modal-header {
+    font-family: $header-font;
+    border-bottom: 1px solid black;
+}
+.select-group {
+    padding-left: 8px;
+}
+
+.from-email{
+ padding-left: 0px;
+}

@@ -33,7 +33,7 @@ namespace VolunteerWing.Controllers
 
             var newUser = _repository.AddUser(createRequest.Email, createRequest.FirebaseId, createRequest.Name,
                 createRequest.Street, createRequest.City, createRequest.State, createRequest.ZipCode,
-                createRequest.PhoneNumber, createRequest.Age, createRequest.IsAdmin);
+                createRequest.PhoneNumber, createRequest.IsAdmin);
 
             return Created($"api/users/{newUser.Id}", newUser);
         }

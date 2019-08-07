@@ -178,7 +178,7 @@ Thank you,
 ${currentUser.name}`;
 
       const makeGroupDropDown = () => (
-          <select id="group" className="custom-select mb-2 ml-3" onChange={this.dropdownGroupSelect} onClick={this.getAndSetAllEmailsForTheGroup}>
+          <select id="group" required className="custom-select mb-2 ml-5" onChange={this.dropdownGroupSelect} onClick={this.getAndSetAllEmailsForTheGroup}>
             <option defaultValue>Select Group</option>
               {
               groups.map((group, i) => (<option value={group.id} key={i}>{group.groupName}</option>))
@@ -188,32 +188,36 @@ ${currentUser.name}`;
 
       return (
         <Modal isOpen={invitationModal} toggle={this.toggleEvent} className="modal-lg">
-          <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
+          <ModalHeader className="modal-header header" toggle={this.toggleEvent}>Send Invitation</ModalHeader>
           <ModalBody className="modal-body">
             <div className= "task-modal-form">
                 <div className="form-group row">
                     <label htmlFor="email" className="col-sm-2 col-form-label">From:</label>
                     <div className="col-sm-10">
-                        <p className="col-sm-2 col-form-label">{currentUser.email}</p>
+                        <p className="col-sm-2 col-form-label from-email">{currentUser.email}</p>
                     </div>
                 </div>
-                <div className="form-inline">
-                <div className="form-group">
-                  <label htmlFor="inputPassword" className="col-sm-2 col-form-label">Select Group</label>
-                  <div className="col-sm-10">
-                    {makeGroupDropDown()}
+                <div className="form-group row">
+                  <div className="form-inline select-group">
+                    <label className="col-sm-2 col-form-label">Select Group:</label>
+                    <div className="col-sm-10">
+                      {makeGroupDropDown()}
+                    </div>
                   </div>
-                </div>
-                <button className="bttn-pill" onClick={this.toggleGroupModal}><i className="fas fa-plus-circle"></i></button>
-                <AddEditGroupModal
-                  currentUser = {currentUser}
-                  toggleGroupModal = {this.toggleGroupModal}
-                  addEditGroupModal = {addEditGroupModal}
-                  getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
-                />
+                  <div className="form-inline">
+                    <button className="bttn-pill add-group bttn-success" onClick={this.toggleGroupModal}>
+                      <i className="fas fa-plus-circle pr-2"></i>Add Group
+                    </button>
+                  </div>
+                  <AddEditGroupModal
+                    currentUser = {currentUser}
+                    toggleGroupModal = {this.toggleGroupModal}
+                    addEditGroupModal = {addEditGroupModal}
+                    getAllGroupsByAdminId = {this.getAllGroupsByAdminId}
+                  />
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="inputPassword" className="col-sm-2 col-form-label">To:</label>
+                    <label className="col-sm-2 col-form-label">To:</label>
                     <div className="col-sm-10">
                         <textarea
                         type="text"
@@ -235,6 +239,7 @@ ${currentUser.name}`;
                         placeholder="subject"
                         value= {newInvitation.subject}
                         onChange= {this.subjectChange}
+                        required
                         />
                     </div>
                 </div>
@@ -245,7 +250,9 @@ ${currentUser.name}`;
                     </div>
                 </div>
                 <div>
-                    <button className="bttn-pill bttn-primary" onClick={this.formSubmit}>Send</button>
+                    <button className="bttn-pill bttn-success" onClick={this.formSubmit}>
+                      <i className="fas fa-paper-plane pr-2"></i>Send
+                    </button>
                 </div>
             </div>
           </ModalBody>

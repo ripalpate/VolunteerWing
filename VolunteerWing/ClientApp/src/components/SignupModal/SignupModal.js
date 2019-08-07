@@ -81,7 +81,7 @@ class SignupModal extends React.Component {
           </div>
         );
       } return (
-          <table className="table table-hover">
+          <table className="table borderless table-hover">
             <thead>
               <tr>
                 <th scope="col">Event</th>
@@ -100,7 +100,7 @@ class SignupModal extends React.Component {
 
     return (
         <Modal isOpen={viewSignupModal} toggle={this.toggleEvent} className="modal-lg">
-        <ModalHeader className="modal-header text-center" toggle={this.toggleEvent}> Sign up Events</ModalHeader>
+        <ModalHeader className="modal-header text-center header" toggle={this.toggleEvent}>My Signups</ModalHeader>
         <ModalBody className="modal-body">
           <div>
             {checkLength()}

@@ -32,18 +32,18 @@ class SingleCreatedEvent extends React.Component {
     const makeEditButton = () => {
       if (isSignupView === false) {
         return (
-          <button className= "bttn-pill bttn-warning" data-event-id={event.id} onClick={this.editEvent}>Edit</button>
+          <button className= "bttn-jelly edit" data-event-id={event.id} onClick={this.editEvent}><i className="far fa-edit fa-1x pr-2"/>Edit</button>
         );
       } return (
         <span></span>
       );
     };
     return (
-    <tr className="createdEvent">
+    <tr className="createdEvent table-row">
       <td className="event-name" onClick={this.changeEventToDetailView}>{event.eventName}</td>
       <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatMDYDate(event.startDate)}</td>
-      <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.startTime)}</td>
-      <td className="event-start" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.endTime)}</td>
+      <td className="event-startTime" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.startTime)}</td>
+      <td className="event-endTime" onClick={this.changeEventToDetailView}>{formatDateTime.formatTime(event.endTime)}</td>
       <td className="event-location" onClick={this.changeEventToDetailView}>{event.location}</td>
       <td>{makeEditButton()}</td>
     </tr>

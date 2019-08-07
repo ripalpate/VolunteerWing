@@ -1,3 +1,26 @@
+@import '../../../styles/variables';
+
 .form-wrapper{
     margin-top: 7rem;
+}
+
+.form {
+    background-color: $color14;
+}
+
+::-webkit-input-placeholder {
+    color: rgb(215, 215, 216) !important;
+}
+
+.form-control {
+    color:$color11;
+}
+
+
+.react-datepicker__time, .react-datepicker__time-box, .react-datepicker__time-container .react-datepicker__time {
+    width: 100px!important;
+}
+
+.react-datepicker__header--time {
+    display: none;
 }

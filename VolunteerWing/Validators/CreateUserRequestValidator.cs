@@ -14,7 +14,6 @@ namespace VolunteerWing.Validators
                    || string.IsNullOrEmpty(requestToValidate.State)
                    || string.IsNullOrEmpty(requestToValidate.ZipCode)
                    || string.IsNullOrEmpty(requestToValidate.PhoneNumber)
-                   || string.IsNullOrEmpty(requestToValidate.Age.ToString())
                    );
         }
     }
