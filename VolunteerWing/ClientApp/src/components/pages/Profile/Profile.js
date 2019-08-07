@@ -201,10 +201,10 @@ class Profile extends React.Component {
                 </div>
               </div>
               <div className="text-center mb-2">
-                <button type="submit" className="bttn-pill user-add-btn m-2 bttn-warning" title="Submit">
+                <button type="submit" className="bttn-jelly edit m-2" title="Submit">
                   <i className="far fa-check-square fa-1x pr-2"/> Edit
                 </button>
-                <button id='cancel' type="button" className="bttn-pill bttn-danger m-2" onClick={this.cancel} title="Cancel">
+                <button id='cancel' type="button" className="bttn-jelly bttn-danger m-2" onClick={this.cancel} title="Cancel">
                   <i className="back-btn far fa-window-close fa-1x pr-2"/>Cancel
                 </button>
               </div>
@@ -215,14 +215,13 @@ class Profile extends React.Component {
         <div className="profile-card form border border-dark rounded animated zoomIn mx-auto p-3">
         <h3 className="text-center header">{currentUser.name}</h3>
         <div className="ml-1 p-2">Email: {currentUser.email}</div>
-        <div className="ml-1 p-2">Age: {currentUser.age}</div>
         <div className="ml-1 p-2">Street: {currentUser.street}</div>
         <div className="ml-1 p-2">City: {currentUser.city}</div>
         <div className="ml-1 p-2">State: {currentUser.state}</div>
         <div className="ml-1 p-2">Zipcode: {currentUser.zipCode}</div>
         <div className="ml-1 p-2">Phone Number: {currentUser.phoneNumber}</div>
         <div className="text-center p-2">
-          <button className="bttn-pill bttn-warning" onClick={this.editProfile}><i className="far fa-edit fa-1x pr-2"/>Edit</button>
+          <button className="bttn-jelly edit" onClick={this.editProfile}><i className="far fa-edit fa-1x pr-2"/>Edit</button>
         </div>
         </div>
       );
@@ -230,7 +229,7 @@ class Profile extends React.Component {
 
     return (
       <div className="profile">
-        <button className = "bttn-pill bttn-warning mt-5 ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
+        <button className = "bttn-jelly mt-5 ml-2 bttn-success" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
         {makeEditProfileCard()}
       </div>
     );

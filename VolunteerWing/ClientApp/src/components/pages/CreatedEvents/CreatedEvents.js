@@ -75,10 +75,6 @@ class CreatedEvents extends React.Component {
     }
   }
 
-  // componentWillUnmount() {
-  //   this.createdEventMounted = false;
-  // }
-
   componentWillUpdate() {
     this.getAllUsersTasks();
   }

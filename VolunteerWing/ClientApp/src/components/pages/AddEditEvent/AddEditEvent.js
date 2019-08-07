@@ -119,7 +119,7 @@ class AddEditEvent extends React.Component {
    const { newEvent } = this.state;
    return (
      <div className="form-wrapper">
-       <button className = "bttn-pill bttn-warning ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
+       <button className = "bttn-jelly bttn-success ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
         <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4 mt-3">
           <h4 className="header text-center pb-3">Let's Get Started</h4>
         <div className="form-group row">
@@ -136,7 +136,7 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Location</label>
+          <label htmlFor="location" className="col-sm-2 col-form-label">Location</label>
           <div className="col-sm-10">
             <input
               type="text"
@@ -149,7 +149,7 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Description</label>
+          <label htmlFor="desc" className="col-sm-2 col-form-label">Description</label>
           <div className="col-sm-10">
             <textarea
               type="text"
@@ -162,7 +162,7 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Start Date</label>
+          <label htmlFor="date" className="col-sm-2 col-form-label">Start Date</label>
           <div className="col-sm-10">
             <DatePicker
               selectsStart
@@ -174,7 +174,7 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Start Time</label>
+          <label htmlFor="time" className="col-sm-2 col-form-label">Start Time</label>
           <div className="col-sm-10">
             <DatePicker
               selected={this.state.startTime}
@@ -189,7 +189,7 @@ class AddEditEvent extends React.Component {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">End Time</label>
+          <label htmlFor="time" className="col-sm-2 col-form-label">End Time</label>
           <div className="col-sm-10">
             <DatePicker
               selected={this.state.endTime}
@@ -205,7 +205,7 @@ class AddEditEvent extends React.Component {
         </div>
         <div className="form-group row">
           <div className="col-sm-10 text-center">
-            <button type="submit" className="bttn-pill add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
+            <button type="submit" className="bttn-jelly add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
           </div>
         </div>
       </form>

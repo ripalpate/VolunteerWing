@@ -206,7 +206,7 @@ class Register extends React.Component {
                 </div>
                 </div>
                 <div className="text-center">
-                <button className="bttn-pill bttn-success add-btn mb-3 mt-3" title="Submit">
+                <button className="bttn-jelly bttn-success add-btn mb-3 mt-3" title="Submit">
                     <i className="fas fa-plus-circle pr-2"></i>Let's roll
                 </button>
                 </div>

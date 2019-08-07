@@ -118,7 +118,7 @@ class MyEvent extends React.Component {
                 <p>{singleEvent.description}</p>
                 <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
                 <p>{formateDateTime.formatTime(singleEvent.startTime)}</p>
-                <button className="bttn-pill bttn-success mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
+                <button className="bttn-jelly bttn-success mb-3" onClick={ this.toggleTaskModal}><i className="fas fa-plus-circle pr-2"></i>Add Tasks</button>
                 <TaskFormModal
                   taskModal = {taskModal}
                   toggleTaskModal={this.toggleTaskModal}
@@ -151,7 +151,7 @@ class MyEvent extends React.Component {
         if (tasks.length !== 0) {
           return (
             <div className="mt-5">
-              <button className="bttn-pill bttn-success text-center" onClick={this.toggleInvitationModal}>
+              <button className="bttn-jelly bttn-success text-center" onClick={this.toggleInvitationModal}>
                 <i className="fas fa-paper-plane pr-2"></i>Send Invitations
               </button>
             </div>

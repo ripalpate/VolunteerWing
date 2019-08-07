@@ -121,15 +121,15 @@ class TaskFormModal extends React.Component {
         if (isEditing) {
           return (
             <div className="mx-auto">
-              <button className="bttn-pill my-auto mx-auto bttn-success" title="Save Changes">
-                <i className="fas fa-check-circle edit pr-2" /> Save
+              <button className="bttn-jelly mx-auto bttn-success" title="Save Changes">
+                <i className="fas fa-check-circle pr-2" /> Save
               </button>
             </div>
           );
         }
         return (
           <div className="mx-auto">
-            <button className="bttn-pill my-auto mx-auto bttn-success" title="Add Task">
+            <button className="bttn-jelly mx-auto bttn-success" title="Add Task">
               <i className="fas fa-plus-circle pr-2"/> Add
             </button>
           </div>

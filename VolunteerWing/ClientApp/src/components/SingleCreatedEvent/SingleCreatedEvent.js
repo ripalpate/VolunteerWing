@@ -32,7 +32,7 @@ class SingleCreatedEvent extends React.Component {
     const makeEditButton = () => {
       if (isSignupView === false) {
         return (
-          <button className= "bttn-pill bttn-warning" data-event-id={event.id} onClick={this.editEvent}>Edit</button>
+          <button className= "bttn-jelly edit" data-event-id={event.id} onClick={this.editEvent}><i className="far fa-edit fa-1x pr-2"/>Edit</button>
         );
       } return (
         <span></span>
