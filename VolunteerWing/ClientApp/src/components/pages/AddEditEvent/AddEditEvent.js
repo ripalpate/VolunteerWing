@@ -117,98 +117,110 @@ class AddEditEvent extends React.Component {
 
  render() {
    const { newEvent } = this.state;
+   const { isEditingEvent } = this.props;
+
+   const backButton = () => {
+     if (isEditingEvent === false) {
+       return (
+      <button className = "bttn-jelly bttn-success ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
+       );
+     } return (
+       <span></span>
+     );
+   };
+
    return (
      <div className="form-wrapper">
-       <button className = "bttn-jelly bttn-success ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
+       {backButton()}
         <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4 mt-3">
           <h4 className="header text-center pb-3">Let's Get Started</h4>
-        <div className="form-group row">
-          <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
-          <div className="col-sm-10">
-            <input
-              type="text"
-              className="form-control"
-              id="eventName"
-              placeholder="Event Name"
-              value= {newEvent.eventName}
-              onChange= {this.eventNameChange}
-            />
+          <div className="form-group row">
+            <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                className="form-control"
+                id="eventName"
+                placeholder="Event Name"
+                value= {newEvent.eventName}
+                onChange= {this.eventNameChange}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="location" className="col-sm-2 col-form-label">Location</label>
-          <div className="col-sm-10">
-            <input
-              type="text"
-              className="form-control"
-              id="location"
-              placeholder="Charlie Daniels Park"
-              value= {newEvent.location}
-              onChange= {this.locationChange}
-            />
+          <div className="form-group row">
+            <label htmlFor="location" className="col-sm-2 col-form-label">Location</label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                className="form-control"
+                id="location"
+                placeholder="Charlie Daniels Park"
+                value= {newEvent.location}
+                onChange= {this.locationChange}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="desc" className="col-sm-2 col-form-label">Description</label>
-          <div className="col-sm-10">
-            <textarea
-              type="text"
-              className="form-control"
-              id="location"
-              placeholder="Event description"
-              value= {newEvent.description}
-              onChange= {this.descriptionChange}
-            />
+          <div className="form-group row">
+            <label htmlFor="desc" className="col-sm-2 col-form-label">Description</label>
+            <div className="col-sm-10">
+              <textarea
+                type="text"
+                className="form-control"
+                id="location"
+                placeholder="Event description"
+                value= {newEvent.description}
+                onChange= {this.descriptionChange}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="date" className="col-sm-2 col-form-label">Start Date</label>
-          <div className="col-sm-10">
-            <DatePicker
-              selectsStart
-              selected={this.state.startDate}
-              onChange={this.handleStartDateChange}
-              minDate = {new Date()}
-              className="form-control"
-            />
+          <div className="form-group row">
+            <label htmlFor="date" className="col-sm-2 col-form-label">Start Date</label>
+            <div className="col-sm-10">
+              <DatePicker
+                selectsStart
+                selected={this.state.startDate}
+                onChange={this.handleStartDateChange}
+                minDate = {new Date()}
+                className="form-control"
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="time" className="col-sm-2 col-form-label">Start Time</label>
-          <div className="col-sm-10">
-            <DatePicker
-              selected={this.state.startTime}
-              onChange={this.handleStartTimeChange}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="h:mm aa"
-              timeCaption="Time"
-              className="form-control"
-            />
+          <div className="form-group row">
+            <label htmlFor="time" className="col-sm-2 col-form-label">Start Time</label>
+            <div className="col-sm-10">
+              <DatePicker
+                selected={this.state.startTime}
+                onChange={this.handleStartTimeChange}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                dateFormat="h:mm aa"
+                timeCaption="Time"
+                className="form-control"
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="time" className="col-sm-2 col-form-label">End Time</label>
-          <div className="col-sm-10">
-            <DatePicker
-              selected={this.state.endTime}
-              onChange={this.handleEndTimeChange}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={30}
-              dateFormat="h:mm aa"
-              timeCaption="Time"
-              className="form-control"
-            />
+          <div className="form-group row">
+            <label htmlFor="time" className="col-sm-2 col-form-label">End Time</label>
+            <div className="col-sm-10">
+              <DatePicker
+                selected={this.state.endTime}
+                onChange={this.handleEndTimeChange}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                dateFormat="h:mm aa"
+                timeCaption="Time"
+                className="form-control"
+              />
+            </div>
           </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-sm-12 text-center">
-            <button type="submit" className="bttn-jelly add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
+          <div className="form-group row">
+            <div className="col-sm-12 text-center">
+              <button type="submit" className="bttn-jelly add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
     </div>
    );
  }
