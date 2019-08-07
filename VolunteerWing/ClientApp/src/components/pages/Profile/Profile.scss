@@ -14,5 +14,14 @@ color: $color12;
 
 .edit {
     background-color: $color5 !important; 
-    color:$color2 !important;
+    color:$color12 !important;
 }
+
+.bttn-jelly {
+    color:$color12 !important
+}
+
+.bttn-jelly:focus {
+    outline: none;
+  }
+  
