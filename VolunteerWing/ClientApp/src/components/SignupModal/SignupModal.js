@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import userTaskRequests from '../../helpers/data/userTaskRequests';
 import SingleCreatedEvent from '../SingleCreatedEvent/SingleCreatedEvent';
+import sorryImage from '../../images/sorryImage.png';
 import './SignupModal.scss';
 
 class SignupModal extends React.Component {
@@ -76,8 +77,9 @@ class SignupModal extends React.Component {
     const checkLength = () => {
       if (events.length === 0) {
         return (
-          <div className="w-75 mx-auto">
-            <div>Sorry, currently, you haven't signed up for any event</div>
+          <div className="w-75 mx-auto text-center">
+            <img src={sorryImage} alt="sad" width="100px"/>
+            <div className="mt-2">Sorry, currently, you haven't signed up for any event</div>
           </div>
         );
       } return (

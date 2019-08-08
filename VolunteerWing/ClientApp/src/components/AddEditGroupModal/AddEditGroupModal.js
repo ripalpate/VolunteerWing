@@ -93,14 +93,14 @@ class AddEditGroupModal extends React.Component {
         if (isEditing) {
           return (
             <div className="mx-auto">
-              <button className="bttn-jelly edit mx-auto" title="Save Changes">
-                <i className="fas fa-check-circle pr-2" /> Edit
+              <button className="bttn-jelly edit mt-2" title="Save Changes">
+                <i className="fas fa-check-circle pr-2"/> Save
               </button>
             </div>
           );
         } return (
           <div className="mx-auto">
-            <button className="bttn-jelly bttn-success mx-auto" title="Add Group">
+            <button className="bttn-jelly bttn-success mt-2" title="Add Group">
               <i className="fas fa-plus-circle pr-2" /> Add
             </button>
           </div>

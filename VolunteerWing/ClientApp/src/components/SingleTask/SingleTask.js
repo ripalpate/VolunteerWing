@@ -27,6 +27,7 @@ class SingleTask extends React.Component {
       selectedTask: PropTypes.object,
       getSingleTask: PropTypes.func,
       updateTaskSignUpUponDelete: PropTypes.func,
+      getAllTasks: PropTypes.func,
     }
 
     signupEvent = () => {
@@ -41,10 +42,12 @@ class SingleTask extends React.Component {
         userId: currentUser.id,
         taskId: task.id,
       };
-      createUserTask(myTask);
-      const taskId = task.id;
-      updateTaskSignUp(taskId, task);
-      this.checkExistingUserInTask();
+      createUserTask(myTask)
+        .then(() => {
+          const taskId = task.id;
+          updateTaskSignUp(taskId, task);
+        })
+        .then(this.checkExistingUserInTask);
     }
 
     removeSignupEvent = () => {
@@ -112,6 +115,7 @@ class SingleTask extends React.Component {
       const { isSignup, isDeleted } = this.state;
       const {
         selectedTask,
+        getAllTasks,
       } = this.props;
 
       const makeButtons = () => {
@@ -132,6 +136,7 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
+            getAllTasks = {getAllTasks}
             />
           </td>
           );
@@ -159,7 +164,10 @@ class SingleTask extends React.Component {
 
       return (
         <tr id={task.id}>
-            <td>{task.taskName}</td>
+            <td>
+            <p className="name">{task.taskName}</p>
+            <small>Comment: {task.comment}</small>
+            </td>
             <td>{formateDateTime.formatMDYDate(task.startDate)}</td>
             <td>{formateDateTime.formatTime(task.startTime)}</td>
             <td>{formateDateTime.formatTime(task.endTime)}</td>

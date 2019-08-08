@@ -77,8 +77,15 @@ class Register extends React.Component {
     }
   }
 
+  getEmail = () => {
+    const { newUser } = this.state;
+    newUser.email = authRequests.getUserEmail();
+    this.setState({ newUser });
+  }
+
   componentDidMount() {
     this.checkRegistration();
+    this.getEmail();
   }
 
   render() {

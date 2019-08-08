@@ -5,7 +5,7 @@
 }
 
 .edit-form-container {
-    margin-top: 80px;
+    margin-top: 160px;
 }
 
 .header {
@@ -24,4 +24,8 @@ color: $color12;
 .bttn-jelly:focus {
     outline: none;
   }
+
+.back-button {
+    background-color: $color3 !important;
+}
   

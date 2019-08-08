@@ -11,7 +11,7 @@ class MemberModal extends React.Component {
     static propTypes = {
       toggleMemberModal: PropTypes.func,
       memberModal: PropTypes.bool,
-      userGroups: PropTypes.array,
+      userGroupsData: PropTypes.array,
       deleteEmail: PropTypes.func,
     }
 
@@ -29,6 +29,7 @@ class MemberModal extends React.Component {
             userGroup = {userGroup}
             key = {userGroup.id}
             deleteEmail = {deleteEmail}
+
         />
       ));
       return (
@@ -41,6 +42,7 @@ class MemberModal extends React.Component {
                 <tr>
                 <th scope="col"> Email</th>
                 <th scope="col"></th>
+                <th></th>
                 </tr>
               </thead>
               <tbody>

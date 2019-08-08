@@ -8,6 +8,7 @@ import {
 import SingleCreatedEvent from '../SingleCreatedEvent/SingleCreatedEvent';
 import './MyInvitationModal.scss';
 import dbInvitationRequests from '../../helpers/data/dbInvitationRequests';
+import sorryImage from '../../images/sorryImage.png';
 
 class MyInvitationModal extends React.Component {
     myInvitationModalMounted = false;
@@ -72,8 +73,9 @@ class MyInvitationModal extends React.Component {
       const checkLength = () => {
         if (invitedEvents.length === 0) {
           return (
-            <div className="w-75 mx-auto">
-              <div>Sorry, currently, you are not invited to any event. Please check back later</div>
+            <div className="w-75 mx-auto text-center">
+              <img src={sorryImage} alt="sad" width="100px"/>
+              <div className="mt-2">Sorry, currently, you are not invited to any event. Please check back later</div>
             </div>
           );
         } return (

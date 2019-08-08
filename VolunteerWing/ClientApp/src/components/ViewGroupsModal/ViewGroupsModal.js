@@ -102,7 +102,7 @@ class ViewGroupsModal extends React.Component {
               <thead>
                 <tr>
                 <th scope="col">Name</th>
-                <th></th>
+                <th>Members</th>
                 <th></th>
                 </tr>
               </thead>

@@ -6,9 +6,9 @@ import taskRequests from '../../../helpers/data/taskRequests';
 import formateDateTime from '../../../helpers/formatDateTime';
 import './CreatedEvents.scss';
 import userTaskRequests from '../../../helpers/data/userTaskRequests';
+import userRequests from '../../../helpers/data/userRequests';
 
 class CreatedEvents extends React.Component {
-  // createdEventMounted = false;
 
   state = {
     singleEvent: {},
@@ -16,10 +16,20 @@ class CreatedEvents extends React.Component {
     isCreating: false,
     usersTasks: [],
     createdEventMounted: false,
+    admin: [],
   }
 
   static propTypes = {
     currentUser: PropTypes.object,
+  }
+
+  getAdminInfo = () => {
+    const { singleEvent } = this.state;
+    userRequests.getAllUsers()
+      .then((usrs) => {
+        const getAdmin = usrs.find(user => user.id === singleEvent.adminId);
+        this.setState({ admin: getAdmin });
+      });
   }
 
   getsingleEvent = () => {
@@ -27,14 +37,14 @@ class CreatedEvents extends React.Component {
     volunteerEventRequests.getSingleEvent(eventId)
       .then((singleEvent) => {
         this.setState({ singleEvent });
+      }).then(() => {
+        this.getAdminInfo();
       }).catch(err => console.error(err));
   }
 
   deleteUserTask= (userTaskId) => {
-    userTaskRequests.deleteUserTask(userTaskId)
-      .then(() => {
-        // this.getAllUsersTasks();
-      });
+    return userTaskRequests.deleteUserTask(userTaskId)
+      .then(this.getAllTasks);
   }
 
   getAllTasks = () => {
@@ -71,18 +81,14 @@ class CreatedEvents extends React.Component {
     const { currentUser } = this.props;
     if (currentUser.id !== undefined) {
       this.getsingleEvent();
+      this.getAllUsersTasks();
       this.getAllTasks();
     }
   }
 
-  componentWillUpdate() {
-    this.getAllUsersTasks();
-  }
-
   createUserTask = (newUserTask) => {
-    userTaskRequests.createUserTask(newUserTask)
-      .then(() => {
-      });
+    return userTaskRequests.createUserTask(newUserTask)
+      .then(this.getAllUsersTasks);
   }
 
   render() {
@@ -90,13 +96,21 @@ class CreatedEvents extends React.Component {
     const tasks = [...this.state.tasks];
     const usersTasks = [...this.state.usersTasks];
     const { currentUser } = this.props;
-    const { isCreating } = this.state;
+    const { isCreating, admin } = this.state;
     return (
-      <div className="created-event form border border-dark rounded w-75 mx-auto p-4">
-        <h4 className="event-title">{singleEvent.eventName}</h4>
-        <p> {singleEvent.location}</p>
-        <p>{singleEvent.description}</p>
-        <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+      <div className="row created-event form border border-dark rounded mx-auto p-4">
+        <div className="col-7">
+          <h4 className="event-title">{singleEvent.eventName}</h4>
+          <p> {singleEvent.location}</p>
+          <p>{singleEvent.description}</p>
+          <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
+        </div>
+        <div className="col-5 organizer-info">
+          <h4 className="event-title">Organizer Information</h4>
+          <p>Name: {admin.name}</p>
+          <p>Email:<a href={"mailto:" + admin.email} className="organizer"> {admin.email}</a></p>
+        </div>
+        <div className="col-12">
         <Tasks
         tasks = {tasks}
         currentUser = {currentUser}
@@ -107,6 +121,7 @@ class CreatedEvents extends React.Component {
         usersTasks = {usersTasks}
         updateTaskSignUpUponDelete = {this.updateTaskSignUpUponDelete}
         />
+        </div>
       </div>
     );
   }

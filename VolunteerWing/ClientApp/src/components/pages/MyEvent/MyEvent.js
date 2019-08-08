@@ -7,6 +7,7 @@ import TaskFormModal from '../../TaskFormModal/TaskFormModal';
 import taskRequests from '../../../helpers/data/taskRequests';
 import Tasks from '../../Tasks/Tasks';
 import InvitationModal from '../../InvitationModal/InvitationModal';
+import errorImage from '../../../images/errorImage.gif'
 
 class MyEvent extends React.Component {
     myEventMounted = false;
@@ -63,19 +64,8 @@ class MyEvent extends React.Component {
       this.myEventMounted = !!currentUser.id;
       if (this.myEventMounted) {
         this.getsingleEvent();
-      }
-    }
-
-    componentWillUpdate() {
-      const { currentUser } = this.props;
-      this.myEventMounted = !!currentUser.id;
-      if (this.myEventMounted) {
         this.getAllTasks();
       }
-    }
-
-    componentWillUnmount() {
-      this.myEventMounted = false;
     }
 
     toggleInvitationModal = () => {
@@ -112,7 +102,7 @@ class MyEvent extends React.Component {
       const adminViewForThePage = () => {
         if (currentUser.isAdmin) {
           return (
-            <div className="form border border-dark rounded p-4">
+            <div className="form border border-dark rounded p-4 myEvent">
                 <h4>{singleEvent.eventName}</h4>
                 <p>{singleEvent.location}</p>
                 <p>{singleEvent.description}</p>
@@ -124,7 +114,7 @@ class MyEvent extends React.Component {
                   toggleTaskModal={this.toggleTaskModal}
                   eventId = {this.props.match.params.id * 1}
                   isEditing = {isEditing}
-                  startDate = {new Date(singleEvent.startDate)}
+                  getAllTasks = {this.getAllTasks}
                 />
                 <Tasks
                   tasks = {tasks}
@@ -134,14 +124,15 @@ class MyEvent extends React.Component {
                   deleteTask = {this.deleteTask}
                   getSingleTask = {this.getSingleTask}
                   selectedTask = {selectedTask}
+                  getAllTasks = {this.getAllTasks}
                 />
                 {checkLength()}
             </div>
           );
         } return (
-            <div className="text-center">
-              <h4>404</h4>
-              <h6>Oopsss!!! This isn't good</h6>
+            <div className="text-center error-message">
+              <img src={errorImage} width="500px"/>
+              <h6 className="mt-4">Oopsss!!! This isn't good</h6>
               <p>Seems like you got lost</p>
             </div>
         );

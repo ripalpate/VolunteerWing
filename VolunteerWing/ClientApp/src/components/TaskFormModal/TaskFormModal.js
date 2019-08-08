@@ -31,6 +31,7 @@ class TaskFormModal extends React.Component {
       eventId: PropTypes.number,
       isEditing: PropTypes.bool,
       selectedTask: PropTypes.object,
+      getAllTasks: PropTypes.func,
     }
 
     toggleEvent = () => {
@@ -59,39 +60,43 @@ class TaskFormModal extends React.Component {
     numberOFPeopleNeedChange = e => this.formFieldNumberState('numberOfPeopleNeed', e);
 
     handleStartDateChange = (date) => {
-      const { newTask } = this.state;
-      const newDate = new Date(date);
-      newTask.startDate = newDate;
+      const tempTask = { ...this.state.newTask };
+      tempTask.startDate = new Date(date);
+      this.setState({ newTask: tempTask });
     }
-  
+
    handleStartTimeChange = (time) => {
-     const { newTask } = this.state;
-     newTask.startTime = time;
+     const tempTask = { ...this.state.newTask };
+     tempTask.startTime = new Date(time);
+     this.setState({ newTask: tempTask });
    }
-  
+
    handleEndTimeChange = (time) => {
-     const { newTask } = this.state;
-     newTask.endTime = time;
+     const tempTask = { ...this.state.newTask };
+     tempTask.endTime = new Date(time);
+     this.setState({ newTask: tempTask });
    }
 
     formSubmit = (e) => {
-      const { eventId, toggleTaskModal, isEditing } = this.props;
+      const {
+        eventId,
+        toggleTaskModal,
+        isEditing,
+        getAllTasks,
+      } = this.props;
       e.preventDefault();
       const myTask = { ...this.state.newTask };
       myTask.eventId = eventId;
       if (isEditing) {
         taskRequests.updateTask(myTask.id, myTask)
           .then(() => {
-            this.setState({ newTask: defaultTask }, toggleTaskModal());
+            this.setState({ newTask: defaultTask }, toggleTaskModal(), getAllTasks());
           });
       } else {
         taskRequests.createTask(myTask)
           .then(() => {
-            this.setState({
-              newTask: defaultTask,
-            },
-
-            toggleTaskModal());
+            this.setState({ newTask: defaultTask },
+              toggleTaskModal(), getAllTasks());
           }).catch(err => console.error(err));
       }
     }
@@ -172,7 +177,7 @@ class TaskFormModal extends React.Component {
                           <div className="col-sm-10">
                             <DatePicker
                               selectsStart
-                              selected={newTask.startDate}
+                              selected={this.state.newTask.startDate}
                               onChange={this.handleStartDateChange}
                               className="form-control"
                             />
