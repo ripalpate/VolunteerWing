@@ -9,7 +9,6 @@ import userTaskRequests from '../../../helpers/data/userTaskRequests';
 import userRequests from '../../../helpers/data/userRequests';
 
 class CreatedEvents extends React.Component {
-  // createdEventMounted = false;
 
   state = {
     singleEvent: {},
@@ -106,7 +105,7 @@ class CreatedEvents extends React.Component {
           <p>{singleEvent.description}</p>
           <p>{formateDateTime.formatMDYDate(singleEvent.startDate)}</p>
         </div>
-        <div className="col-5">
+        <div className="col-5 organizer-info">
           <h4 className="event-title">Organizer Information</h4>
           <p>Name: {admin.name}</p>
           <p>Email:<a href={"mailto:" + admin.email} className="organizer"> {admin.email}</a></p>

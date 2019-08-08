@@ -27,6 +27,7 @@ class SingleTask extends React.Component {
       selectedTask: PropTypes.object,
       getSingleTask: PropTypes.func,
       updateTaskSignUpUponDelete: PropTypes.func,
+      getAllTasks: PropTypes.func,
     }
 
     signupEvent = () => {
@@ -114,6 +115,7 @@ class SingleTask extends React.Component {
       const { isSignup, isDeleted } = this.state;
       const {
         selectedTask,
+        getAllTasks,
       } = this.props;
 
       const makeButtons = () => {
@@ -134,6 +136,7 @@ class SingleTask extends React.Component {
             selectedTask = {selectedTask}
             toggleTaskModal = {this.toggleTaskModal}
             eventId = {eventId}
+            getAllTasks = {getAllTasks}
             />
           </td>
           );

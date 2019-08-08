@@ -19,6 +19,7 @@ class Tasks extends React.Component {
       deleteTask: PropTypes.func,
       selectedTask: PropTypes.object,
       getSingleTask: PropTypes.func,
+      getAllTasks: PropTypes.func,
     }
 
     render() {
@@ -35,6 +36,7 @@ class Tasks extends React.Component {
         deleteTask,
         selectedTask,
         getSingleTask,
+        getAllTasks,
       } = this.props;
 
       const singleTaskComponent = tasks.map(task => (
@@ -52,6 +54,7 @@ class Tasks extends React.Component {
              deleteTask = {deleteTask}
              selectedTask = {selectedTask}
              getSingleTask = {getSingleTask}
+             getAllTasks = {getAllTasks}
             />
       ));
 

@@ -122,10 +122,39 @@ class AddEditEvent extends React.Component {
    const backButton = () => {
      if (isEditingEvent === false) {
        return (
-      <button className = "bttn-jelly bttn-success ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
+      <button className = "bttn-jelly back-button ml-2" onClick = {this.backButton} title="Back to home"><i className="far fa-arrow-alt-circle-left pr-2"></i>Back</button>
        );
      } return (
        <span></span>
+     );
+   };
+
+   const makeHeader = () => {
+     if (isEditingEvent) {
+       return (
+        <div className="header">Edit Event</div>
+       );
+     }
+     return (
+      <div className="header">Let's Get Started</div>
+     );
+   };
+
+   const makeButton = () => {
+     if (isEditingEvent) {
+       return (
+        <div className="mx-auto">
+          <button className="bttn-jelly edit mt-2" title="Save Changes">
+            <i className="fas fa-check-circle pr-2"/> Save
+          </button>
+        </div>
+       );
+     } return (
+      <div className="mx-auto">
+        <button className="bttn-jelly bttn-success mt-2" title="Add Group">
+          <i className="fas fa-plus-circle pr-2" /> Add
+        </button>
+      </div>
      );
    };
 
@@ -133,7 +162,7 @@ class AddEditEvent extends React.Component {
      <div className="form-wrapper">
        {backButton()}
         <form onSubmit={this.formSubmit} className= "form w-50 mx-auto border border-dark rounded p-4 mt-3">
-          <h4 className="header text-center pb-3">Let's Get Started</h4>
+          <h4 className="header text-center pb-3">{makeHeader()}</h4>
           <div className="form-group row">
             <label htmlFor="eventName" className="col-sm-2 col-form-label">Event Name:</label>
             <div className="col-sm-10">
@@ -217,7 +246,7 @@ class AddEditEvent extends React.Component {
           </div>
           <div className="form-group row">
             <div className="col-sm-12 text-center">
-              <button type="submit" className="bttn-jelly add bttn-success mt-3"><i className="fas fa-plus-circle pr-2"></i>Save</button>
+              {makeButton()}
             </div>
           </div>
         </form>
