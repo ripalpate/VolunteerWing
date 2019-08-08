@@ -98,7 +98,7 @@ class CreatedEvents extends React.Component {
     const { currentUser } = this.props;
     const { isCreating, admin } = this.state;
     return (
-      <div className="row created-event form border border-dark rounded w-75 mx-auto p-4">
+      <div className="row created-event form border border-dark rounded mx-auto p-4">
         <div className="col-7">
           <h4 className="event-title">{singleEvent.eventName}</h4>
           <p> {singleEvent.location}</p>
