@@ -150,7 +150,9 @@ class SingleTask extends React.Component {
           return (
             <td className="buttons">
               <button disabled className="bttn-jelly bttn-success" title="Signed up"><i className="fas fa-user-check"></i></button>
-              <button className="bttn-jelly bttn-danger ml-2" title="Unassign" onClick={() => { this.removeSignupEvent(); this.changeIsDeletedState(); }}><i className="far fa-times-circle"></i></button>
+              <button className="bttn-jelly bttn-danger ml-2" title="Unassign" onClick={() => { this.removeSignupEvent(); this.changeIsDeletedState(); }}>
+                <i className="far fa-times-circle"></i>
+              </button>
             </td>
           );
         } if (isCreating === false && isDeleted === true) {

@@ -57,13 +57,14 @@ class SingleGroup extends React.Component {
       userGroupsData,
       deleteEmail,
       getGroupsByAdminId,
+      getAllUserGroupsByGroupId,
     } = this.props;
 
     const { isEditing, addEditGroupModal } = this.state;
     return (
     <tr className="createdGroup table-row">
       <td className="group-name"onClick = {() => { this.toggleEvent(); this.getAllUserEmails(); }}>{group.groupName}</td>
-      <td>{userGroupsData.length}</td>
+      {/* <td>{userGroupsData.length}</td> */}
       <td className="text-right">
         <button className="bttn-jelly edit mr-3" title="Edit" onClick={this.toggleGroupModal}><i className="far fa-edit fa-1x pr-2"/>Edit</button>
         <button className="bttn-jelly bttn-success" title="Add Member" onClick={this.toggleAddMemberModalEvent}><i className="fas fa-user-plus pr-2"></i>Member</button>
@@ -85,6 +86,7 @@ class SingleGroup extends React.Component {
       toggleAddMemberModal= {toggleAddMemberModal}
       addMemberModal = {addMemberModal}
       group = {group}
+      getAllUserGroupsByGroupId = {getAllUserGroupsByGroupId}
       />
     </tr>
     );

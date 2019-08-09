@@ -55,6 +55,7 @@ class ViewGroupsModal extends React.Component {
     this.viewGroupModalMounted = !!currentUser.id;
     if (this.viewGroupModalMounted) {
       this.getGroupsByAdminId();
+      // this.getAllUserGroupsByGroupId();
     }
   }
 
@@ -102,7 +103,7 @@ class ViewGroupsModal extends React.Component {
               <thead>
                 <tr>
                 <th scope="col">Name</th>
-                <th>Members</th>
+                {/* <th>Members</th> */}
                 <th></th>
                 </tr>
               </thead>
