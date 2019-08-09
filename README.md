@@ -68,8 +68,10 @@ This is Full stack capstone project for NSS. The application allows user to plan
 2. Serve up the app
     - Clone the repository to your local machine.
     - Browse to the repo directory in your terminal
+    - Run the included data script from DatabaseQuery in your preferred SQL management tool.
     - In the ClientApp folder of the project, run `npm install` to install necessary dependencies
     - Run the project from Visual Studio
+    
 
 ## Contributors:
 [Ripal Patel](https://github.com/ripalpate/VolunteerWing)
