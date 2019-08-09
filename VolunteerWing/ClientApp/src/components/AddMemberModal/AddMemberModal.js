@@ -47,12 +47,13 @@ class AddMemberModal extends React.Component {
 
       formSubmit = (e) => {
         const group = { ...this.props.group };
+        // const { getAllUserGroupsByGroupId } = this.props;
         e.preventDefault();
         const myUserGroup = { ...this.state.newMember };
         myUserGroup.groupId = group.id;
         this.createUserGroup(myUserGroup);
+        // getAllUserGroupsByGroupId(group.id);
       }
-
 
       render() {
         const newMember = { ...this.state.newMember };
